@@ -24,15 +24,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Cambiar a directorio de la memoria
-        run: |
-          cd doc
-          ls -la
-
       - name: Comprobar gramática y ortografía
         uses: ChiefGokhlayeh/textidote-action@v5
         id: textidote
         with:
+          working_directory: doc
           root_file: proyecto.tex
 
       - name: Subir informe de TeXtidote
