@@ -1,0 +1,33 @@
+name: LaTeX workflow
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
+
+jobs:
+
+  evitar_redudancia:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Cancelar construcciones redundantes anteriores
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
+  # Vamos a esperar a que se haga el chequeo de ortografía y gramática
+  compile:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Instalar make
+        run: |
+            sudo apt-get install make
+      - name: Compilar memoria
+        run: |
+          cd doc
+          make
