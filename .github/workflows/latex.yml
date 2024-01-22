@@ -27,6 +27,7 @@ jobs:
       - name: Cambiar a directorio de la memoria
         run: |
           cd doc
+          ls -la
 
       - name: Comprobar gramática y ortografía
         uses: ChiefGokhlayeh/textidote-action@v5
