@@ -23,6 +23,11 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      
+      - name: Cambiar a directorio de la memoria
+        run: |
+          cd doc
+          ls -la
 
       - name: Comprobar gramática y ortografía
         uses: ChiefGokhlayeh/textidote-action@v5
@@ -46,16 +51,21 @@ jobs:
     needs: [lint_and_spell_check]
     runs-on: ubuntu-22.04
     steps:
+
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
       - name: Cambiar a directorio de la memoria
         run: |
           cd doc
+  
       - name: Compilar memoria
         uses: xu-cheng/latex-action@v3
         with:
+          working_directory: doc
           root_file: proyecto.tex
+          
       - name: Subir PDF
         uses: actions/upload-artifact@v3
         with:
