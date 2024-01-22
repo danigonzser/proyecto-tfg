@@ -31,15 +31,11 @@ jobs:
           working_directory: doc
           root_file: proyecto.tex
 
-      - name: Cambiar a directorio de la memoria
-        run: |
-          cd doc
-
       - name: Subir informe de TeXtidote
         uses: actions/upload-artifact@v2
         with:
             name: textidote_report
-            path: report.html
+            path: doc/report.html
 
       - name: Lanzar error si existen advertencias de TeXtidote 
         if: ${{ steps.textidote.outputs.num_warnings != 0 }}
@@ -60,13 +56,9 @@ jobs:
         with:
           working_directory: doc
           root_file: proyecto.tex
-
-      - name: Cambiar a directorio de la memoria
-        run: |
-          cd doc
           
       - name: Subir PDF
         uses: actions/upload-artifact@v3
         with:
           name: PDF
-          path: proyecto.pdf
+          path: doc/proyecto.pdf
