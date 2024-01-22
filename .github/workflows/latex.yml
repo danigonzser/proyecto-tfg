@@ -1,4 +1,4 @@
-name: LaTeX workflow
+name: Deployment Pipeline
 
 on:
   push:
@@ -17,8 +17,20 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
+  lint_and_spell_check:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: ChiefGokhlayeh/textidote-action@v5
+        with:
+          root_file: doc/proyecto.tex
+          args: --check es --dict ./doc/diccionario/diccionario.es.txt
+
   # Vamos a esperar a que se haga el chequeo de ortografía y gramática
-  compile:
+  compilacion_memoria:
+    needs: [lint_and_spell_check]
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
