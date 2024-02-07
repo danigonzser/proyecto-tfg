@@ -21,14 +21,11 @@ jobs:
 
           $hay_diff = grep -q 'doc/' changed_files.txt && echo true || echo false
 
-          echo "::set-output name=docs_changed::$hay_diff"
- 
-      - name: Lanzar error si no se ha modificado algún fichero de la memoria (doc/)
-        if: ${{ steps.check_changes.outputs.doc_changed != true }}
-        run: exit 1;
+          echo "docs_changed=$hay_diff" >> $GITHUB_OUTPUT
 
   lint_and_spell_check:
-    needs: [check_if_docs_has_changed]
+    needs: [ check_if_docs_has_changed ]
+    if: needs.check_if_docs_has_changed.outputs.doc_changed == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
