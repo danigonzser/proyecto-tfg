@@ -9,14 +9,6 @@ on:
 
 jobs:
 
-  evitar_redudancia:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Cancelar construcciones redundantes anteriores
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
-
   lint_and_spell_check:
     runs-on: ubuntu-22.04
     steps:
