@@ -1,37 +1,16 @@
-name: Workflow LaTeX
+name: LaTeX Workflow
 
-on: push
+on:
+  push:
+    paths:
+      - 'docs/**/*.tex'
 
 jobs:
 
-  check_if_docs_has_changed:
-    runs-on: ubuntu-latest
-
-    outputs:
-      doc_changed: ${{ steps.check_changes.outputs.doc_changed }}
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - id: check_changes
-        run: |
-          git diff --name-only ${{ github.event.before }} ${{ github.sha }} > changed_files.txt
-          echo "Ficheros que han cambiado: $(cat changed_files.txt)"
-
-          $hay_diff = grep -q 'doc/' changed_files.txt && echo true || echo false
-
-          echo "docs_changed=$hay_diff" >> $GITHUB_OUTPUT
-
-  lint_and_spell_check:
-    needs: [ check_if_docs_has_changed ]
-    if: needs.check_if_docs_has_changed.outputs.doc_changed == true
+  docs-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
       - name: Comprobar gramática y ortografía
         uses: ChiefGokhlayeh/textidote-action@v5
         id: textidote
@@ -49,16 +28,6 @@ jobs:
         if: ${{ steps.textidote.outputs.num_warnings != 0 }}
         run: 'echo "::error file=main.tex::num_warnings: ${{ steps.textidote.outputs.num_warnings }}"; exit 1;'
 
-  # Vamos a esperar a que se haga el chequeo de ortografía y gramática
-  compilacion_memoria:
-    needs: [lint_and_spell_check]
-    runs-on: ubuntu-latest
-    steps:
-
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-  
       - name: Compilar memoria
         uses: xu-cheng/latex-action@v3
         with:
