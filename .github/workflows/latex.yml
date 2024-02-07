@@ -10,7 +10,7 @@ on:
 jobs:
 
   lint_and_spell_check:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -36,7 +36,7 @@ jobs:
   # Vamos a esperar a que se haga el chequeo de ortografía y gramática
   compilacion_memoria:
     needs: [lint_and_spell_check]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
 
       - uses: actions/checkout@v4
