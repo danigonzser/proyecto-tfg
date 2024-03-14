@@ -1,4 +1,42 @@
-\chapter{Estado del arte}
+\chapter{Estado del Arte}
 
-El software libre y sus licencias \cite{gplv3} ha permitido llevar a cabo una expansión del
-aprendizaje de la informática sin precedentes.
+En el ámbito del almacenamiento online de software libre, se encuentran diversas soluciones que abordan la gestión de contenido digital.
+
+\section{Crítica al estado del arte}
+A continuación, se presentan las soluciones más relevantes en el ámbito del almacenamiento online de contenido digital, con sus ventajas e inconvenientes.
+
+\subsection{OwnCloud}
+
+ownCloud es una solución de almacenamiento en la nube que se describe a menudo como una alternativa a Dropbox. Permite sincronizar archivos con un servidor privado y acceder a ellos a través de aplicaciones móviles y de escritorio. Además, ofrece la posibilidad de agregar almacenamiento externo utilizando una variedad de servicios como Dropbox, SWIFT, FTP, Google Docs, S3 y servidores WebDAV externos. Para mejorar la seguridad y la privacidad, ownCloud cuenta con una aplicación de cifrado que permite encriptar datos en el almacenamiento externo.
+
+Esta plataforma, que comenzó en enero de 2010 como un proyecto de código abierto, está escrita en PHP y JavaScript, y es compatible con Windows, Linux y OS X, así como con dispositivos móviles Android e iOS.
+
+ownCloud ofrece una amplia gama de características que incluyen almacenamiento y cifrado de archivos, transmisión de música e intercambio de contenido a través de URL. La versión más reciente, ownCloud 10, introduce nuevas funciones como un diseño mejorado que permite a los administradores notificar a los usuarios y establecer límites de retención en los archivos de la papelera.
+
+\subsection{Seafile}
+
+Seafile es una solución de almacenamiento en la nube que permite sincronizar archivos y datos entre dispositivos fácilmente, ya sea a través de clientes de escritorio para Windows, Linux y OS X, o mediante aplicaciones móviles para Android e iOS. No tiene límites en el espacio de almacenamiento (excepto la capacidad del disco duro) ni en el número de clientes conectados al servidor privado (excepto la capacidad de CPU/RAM).
+
+Este sistema, escrito en C y Python, ofrece una edición comunitaria bajo una licencia de código abierto y una edición profesional bajo una licencia comercial, que proporciona características adicionales como registro de usuarios y búsqueda de texto. Desde que se convirtió en código abierto en julio de 2012, ha ganado atención internacional, con características principales como sincronización y compartición con un enfoque en la seguridad de los datos.
+
+Entre las características destacadas de Seafile se encuentran la edición de archivos en línea, la sincronización diferencial para minimizar el ancho de banda requerido y el cifrado del lado del cliente para asegurar los datos del cliente. Es comúnmente utilizado en universidades, así como por miles de personas en todo el mundo.
+
+\subsection{Nextcloud}
+
+Nextcloud es un conjunto de aplicaciones cliente-servidor de código abierto para crear servicios de alojamiento de carpetas. Nextcloud permite la creación y gestión de distintas cuentas de usuario, ofreciendo una variedad de aplicaciones para dispositivos móviles y ordenadores. Con Nextcloud, puedes sincronizar automáticamente fotos, compartir archivos públicos y gestionar contactos y calendarios entre dispositivos.
+
+Una característica destacada de Nextcloud es su amplio ecosistema de aplicaciones, que incluye herramientas para tomar notas, gestionar correo electrónico y comunicarse con otros usuarios a través de chat. La plataforma cuenta con una 'tienda de aplicaciones' que ofrece una variedad de programas de código abierto para satisfacer diversas necesidades.
+
+\section{Propuesta}
+
+En respuesta a la carencia identificada en las soluciones actuales de almacenamiento en la nube, se propone el desarrollo de una solución integral que aborde diversas necesidades no cubiertas por las plataformas existentes. Esta nueva solución se centraría en proporcionar una experiencia de usuario mejorada, combinando una interfaz intuitiva y fácil de usar con funcionalidades avanzadas de seguridad, escalabilidad y colaboración.
+
+En primer lugar, se enfocaría en diseñar una interfaz de usuario que sea accesible y amigable, independientemente del nivel de experiencia técnica del usuario. Esto garantizaría que tanto usuarios novatos como expertos puedan navegar fácilmente por la plataforma y acceder a sus archivos de manera eficiente.
+
+En cuanto a la seguridad, se implementarían medidas avanzadas para proteger la privacidad y la integridad de los datos del usuario. Esto incluiría el cifrado de extremo a extremo, la autenticación multifactor y la gestión granular de permisos, brindando a los usuarios un control completo sobre quién puede acceder a sus archivos y cómo se comparten.
+
+Además, se priorizaría la escalabilidad y el rendimiento, diseñando la solución para manejar eficientemente grandes volúmenes de datos sin comprometer la velocidad o la fiabilidad. Esto garantizaría que la plataforma pueda crecer con las necesidades del usuario, sin afectar negativamente la experiencia de uso.
+
+El aspecto en el que se va a poner más énfasis es en la organización y ordenación de todo ese contenido incorporando un sistema de búsqueda avanzada que permita a los usuarios organizar y encontrar sus archivos de manera eficiente. Esto facilitaría la gestión de grandes volúmenes de datos y mejoraría la productividad del usuario.
+
+Finalmente, se desarrollarían funcionalidades de colaboración en tiempo real que permitan a los usuarios trabajar juntos de manera eficiente. Esto facilitaría la colaboración en entornos de trabajo distribuidos y fomentaría la productividad y la creatividad.
