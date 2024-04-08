@@ -18,3 +18,4 @@ Photos
 500px
 Milestones
 milestones
+issues
