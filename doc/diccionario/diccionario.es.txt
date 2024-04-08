@@ -24,3 +24,5 @@ NextCloud
 multifactor
 OwnCloud
 issues
+milestones
+Milestones
