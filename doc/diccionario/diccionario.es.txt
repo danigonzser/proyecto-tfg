@@ -26,3 +26,6 @@ OwnCloud
 issues
 milestones
 Milestones
+Chema
+CDO
+in
