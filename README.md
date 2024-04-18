@@ -1,27 +1,40 @@
-# Trabajo de Fin de Grado: *Aún por determinar*
+# Trabajo de Fin de Grado: *Memes para todos*
 
-### Autor(a): Daniel González Serrano
-### Tutor(a)(es): Juan Julián Merelo Guervós
-___
+- **Tutor: Juan Julián Merelo Guervós [@JJ](https://github.com/JJ)**
+- **Autor: Daniel González Serrano [@danigonzser](https://github.com/danigonzser)**
 
-La documentación de este proyecto está realizada con `LaTeX`, por lo
-tanto para generar el archivo PDF necesitaremos instalar `TeXLive` en
-nuestra distribución.
+## Documentación
 
-Una vez instalada, tan solo deberemos situarnos en el directorio `doc` y ejecutar:
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/danigonzser/proyecto-tfg/latex.yml?logo=latex&logoColor=%23008181&label=spell%2C%20grammar%20and%20compilation%20checks)](https://github.com/danigonzser/proyecto-tfg/actions/workflows/latex.yml)
 
-`
-$ pdflatex proyecto.tex
-`
+La documentación está realizada con `LaTeX` por lo tanto es necesario compilar la memoria para generar el archivo PDF. 
 
-Seguido por
+Primero, hay que comprobar la ortografía y gramática con [TeXtidote](https://github.com/sylvainhalle/textidote) para ello:
 
-    bibtex proyecto
-    
-y de nuevo
+```bash
+cd doc
+textidote proyecto.tex > /ruta/donde/queremos/el/informe/report.html
+```
 
-    pdflatex proyecto.tex
+Lo siguiente es compilar la memoria. Para ello, solo haría falta instalar en nuestra distribución la utilidad make:
 
-O directamente
+```bash
+sudo apt-get install make
+```
 
-    make
+Seguidamente, compilamos la memoria:
+
+```bash
+make
+```
+
+En el archivo [Makefile](https://github.com/danigonzser/proyecto-tfg/blob/m0/estructura/doc/Makefile) se especifican e instalan las dependencias necesarias para compilar la memoria, estas son:
+
+- texlive
+- texlive-fonts-extra
+- texlive-lang-spanish
+## Licencia
+
+Este proyecto tiene la licencia GPLv3.
+
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
