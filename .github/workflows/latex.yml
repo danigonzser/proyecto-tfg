@@ -1,29 +1,16 @@
-name: Deployment Pipeline
+name: LaTeX Workflow
 
 on:
   push:
-    branches: [master]
-  pull_request:
-    branches: [master]
-    types: [opened, synchronize]
+    paths:
+      - 'docs/**/*.tex'
 
 jobs:
 
-  evitar_redudancia:
-    runs-on: ubuntu-22.04
+  docs-tests:
+    runs-on: ubuntu-latest
     steps:
-      - name: Cancelar construcciones redundantes anteriores
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
-
-  lint_and_spell_check:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
+      - uses: actions/checkout@v4
       - name: Comprobar gramática y ortografía
         uses: ChiefGokhlayeh/textidote-action@v5
         id: textidote
@@ -32,7 +19,7 @@ jobs:
           root_file: proyecto.tex
 
       - name: Subir informe de TeXtidote
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
             name: textidote_report
             path: doc/report.html
@@ -41,16 +28,6 @@ jobs:
         if: ${{ steps.textidote.outputs.num_warnings != 0 }}
         run: 'echo "::error file=main.tex::num_warnings: ${{ steps.textidote.outputs.num_warnings }}"; exit 1;'
 
-  # Vamos a esperar a que se haga el chequeo de ortografía y gramática
-  compilacion_memoria:
-    needs: [lint_and_spell_check]
-    runs-on: ubuntu-22.04
-    steps:
-
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-  
       - name: Compilar memoria
         uses: xu-cheng/latex-action@v3
         with:
@@ -58,7 +35,7 @@ jobs:
           root_file: proyecto.tex
           
       - name: Subir PDF
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: PDF
           path: doc/proyecto.pdf

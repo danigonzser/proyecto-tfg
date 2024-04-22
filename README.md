@@ -16,7 +16,7 @@ cd doc
 textidote proyecto.tex > /ruta/donde/queremos/el/informe/report.html
 ```
 
-Lo siguiente es compilar la memoria. Para ello, sólo haría falta instalar en nuestra distribución la utilidad make:
+Lo siguiente es compilar la memoria. Para ello, solo haría falta instalar en nuestra distribución la utilidad make:
 
 ```bash
 sudo apt-get install make
@@ -28,7 +28,7 @@ Seguidamente, compilamos la memoria:
 make
 ```
 
-En el archivo [Makefile](https://github.com/danigonzser/proyecto-tfg/blob/m0/estructura/doc/Makefile) se especifican e instalan las dependecias necesarias para compilar la memoria, éstas son:
+En el archivo [Makefile](https://github.com/danigonzser/proyecto-tfg/blob/m0/estructura/doc/Makefile) se especifican e instalan las dependencias necesarias para compilar la memoria, estas son:
 
 - texlive
 - texlive-fonts-extra
