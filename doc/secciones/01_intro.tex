@@ -67,13 +67,13 @@ La metodología utilizada ha sido la de `personas`. Esta técnica se basa en la 
     \subsection{Ted Johnson González (experto conferenciante)}
 
         \begin{enumerate}
-            \item [HU03] Como Ted Johnson González, experto conferenciante, quiero acceso rápido y sencillo a memes relevantes y atractivos para incluir en mis presentaciones sin necesidad de crearlos yo mismo.
+            \item [HU03] Como Ted Johnson González, experto conferenciante, quiero acceso rápido y sencillo a memes relevantes y atractivos para incluir en mis presentaciones sin necesidad de confeccionarlos yo mismo.
         \end{enumerate}
 
     \subsection{Departamento de marketing de Corporate Solutions}
 
         \begin{enumerate}
-            \item [HU05] Como departamento de marketing, queremos colaborar en un meme varios miembros del equipo.
+            \item [HU04] Como departamento de marketing, queremos colaborar en un meme varios miembros del equipo.
         \end{enumerate}
 
 \section{Objetivos Iniciales}
@@ -82,7 +82,32 @@ En esta sección se describen los objetivos iniciales que se pretenden alcanzar 
 
 \begin{enumerate}
     \item Diseñar una solución que sea lo más económica posible, permitiendo su instalación en servidores en la oficina o su despliegue en contenedores sin costos excesivos, lo que garantiza una mayor accesibilidad y viabilidad para organizaciones de todos los tamaños y presupuestos.
-    \item Se deberá crear un sistema que comprenda una gama de clientes lo más amplia posible, ofreciendo una solución que sea capaz de adaptarse a las diferentes necesidades y preferencias de los usuarios.
+    \item Se deberá construir un sistema que comprenda una gama de clientes lo más amplia posible, ofreciendo una solución que sea capaz de adaptarse a las diferentes necesidades y preferencias de los usuarios.
     \item Se deberá garantizar la accesibilidad y facilidad de uso desarrollando una aplicación que se pueda utilizar incluso desde un ordenador de bajas prestaciones.
-    \item La licencia del proyecto deberá de permitir su uso por cualquier organización o personas sin importar el fin con el que se utilice, ya sea para uso personal, educativo o empresarial.
+    \item La licencia del proyecto deberá de permitir su empleo por cualquier organización o personas sin importar el fin con el que se use, ya sea para fines personales, educativos o empresariales.
 \end{enumerate}
+
+\section{Milestones}
+
+Un milestone o hito son puntos clave en el proceso de desarrollo de un proyecto. Estos hitos representan objetivos claros y concretos que guían el progreso hasta la solución final que se entrega al usuario. En general, son definidos por un product manager y sirven para organizar el trabajo en fases, avanzando desde un milestone inicial o 0 donde se entenderá el problema hasta un milestone final donde se entregará la solución al usuario.
+
+En el contexto del desarrollo ágil, los productos mínimamente viables (PMV) son productos informáticos que representan versiones básicas pero funcionales de un software. Un PMV se construye sobre otro PMV, y así sucesivamente, formando una cadena de progreso. En nuestro contexto, los PMV se van a presentar en forma de hitos por lo que es esencial que estos hitos sean alcanzables y realistas dentro del marco temporal del proyecto.
+
+Cada hito debe ser entregable, con una explicación clara de lo que se va a entregar que servirá para comprobar su validez y completitud. Estos suelen ser numerados secuencialmente. Además, deben incluir tests que permiten asegurar la correcta funcionalidad.
+
+Las historias de usuario y personas anteriormente descritas han sido utilizadas para la creación de estos milestones. Las historias de usuario y los problemas que surjan de ellas estarán agrupadas en los diferentes hitos. A continuación, se presentan los milestones que se han propuesto para este proyecto.
+
+% [HU01] Como Cristina Contreras Márquez, estudiante de Ingeniería Informática, como hago memes mientras voy haciendo las presentaciones quiero rapidez y sencillez por lo que no quiero tener que hacer el meme desde cero.
+% [HU02] Como Cristina Contreras Márquez, estudiante de Ingeniería Informática, quiero crear memes que puedan ser modificados o reutilizados por otros usuarios.
+% [HU03] Como Ted Johnson González, experto conferenciante, quiero acceso rápido y sencillo a memes relevantes y atractivos para incluir en mis presentaciones sin necesidad de crearlos yo mismo.
+% [HU05] Como departamento de marketing, queremos colaborar en un meme varios miembros del equipo.
+
+\begin{itemize}
+    \item \textbf{[M00] - Documentación, planificación y configuración inicial: }estructura e introducción de la memoria además de su corrección automática de ortografía, gramática y estilo. Se añadirán notas sobre las acciones y decisiones en el fichero \href{https://www.makeareadme.com/}{readme} junto con los pasos a seguir sobre la instalación del repositorio. Planificación del proyecto incluyendo: objetivos, historias de usuario y milestones. Será válido si pasa los tests y el tutor lo aprueba.
+    \item \textbf{[M01] - Domain driven design: }aplicación de domain driven design y creación del modelo del problema. Se decidirá y justificará toda la metodología a usar. Será válido si pasa los tests y el tutor lo aprueba.
+    \item \textbf{[M02] - Almacenamiento y acceso: }módulo que permita el almacenamiento y el posterior acceso de memes. Será válido si pasa los tests y el tutor lo aprueba. Aquí se agrupa H03.
+    \item \textbf{[M03] - Búsqueda y gestión }módulo que permita realizar búsquedas avanzadas basadas en algún tipo de etiqueta. Será válido si pasa los tests y el tutor lo aprueba. Se relaciona con HU03.
+    \item \textbf{[M04] - Personalización y reutilización de memes: }módulo que permita la modificación de memes integrando un editor de memes en el sistema. Será válido si pasa los tests y el tutor lo aprueba. Este milestone se ha sacado a partir de HU01 y HU02.
+    \item \textbf{[M05] - Creación de memes colaborativa: }módulo que permita el acceso a un meme en común para varios usuarios. Se podrán ver los cambios que otro usuario o miembro del equipo ha efectuado sobre el meme y volver a modificarlo si se desea. Será válido si pasa los tests y el tutor lo aprueba. A partir de HU0.
+\end{itemize}
+
