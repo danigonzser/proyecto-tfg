@@ -3,7 +3,7 @@ name: LaTeX Workflow
 on:
   push:
     paths:
-      - 'docs/**/*.tex'
+      - 'doc/**/*.tex'
 
 jobs:
 
