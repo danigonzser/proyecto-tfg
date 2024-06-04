@@ -67,3 +67,4 @@ LaCheck
 ChkTeX
 workflow
 n
+git
