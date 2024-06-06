@@ -1,15 +1,13 @@
 \chapter{Planificación}
 
-Como ya se ha dicho, el proyecto se ceñirá a las prácticas y principios de la metodología ágil, que se basa en 17 principios esbozados en \href{https://agilemanifesto.org/iso/es/manifesto.html}{el manifiesto ágil}. Estos principios están diseñados para garantizar la satisfacción del cliente mediante la entrega temprana y continua de valor, con un fuerte enfoque en la excelencia técnica, el buen diseño, la planificación y la simplicidad.
+Como ya se ha mencionado, el proyecto seguirá las prácticas y principios del enfoque ágil, que se fundamenta en los 17 principios delineados en \href{https://agilemanifesto.org/iso/es/manifesto.html}{el manifiesto ágil}. Ágil no es una metodología ni un marco de trabajo, sino una mentalidad que permite a las organizaciones ser más receptivas al cambio. Estos principios están diseñados para asegurar la satisfacción del cliente a través de la entrega temprana y continua de valor, con un fuerte enfoque en la excelencia técnica, el buen diseño, la planificación y la simplicidad.
 
-Estos principios no son solo una referencia teórica, sino que se han aplicado con éxito en proyectos reales y actuales, de acuerdo con~\cite{17thstateofagile}. Este informe presenta los resultados de una encuesta realizada a 788 personas, en la que se abordan cuestiones sobre el desarrollo ágil, su eficacia y su aplicación. A continuación se presentan las conclusiones del informe en respuesta a las dudas planteadas.
+Estos principios no son solo una referencia teórica, sino que se han aplicado con éxito en proyectos reales y actuales, de acuerdo con~\cite{berlas2024software}. Este informe presenta una revisión completa de la investigación publicada sobre las métricas de software en el desarrollo ágil y resalta su efectividad en diversos contextos, incluyendo pequeñas y medianas empresas.
 
 \begin{itemize}
-    \item \textbf{¿Se está usando metodologías ágiles?} El 71\% de los encuestados afirman que sí se están utilizando metodologías ágiles basadas en ciclos de entrega cortos e incrementales. De ellos, el 63\% están empleando la metodología \textit{Scrum}.
-    \item \textbf{¿Esto verdaderamente funciona?} El informe indica que dos de cada cinco encuestados creen que el enfoque es eficaz en su organización. También se declaran satisfechos por el aumento de la colaboración y mejor alineación con las necesidades del negocio al aplicar metodologías ágiles.
-\end{itemize}
-
-Los encuestados representan una amplia gama de sectores, incluyendo tecnología, finanzas, gobierno, industria, telecomunicaciones, transporte, etc. Además, tres de cada diez encuestados representan a empresas con más de 20.000 empleados. En conclusión, lo que indica que este informe refleja fielmente la situación actual.
+    \item \textbf{¿Se está usando enfoques ágiles?} El informe indica que los enfoques ágiles son ampliamente utilizados en la industria del software, permitiendo a los equipos de desarrollo trabajar iterativamente y responder rápidamente a las necesidades del cliente.
+    \item \textbf{¿Esto verdaderamente funciona?} Según el informe, los enfoques ágiles han demostrado ser eficaces en diversos tipos de proyectos a cualquier escala proporcionando beneficios como la reducción del tiempo de comercialización, mayor satisfacción del cliente y disminución de los costos de desarrollo.
+\end{itemize}    
 
 Para garantizar la aplicación coherente de estos principios, la memoria debe desarrollarse de forma iterativa e incremental, con actualizaciones a medida que avanza el proyecto y se toman decisiones. Esto nos permite evaluar continuamente cómo estamos añadiendo valor al proyecto.
 
@@ -17,7 +15,7 @@ En este punto, es dónde las historias de usuario y los objetivos iniciales se c
 
 \section{Entrega y calidad continua}
 
-Para asegurar la calidad del proyecto y la entrega continua se han empleado una serie de herramientas y metodologías que se han integrado en el flujo de trabajo local y remoto.
+Para asegurar la calidad del proyecto y la entrega continua, se han empleado una serie de herramientas y enfoques que se han integrado en el flujo de trabajo tanto local como remoto.
 
 La documentación del proyecto es una de las partes más importantes (junto con el código) del trabajo de fin de grado si no la que más por lo que se ha de poner especial atención en que esta sea de calidad y cumpla con los requisitos establecidos por tutor y tribunal. Para dar cuenta de esto, la memoria se ha elaborado en \href{https://www.latex-project.org/}{\LaTeX{}} que es un sistema de composición tipográfica de alta calidad; incluye funciones diseñadas para la producción de documentación técnica y científica además de estar disponible como software libre.
 
@@ -112,11 +110,11 @@ Tras el análisis, se ha decidido que, con respecto al flujo de trabajo local ta
 
 En la parte de integración continua y/o flujo de trabajo remoto debido a su facilidad de uso, a su integración con \LaTeX{} y a su retroalimentación basado en informes \textit{HTML} se ha decidido usar \href{https://github.com/marketplace/actions/textidote-action}{TeXtidote Action}.
 
-\subsection{Infraestructura utilizada}
+\section{Herramientas aplicadas al proyecto}
 
-En esta sección se documentarán las tecnologías y metodologías empleadas en la realización del proyecto. Se explicará cómo se han integrado en el flujo de trabajo, tanto local como remoto, y cómo han contribuido a la calidad y entrega continua del proyecto.
+En esta sección se documentarán las herramientas empleadas en la realización del proyecto.
 
-\subsubsection{Extensión de \textit{Visual Studio Code}: \textit{LaTeX Workshop}}
+\subsection{Extensión de \textit{Visual Studio Code}: \textit{LaTeX Workshop}}
 
 LaTeX Workshop es una extensión para Visual Studio Code, cuyo objetivo es proporcionar funciones básicas para la composición tipográfica LaTeX con Visual Studio Code. Esta extensión proporciona una serie de características que facilitan la escritura de documentos en LaTeX como la previsualización en tiempo real, la compilación del documento, la visualización de errores y advertencias.
 
@@ -129,7 +127,7 @@ A mayores, esta extensión me ha permitido elegir la receta de compilación que 
     \includegraphics[scale=0.2]{figuras/latex_workshop_extension.png}\label{fig:latex_workshop_extension}
 \end{figure}
 
-\subsubsection{Extensión de \textit{Visual Studio Code}: \href{https://github.com/valentjn/vscode-ltex}{\textit{LTeX LanguageTool grammar/spell checking}}}
+\subsection{Extensión de \textit{Visual Studio Code}: \href{https://github.com/valentjn/vscode-ltex}{\textit{LTeX LanguageTool grammar/spell checking}}}
 
 La extensión \( LT_E X \) permite comprobar la gramática y la ortografía de varios lenguajes de marcado en \textit{Visual Studio Code} mediante LanguageTool (véase~\ref{sec:languagetool}).
 
@@ -139,7 +137,11 @@ Esta extensión suele trabajar de forma offline teniendo una instancia local de 
     \textbf{Nota}: El estilo del código \LaTeX{} se ha configurado mediante esta extensión para ser verificado cada vez que se guarda con \href{https://www.nongnu.org/chktex/}{ChkTeX} y \href{https://ctan.org/pkg/lacheck}{LaCheck}. Aunque esta característica no es tan crucial como en otros lenguajes de programación, puede ayudar a detectar errores comunes en la redacción de documentos. Por estos motivos, y dado que la integración con esta extensión era muy sencilla, no se ha llevado a cabo un proceso de selección ni una verificación en el flujo de trabajo remoto.
 \end{quote}
 
-\subsubsection{\textit{Git y GitHub}: control de versiones y colaboración}
+\section{Herramientas para la planificación del proyecto}
+
+En esta sección se documentarán las herramientas empleadas en la planificación del proyecto. Además de ayudar con esta parte estas herramientas también han sido de gran ayuda para la colaboración, el control de versiones y seguimiento del mismo por el tutor.
+
+\subsection{\textit{Git y GitHub}: control de versiones y colaboración}
 
 Para el control de versiones se ha empleado \textit{git} que es un sistema de control de versiones que permite llevar un control de los cambios en el código fuente.
 
@@ -147,7 +149,11 @@ Para la colaboración y hospedaje del código fuente se ha usado \textit{GitHub}
 
 El repositorio del proyecto se puede encontrar en la siguiente dirección: \url{https://github.com/danigonzser/proyecto-tfg}
 
-\subsubsection{\textit{Issues}}
+\section{Metodologías para la planificación del proyecto}
+
+En esta sección se documentarán las metodologías empleadas en la planificación del proyecto. Al aplicar estas metodologías se ha conseguido una mayor eficiencia en la gestión del tiempo y de los recursos, así como una mayor calidad en la documentación y en el código fuente.
+
+\subsection{\textit{Issues}}
 
 A lo largo del proyecto se van a ir encontrando diferentes problemas que se han de resolver. Para llevar un control de los mismos se han ido creando \textit{issues}. Estos no solo son descripciones de los problemas que se quieren resolver, sino que pueden ser una buena medida para saber si se progresa hacia el \textit{milestone} o no.
 
@@ -158,7 +164,7 @@ A lo largo del proyecto se van a ir encontrando diferentes problemas que se han 
     \includegraphics[scale=0.2]{figuras/github_issues.png}
 \end{figure}
 
-\subsubsection{Pull requests}
+\subsection{Pull requests}
 
 Los pull requests son una forma de proponer cambios en el código fuente sin que estos se apliquen directamente al código fuente o rama principal sin una aprobación previa. Estos son una manera de revisar que los cambios mantengan la excelencia técnica y calidad del proyecto.
 
@@ -190,9 +196,9 @@ En la figura se puede apreciar que se han abierto 8 \textit{pull requests} hasta
 
 Como se puede ver en la figura~\ref{fig:contenido_pull_request} el estado de la \textit{pull request} es \textit{merged} lo que significa que ya ha sido integrado en la rama principal. Más abajo se puede ver el cuerpo de la misma donde residen todas las \textit{issues} que han sido creadas y consecuentemente resueltas con esta \textit{pull request}. Más abajo se puede ver el historial de commits y de conversaciones que se han ido originando a lo largo de la resolución. Al final de la imagen es donde podemos ver esas conversaciones que deben ser resueltas antes de integrar los cambios en la rama principal. Finalmente, a la derecha se muestran detalles como el revisor, el asignado, las etiquetas, el proyecto al que pertenece, el \textit{milestone} y las \textit{issues} relacionadas.
 
-\subsubsection{\textit{Projects}: tablero kanban}
+\subsection{\textit{Projects}: tablero kanban}
 
-La funcionalidad de projects de \textit{GitHub} se ha utilizado para llevar un control de la evolución y progreso de los \textit{issues} y \textit{pull requests}. Se ha implementado un tablero \textit{kanban} como se puede ver en la imagen \ref{fig:tablero_kanban} que permite ver de un vistazo el estado de los \textit{issues} y \textit{pull requests}. Esto es muy útil para saber si se progresa, cómo se están resolviendo los problemas y si se está cumpliendo con los objetivos marcados.
+La funcionalidad de projects de \textit{GitHub} se ha utilizado para llevar un control de la evolución y progreso de los \textit{issues} y \textit{pull requests}. Se ha implementado un tablero \textit{kanban} como se puede ver en la imagen~\ref{fig:tablero_kanban} que permite ver de un vistazo el estado de los \textit{issues} y \textit{pull requests}. Esto es muy útil para saber si se progresa, cómo se están resolviendo los problemas y si se está cumpliendo con los objetivos marcados.
 
 \begin{figure}[H]
     \caption{Captura de pantalla del tablero \textit{kanban} en la sección de \textit{projects} de \textit{GitHub}.}
