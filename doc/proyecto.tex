@@ -23,6 +23,8 @@
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{lscape}
+\usepackage{pifont}
+\usepackage{enumitem,amssymb}
 
 \usepackage[table,xcdraw]{xcolor}
 \hypersetup{
@@ -50,6 +52,18 @@
 \setcounter{secnumdepth}{4}
 \usepackage[Lenny]{fncychap}
 
+% Para utilizar checboxes
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=\(\square \)}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\esp}{\ding{80}}%
+
+\newcommand{\bien}{\rlap{\(\square \)}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\mal}{\rlap{\(\square \)}{\large\hspace{1pt}\xmark}}
+\newcommand{\regular}{\rlap{\(\square \)}{\raisebox{1pt}{\large\hspace{1pt}\small\(\sim \)}}}%
+\newcommand{\excelente}{\rlap{\(\square \)}{\raisebox{-2pt}{\large\hspace{-3pt}\LARGE\esp}}}%
 
 \begin{document}
 
@@ -113,4 +127,3 @@
 	\bibliographystyle{plain}
 	
 \end{document}
-
