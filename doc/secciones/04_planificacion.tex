@@ -21,36 +21,9 @@ La documentación del proyecto es una de las partes más importantes (junto con 
 
 Para complementar, comprobar y mejorar la calidad de la documentación se han usado una serie de herramientas que se han integrado en el flujo de trabajo local tanto con extensiones de (\href{https://code.visualstudio.com/}{\textit{Visual Studio Code}}) como con herramientas ejecutadas en la línea de comandos.
 
-\section{Organización de código \LaTeX{}}
+\section{Metodologías para el seguimiento del desarrollo}
 
-En esta sección se documentarán las herramientas empleadas en las que me he basado a la hora de organizar y/o planificar el proyecto.
-
-\subsection{Extensión de \textit{Visual Studio Code}: \textit{LaTeX Workshop}}
-
-LaTeX Workshop es una extensión para Visual Studio Code, cuyo objetivo es proporcionar funciones básicas para la composición tipográfica LaTeX con Visual Studio Code. Esta extensión proporciona una serie de características que facilitan la escritura de documentos en LaTeX como la previsualización en tiempo real, la compilación del documento, la visualización de errores y advertencias.
-
-A mayores, esta extensión me ha permitido elegir la receta de compilación que se va a utilizar, la cual se ha configurado para que se compile la memoria junto con la bibliografía.
-
-\begin{figure}[H]
-    \caption{Captura de pantalla de \textit{Visual Studio Code} con la extensión \textit{LaTeX Workshop} activada.}
-    \centering
-    \vspace*{0.5cm}
-    \includegraphics[scale=0.2]{figuras/latex_workshop_extension.png}\label{fig:latex_workshop_extension}
-\end{figure}
-
-\subsection{Extensión de \textit{Visual Studio Code}: \href{https://github.com/valentjn/vscode-ltex}{\textit{LTeX LanguageTool grammar/spell checking}}}
-
-La extensión \( LT_E X \) permite comprobar la gramática y la ortografía de varios lenguajes de marcado en \textit{Visual Studio Code} mediante \textit{LanguageTool}.
-
-Esta extensión suele trabajar de forma offline teniendo una instancia local de \textit{LanguageTool}, pero en nuestro caso se ha configurado para que trabaje con una instancia remota de \textit{LanguageTool} que se ejecuta en un contenedor de \textit{Docker} como hemos dicho anteriormente.
-
-\begin{quote}
-    \textbf{Nota}: El estilo del código \LaTeX{} se ha configurado mediante esta extensión para ser verificado cada vez que se guarda con \href{https://www.nongnu.org/chktex/}{ChkTeX} y \href{https://ctan.org/pkg/lacheck}{LaCheck}. Aunque esta característica no es tan crucial como en otros lenguajes de programación, puede ayudar a detectar errores comunes en la redacción de documentos. Por estos motivos, y dado que la integración con esta extensión era muy sencilla, no se ha llevado a cabo un proceso de selección ni una verificación en el flujo de trabajo remoto.
-\end{quote}
-
-\section{Herramientas aplicadas a la planificación}
-
-En esta sección se documentarán las herramientas empleadas en la planificación del proyecto. Además de ayudar con esta parte estas herramientas también han sido de gran ayuda para la colaboración, el control de versiones y seguimiento del mismo por el tutor.
+En esta sección se documentarán las metodologías empleadas para el seguimiento del desarrollo del proyecto. Al aplicar estas metodologías se ha conseguido una mayor eficiencia en la gestión del tiempo y de los recursos, así como una mayor calidad en la documentación y en el código fuente. Además, se explicarán las herramientas utilizadas para el control de versiones y el alojamiento del repositorio remoto del proyecto.
 
 \subsection{\textit{Git y GitHub}: control de versiones y colaboración}
 
@@ -58,13 +31,11 @@ Para el control de versiones se ha empleado \textit{git} que es un sistema de co
 
 Para la colaboración y hospedaje del código fuente se ha usado \textit{GitHub}, una plataforma que permite alojar proyectos de \textit{software} y colaborar en ellos. En \textit{GitHub} tenemos diferentes funcionalidades que han sido de ayuda para el desarrollo del proyecto.
 
-El repositorio del proyecto se puede encontrar en la siguiente dirección: \url{https://github.com/danigonzser/proyecto-tfg}
+El repositorio del proyecto se puede encontrar en la siguiente dirección: \url{https://github.com/danigonzser/proyecto-tfg}.
 
-\section{Metodologías para la planificación del proyecto}
+En GitHub se integran diferentes herramientas que permiten llevar un control del desarrollo del proyecto. A continuación, se describen algunas de las funcionalidades más importantes que se han utilizado.
 
-En esta sección se documentarán las metodologías empleadas en la planificación del proyecto. Al aplicar estas metodologías se ha conseguido una mayor eficiencia en la gestión del tiempo y de los recursos, así como una mayor calidad en la documentación y en el código fuente.
-
-\subsection{\textit{Issues}}
+\subsubsection{\textit{Issues}}
 
 A lo largo del proyecto se van a ir encontrando diferentes problemas que se han de resolver. Para llevar un control de los mismos se han ido creando \textit{issues}. Estos no solo son descripciones de los problemas que se quieren resolver, sino que pueden ser una buena medida para saber si se progresa hacia el \textit{milestone} o no.
 
@@ -75,7 +46,7 @@ A lo largo del proyecto se van a ir encontrando diferentes problemas que se han 
     \includegraphics[scale=0.2]{figuras/github_issues.png}
 \end{figure}
 
-\subsection{Pull requests}
+\subsubsection{Pull requests}
 
 Los pull requests son una forma de proponer cambios en el código fuente sin que estos se apliquen directamente al código fuente o rama principal sin una aprobación previa. Estos son una manera de revisar que los cambios mantengan la excelencia técnica y calidad del proyecto.
 
@@ -107,7 +78,7 @@ En la figura se puede apreciar que se han abierto 8 \textit{pull requests} hasta
 
 Como se puede ver en la figura~\ref{fig:contenido_pull_request} el estado de la \textit{pull request} es \textit{merged} lo que significa que ya ha sido integrado en la rama principal. Más abajo se puede ver el cuerpo de la misma donde residen todas las \textit{issues} que han sido creadas y consecuentemente resueltas con esta \textit{pull request}. Más abajo se puede ver el historial de commits y de conversaciones que se han ido originando a lo largo de la resolución. Al final de la imagen es donde podemos ver esas conversaciones que deben ser resueltas antes de integrar los cambios en la rama principal. Finalmente, a la derecha se muestran detalles como el revisor, el asignado, las etiquetas, el proyecto al que pertenece, el \textit{milestone} y las \textit{issues} relacionadas.
 
-\subsection{\textit{Projects}: tablero kanban}
+\subsubsection{\textit{Projects}: tablero kanban}
 
 La funcionalidad de projects de \textit{GitHub} se ha utilizado para llevar un control de la evolución y progreso de los \textit{issues} y \textit{pull requests}. Se ha implementado un tablero \textit{kanban} como se puede ver en la imagen~\ref{fig:tablero_kanban} que permite ver de un vistazo el estado de los \textit{issues} y \textit{pull requests}. Esto es muy útil para saber si se progresa, cómo se están resolviendo los problemas y si se está cumpliendo con los objetivos marcados.
 
@@ -120,4 +91,50 @@ La funcionalidad de projects de \textit{GitHub} se ha utilizado para llevar un c
 
 \section{Temporización}
 
-\section{Seguimiento del desarrollo}
+La gestión de tiempo y recursos en nuestro proyecto se realiza mediante el uso de \textit{milestones} en GitHub, que son el equivalente a los \textit{sprints} en el enfoque ágil. Los \textit{milestones} se han creado a partir de las historias de usuario, asegurando que cada fase del proyecto esté orientada a cumplir con las necesidades y expectativas del usuario final. Un conjunto específico de \textit{issues} puede ser incluido en un \textit{milestone} y, al finalizar el \textit{sprint}, estos \textit{issues} deben estar resueltos. Al concluir el \textit{milestone}, debe resultar en un producto mínimamente viable y en nuestro repositorio vamos a etiquetarlos como nueva versión del proyecto
+
+\subsection{Milestones}
+
+\begin{itemize}
+    \item \textbf{[M00] \- Documentación, planificación y configuración inicial}
+    \begin{itemize}
+        \item \textit{Descripción}: Este \textit{milestone} abarca la creación de la documentación inicial, la planificación del proyecto y la configuración de las herramientas necesarias.
+        \item \textit{Objetivo de viabilidad}: Tener una base sólida y bien documentada para comenzar el desarrollo.
+        \item \textit{Issues y pull requests}: Se incluirán tareas relacionadas con la redacción de documentación, configuración de repositorios y planificación detallada del proyecto.
+    \end{itemize}
+
+    \item \textbf{[M01] \- Domain Driven Design}
+    \begin{itemize}
+        \item \textit{Descripción}: Enfocado en la implementación del diseño dirigido por el dominio (DDD).
+        \item \textit{Objetivo de viabilidad}: Establecer una estructura robusta y clara basada en el dominio del problema.
+        \item \textit{Issues y pull requests}: Incluye tareas para definir el dominio, crear modelos y establecer los patrones de diseño.
+    \end{itemize}
+
+    \item \textbf{[M02] \- Almacenamiento y acceso}
+    \begin{itemize}
+        \item \textit{Descripción}: Desarrollo de la infraestructura de almacenamiento y acceso a los datos.
+        \item \textit{Objetivo de viabilidad}: Garantizar que los datos se almacenan y acceden de manera eficiente y segura.
+        \item \textit{Issues y pull requests}: Implementación de bases de datos, servicios de acceso y manejo de datos.
+    \end{itemize}
+
+    \item \textbf{[M03] \- Búsqueda y gestión}
+    \begin{itemize}
+        \item \textit{Descripción}: Implementación de funcionalidades de búsqueda y gestión de datos.
+        \item \textit{Objetivo de viabilidad}: Facilitar la localización y manipulación de datos dentro del sistema.
+        \item \textit{Issues y pull requests}: Desarrollo de algoritmos de búsqueda y interfaces de gestión de datos.
+    \end{itemize}
+
+    \item \textbf{[M04] \- Tests y despliegue}
+    \begin{itemize}
+        \item \textit{Descripción}: Creación de pruebas automatizadas y estrategias de despliegue.
+        \item \textit{Objetivo de viabilidad}: Asegurar la calidad del código y la capacidad de despliegue continuo.
+        \item \textit{Issues y pull requests}: Desarrollo de suites de pruebas, integración continua y configuraciones de despliegue.
+    \end{itemize}
+
+    \item \textbf{[M05] \- Seguridad y privacidad}
+    \begin{itemize}
+        \item \textit{Descripción}: Implementación de medidas de seguridad y políticas de privacidad.
+        \item \textit{Objetivo de viabilidad}: Proteger los datos y cumplir con las normativas de privacidad.
+        \item \textit{Issues y pull requests}: Tareas relacionadas con la seguridad del sistema, cifrado de datos y cumplimiento de normas.
+    \end{itemize}
+\end{itemize}
