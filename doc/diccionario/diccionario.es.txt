@@ -33,3 +33,17 @@ Corporate
 Solutions
 Ted
 Brandolini
+Core
+domain
+core
+event
+storming
+Automation
+Sharing
+knowledge
+driven
+design
+microservicio
+Subdomains
+bounded
+contexts

@@ -44,11 +44,11 @@ Los requisitos han sido identificados a partir de las historias de usuario \ref{
     \end{itemize} 
 \end{itemize}
 
-En cada una de las subsecciones siguientes se va a ir introduciendo cierta terminología de DDD para ir analizando y entendiendo el modelo en el que el proyecto se mueve. En cada una de ellas, se va a ir explicando a qué se refiere ese término y su aplicación.
+En cada una de las secciones siguientes se va a ir introduciendo cierta terminología de DDD para ir analizando y entendiendo el modelo en el que el proyecto se mueve. En cada una de ellas, se va a ir explicando a qué se refiere ese término y su aplicación.
 
-\subsection{Lenguaje ubicuo}
+\section{Lenguaje ubicuo en DDD}
 
-El lenguaje ubicuo es el término que se utiliza en DDD para referirse a un lenguaje común que se utiliza en todo el proyecto. Este lenguaje común es esencial para la comunicación y la comprensión entre todas las partes interesadas. Este debe basarse en el modelo del dominio utilizado por lo que debe ser rigurosos y preciso para evitar cualquier tipo de ambigüedad.
+El lenguaje ubicuo es el término que se utiliza en DDD para referirse a un lenguaje común que se utiliza en todo el proyecto. Este lenguaje compartido por todos es esencial para la comunicación y la comprensión entre todas las partes interesadas. En este debe basarse el modelo del dominio por lo que debe ser riguroso y preciso para evitar cualquier tipo de ambigüedad. De igual manera, debe ser especificado en una etapa temprana del proyecto por eso, está antes de todo el proceso. A continuación, los términos del lenguaje ubicuo:
 
 \begin{itemize}
     \item \textbf{Meme}: imagen, vídeo o texto que difunde un mensaje que suele ser humorístico.
@@ -59,26 +59,26 @@ El lenguaje ubicuo es el término que se utiliza en DDD para referirse a un leng
     \item \textbf{Búsqueda avanzada}: sistema de búsqueda en el catálogo de memes que permite filtrar memes por diferentes criterios.
 \end{itemize}
 
-\subsection{\textit{Core domain}}
+\section{\textit{Core domain}}
 
 En DDD, este es el corazón de cualquier proyecto que impulsa lo que hace y define si es un éxito o en su defecto, es un fracaso. En nuestro caso, el \textit{core domain} es la \textbf{gestión centralizada y colaborativa de memes}. Este dominio englobará todas las capacidades que el sistema permita a los usuarios realizar con los memes, como la creación, edición, búsqueda, colaboración, etc.
 
-Este dominio requiere un profundo conocimiento del campo en cuestión por lo que la mejor forma de abordarlo es mediante el \textit{event storming}. Esta es una forma de explorar rápidamente los dominios centrándose en los eventos de dominio que son algo que ha ocurrido en el dominio y son relevantes. Esta técnica fue introducida y popularizada por Alberto Brandolini en~\cite{brandolini2013introducing} aunque este ejemplo está basado en este artículo de \href{https://ibm-cloud-architecture.github.io/refarch-eda/methodology/event-storming/}{IBM Automation - Sharing knowledge}.
+Este dominio requiere un profundo conocimiento del campo en cuestión por lo que la mejor forma de abordarlo es mediante el \textit{event storming}. Esta es una manera de explorar rápidamente los dominios centrándose en los eventos de dominio que son algo que ha ocurrido en el dominio y son relevantes. Esta técnica fue introducida y popularizada por Alberto Brandolini en~\cite{brandolini2013introducing} aunque este ejemplo está basado en este artículo de \href{https://ibm-cloud-architecture.github.io/refarch-eda/methodology/event-storming/}{IBM Automation - Sharing knowledge}.
 
-Para realizar un primer diagrama de eventos vamos a definir un conjunto inicial de conceptos que se van a utilizar:
+Para realizar un primer diagrama de eventos vamos a definir un conjunto inicial de conceptos y su formato con el que se van a utilizar:
 
 \begin{itemize}
-    \item Para los eventos de dominio se va a utilizar una nota de color naranja y verbos en pasado.
-    \item Para los comentarios o preguntas se van a utilizar notas de color rojo indicando puntos peligrosos, importantes y que se debe hacer más hincapie.
-    \item Para las definiciones de conceptos se van a utilizar notas de color gris para ayudar a entender el contexto y lenguaje ubicuo.
-    \item Para los actores se van a utilizar notas de color amarillo.
-    \item Para los comandos se van a utilizar notas de color azul y verbos en infinitivo que indican acción, intención o decisión.
-    \item Para las entidades del dominio se van a utilizar notas de color verde. Estas son necesarias para aportar información que se necesita para apoyar la realización de los eventos.
-    \item Para las políticas se van a utilizar notas de color rosa. Empiezan siempre con siempre que y representan reglas que se deben cumplir antes de que el evento ocurra o puede hacer que estos se ejecuten.
+    \item Eventos de dominio: notas de color naranja y verbos en pasado.
+    \item Comentarios o preguntas notas de color rojo indicando puntos peligrosos, importantes y que se debe hacer más hincapié.
+    \item Definiciones de conceptos: notas de color gris para ayudar a entender el contexto y lenguaje ubicuo.
+    \item Actores: notas de color amarillo.
+    \item Comandos: notas de color azul y verbos en infinitivo que indican acción, intención o decisión.
+    \item Entidades del dominio: notas de color verde. Estas son necesarias para aportar información que se necesita para apoyar la realización de los eventos.
+    \item Políticas: notas de color rosa. Empiezan siempre con \textit{siempre que} y representan reglas que se deben cumplir antes de que el evento ocurra o puede hacer que estos se ejecuten.
 \end{itemize}
 
 \begin{figure}[ht]
-    \caption{Formato de conceptos}
+    \caption{Formato de conceptos.}
     \centering
     \vspace*{0.5cm}
     \includegraphics[scale=0.25]{figuras/conceptos.png}
@@ -91,7 +91,7 @@ El siguiente paso tras definir el formato de las notas es identificar todos los 
 En esta etapa simplemente se describe qué ha pasado en el dominio. No se debe preocupar por cómo se va a implementar, simplemente se debe describir lo que ha ocurrido.
 
 \begin{figure}[ht]
-    \caption{Eventos de dominio}
+    \caption{Eventos de dominio.}
     \centering
     \vspace*{0.5cm}
     \includegraphics[scale=0.15]{figuras/eventosdominio.png}
@@ -104,7 +104,7 @@ Por ahora, no hay que preocuparse si algunos eventos se sobreponen.
 En este paso, se debería contar qué está ocurriendo en el diagrama y colocar sobre el mismo las preguntas y dudas que puedan surgir. Aquí se hace una especie de reflexión y refinamiento. Por lo tanto, vamos a colocar en el diagrama las notas rojas para indicar los puntos que se deben aclarar.
 
 \begin{figure}[ht]
-    \caption{Eventos de dominio con puntos de reflexión}
+    \caption{Eventos de dominio con puntos de reflexión.}
     \centering
     \vspace*{0.5cm}
     \includegraphics[scale=0.15]{figuras/eventosdominio.png}
@@ -120,7 +120,7 @@ El siguiente paso es encontrar los límites del sistema. Pueden surgir dos tipos
 \end{itemize}
 
 \begin{figure}[ht]
-    \caption{Límites del sistema}
+    \caption{Límites del sistema.}
     \centering
     \vspace*{0.5cm}
     \includegraphics[scale=0.15]{figuras/limites.png}
