@@ -200,7 +200,34 @@ Como podemos ver se han identificado 4 subdominios:
     \item \textbf{Búsqueda}: al ser una de las funcionalidades principales, se ha decidido que sea un subdominio. Se encargaría de toda la parte de la búsqueda avanzada de memes mediante diferentes criterios.
 \end{itemize}
 
-\subsection{\textit{Bounded contexts}}
+\subsection{Entidades y objetos de valor}
 
-Contextos delimitados. Seguir.
+En esta fase del DDD vamos a identificar las entidades y los objetos de valor, pero primero vamos a dar una definición de cada uno de ellos.
 
+Una entidad es un concepto que puede ser identificado de manera única por sus atributos. Estas entidades tienen un ciclo de vida que es importante modelar para obtener el contexto adecuado en un proyecto. Por otro lado, los objetos de valor representan cosas dentro del proyecto que no tienen una identidad propia. Son transitorios, creados para una operación específica y luego descartados.
+
+\begin{figure}[H]
+    \caption{Paso 2: Identificación de entidades y objetos de valor.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.2]{figuras/paso2.png}\label{fig:figuras/paso2.png}
+\end{figure}
+
+\subsection{Mapa de contexto}
+
+El contexto delimitado es una herramienta clave en proyectos de software para definir los límites y el lenguaje ubicuo dentro de una frontera. Dentro de ese contexto delimitado, esas palabras, frases u oraciones tienen un significado contextual (lenguaje ubicuo). Esta delimitación de contexto ayuda a organizar y comprender de manera más efectiva la información, organización y ordenación de las diferentes piezas del dominio.
+
+Volviendo al título de la sección, un mapa de contexto simboliza esas fronteras y cómo se relacionan e integran entre sí. Estas relaciones se agrupan en:
+
+\begin{itemize}
+    \item Mapea: indica que un subdominio tiene una correspondencia directa con otro subdominio. Puede implicar que los datos o las funcionalidades de un subdominio se reflejan o se utilizan en otro subdominio.
+    \item Notifica: implica que un subdominio envía eventos o actualizaciones a otro subdominio para informarle de cambios o acciones específicas que han ocurrido.
+    \item Delega: indica que un subdominio confía o asigna ciertas responsabilidades a otro subdominio. Puede implicar que un subdominio depende de otro para completar una tarea específica.
+\end{itemize}
+
+\begin{figure}[H]
+    \caption{Paso 3: Realización de mapa de contexto.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.1]{figuras/paso3.png}\label{fig:figuras/paso3.png}
+\end{figure}
