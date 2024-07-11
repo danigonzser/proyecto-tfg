@@ -47,22 +47,45 @@ La transparencia y accesibilidad de GitHub facilitan la comunicación constante 
 
 En GitHub se integran diferentes herramientas que permiten llevar un control del desarrollo del proyecto. A continuación, se describen algunas de las funcionalidades más importantes.
 
-\subsection{Extensión de \textit{Visual Studio Code}: \textit{LaTeX Workshop}}
+\subsection{Pull requests}
 
-LaTeX Workshop es una extensión para Visual Studio Code, cuyo objetivo es proporcionar funciones básicas para la composición tipográfica LaTeX con Visual Studio Code. Esta extensión proporciona una serie de características que facilitan la escritura de documentos en LaTeX como la previsualización en tiempo real, la compilación del documento, la visualización de errores y advertencias.
+Los pull requests son una manera de proponer cambios en el código fuente sin que estos se apliquen directamente al código fuente o rama principal sin una aprobación previa. Esta metodología garantiza que los cambios mantengan la excelencia técnica y calidad del proyecto apoyando al noveno principio del manifiesto ágil.
 
-A mayores, esta extensión me ha permitido elegir la receta de compilación que se va a utilizar, la cual se ha configurado para que se compile la memoria junto con la bibliografía.
+Para proteger la rama principal o \textit{master} de cambios no deseados se han configurado una serie de reglas que impiden la integración de cambios a menos que:
+
+\begin{itemize}
+    \item Los tests deben de haberse realizado de manera exitosa.
+    \item Que la rama esté actualizada.
+    \item Que las conversaciones hayan sido resueltas.
+\end{itemize}
+
+A continuación se muestra una captura de pantalla de la lista de \textit{pull requests} del proyecto hasta el momento.
 
 \begin{figure}[H]
-    \caption{Captura de pantalla de \textit{Visual Studio Code} con la extensión \textit{LaTeX Workshop} activada.}
+    \caption{Captura de pantalla del listado de \textit{pull requests} del repositorio del proyecto de \textit{GitHub}.}
     \centering
     \vspace*{0.5cm}
-    \includegraphics[scale=0.2]{figuras/latex_workshop_extension.png}\label{fig:latex_workshop_extension}
+    \includegraphics[scale=0.2]{figuras/listado_pull_requests_github.png}
 \end{figure}
 
-\subsubsection{Extensión de \textit{Visual Studio Code}: \href{https://github.com/valentjn/vscode-ltex}{\textit{LTeX LanguageTool grammar/spell checking}}}
+En la figura se puede apreciar que se han abierto 8 \textit{pull requests} hasta el momento. Los que están en color morado son los \textit{pull requests} que ya han sido integrados en la rama principal y el que está en color verde es el que todavía no está integrado.
 
-La extensión \( LT_E X \) permite comprobar la gramática y la ortografía de varios lenguajes de marcado en \textit{Visual Studio Code} mediante LanguageTool (véase~\ref{sec:languagetool}).
+\begin{figure}[H]
+    \caption{Captura de pantalla del contenido de una \textit{pull request}.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.1]{figuras/pull_request_github.png}\label{fig:contenido_pull_request}
+\end{figure}
 
-Esta extensión suele trabajar de forma offline teniendo una instancia local de \textit{LanguageTool}, pero en nuestro caso y para mejorar las comprobaciones se ha configurado para que trabaje a través de peticiones \textit{HTTP} a un contenedor de \textit{Docker} con la imagen \href{https://hub.docker.com/r/erikvl87/languagetool}{erikvl87/languagetool} a modo de servidor. En adición, se ha añadido un conjunto de datos de \href{https://es.wikipedia.org/wiki/N-grama}{n-gramas} para \href{https://dev.languagetool.org/finding-errors-using-n-gram-data}{detectar errores} con palabras que suelen confundirse.
+Como se puede ver en la figura~\ref{fig:contenido_pull_request} el estado de la \textit{pull request} es \textit{merged} lo que significa que ya ha sido integrado en la rama principal. Más abajo se puede ver el cuerpo de la misma donde residen todas las \textit{issues} que han sido creadas y consecuentemente resueltas con esta \textit{pull request}. Más abajo se puede ver el historial de commits y de conversaciones que se han ido originando a lo largo de la resolución. Al final de la imagen es donde podemos ver esas conversaciones que deben ser resueltas antes de integrar los cambios en la rama principal. Finalmente, a la derecha se muestran detalles como el revisor, el asignado, las etiquetas, el proyecto al que pertenece, el \textit{milestone} y las \textit{issues} relacionadas.
 
+\subsection{\textit{Projects}: tablero kanban}
+
+La funcionalidad de projects de \textit{GitHub} se ha utilizado para llevar un control de la evolución y progreso de los \textit{issues} y \textit{pull requests}. Se ha implementado un tablero \textit{kanban} como se puede ver en la imagen~\ref{fig:tablero_kanban} que permite ver de un vistazo el estado de los \textit{issues} y \textit{pull requests}. Esto es muy útil para saber si se progresa, cómo se están resolviendo los problemas y si se está cumpliendo con los objetivos marcados. Además, está relacionado con los principios ágiles al promover la auto-organización, entrega frecuente y temprana y atención continua.
+
+\begin{figure}[H]
+    \caption{Captura de pantalla del tablero \textit{kanban} en la sección de \textit{projects} de \textit{GitHub}.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.2]{figuras/projects_github.png}\label{fig:tablero_kanban}
+\end{figure}
