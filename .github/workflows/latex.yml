@@ -17,13 +17,13 @@ jobs:
         with:
           working_directory: doc
           root_file: proyecto.tex
-
+      
       - name: Subir informe de TeXtidote
         uses: actions/upload-artifact@v4
         with:
             name: textidote_report
             path: doc/report.html
-
+      
       - name: Lanzar error si existen advertencias de TeXtidote 
         if: ${{ steps.textidote.outputs.num_warnings != 0 }}
         run: 'echo "::error file=main.tex::num_warnings: ${{ steps.textidote.outputs.num_warnings }}"; exit 1;'
