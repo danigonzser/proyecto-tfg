@@ -23,6 +23,8 @@
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{lscape}
+\usepackage{pifont}
+\usepackage{enumitem,amssymb}
 
 \usepackage[table,xcdraw]{xcolor}
 \hypersetup{
@@ -50,10 +52,22 @@
 \setcounter{secnumdepth}{4}
 \usepackage[Lenny]{fncychap}
 
+% Para utilizar checboxes
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=\(\square \)}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\esp}{\ding{80}}%
+
+\newcommand{\bien}{\rlap{\(\square \)}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\mal}{\rlap{\(\square \)}{\large\hspace{1pt}\xmark}}
+\newcommand{\regular}{\rlap{\(\square \)}{\raisebox{1pt}{\large\hspace{1pt}\small\(\sim \)}}}%
+\newcommand{\excelente}{\rlap{\(\square \)}{\raisebox{-2pt}{\large\hspace{-3pt}\LARGE\esp}}}%
 
 \begin{document}
 
-	% Plantilla portada UGR
+	% Plantilla portada UGR [CI forzado]
 	\input{portada/portada}
 
 	% Plantilla prefacio UGR
@@ -71,7 +85,7 @@
 	\listoftables 
 	\newpage
 
-  % Introducción 
+  	% Introducción 
 	\input{secciones/01_intro}
 
 	% Descripción del problema y hasta donde se llega
@@ -82,14 +96,16 @@
 	% 	2. Propuesta
 	\input{secciones/03_estado_del_arte}
 	
-	\input{secciones/04_planificacion}
+	\input{secciones/04_metodologia}
+
+	\input{secciones/05_planificacion}
 
 	% Análisis del problema
 	% 1. Análisis de requisitos
 	% 2. Análisis de las soluciones
 	% 3. Solucion propuesta
 	% 4. Análisis de seguridad
-	\input{secciones/05_analisis}
+	\input{secciones/06_analisis}
 
 	% Desarrollo bajo sprints: 
 	% 	1. Permitir registros y login de usuarios
@@ -97,14 +113,14 @@
 	% 	3. Desarrollo del sistema de denuncias administrativas y accidentes
 	% 	4. Desarrollo del sistema de croquis
 	%   5. Instalación de la aplicación de manera automática
-	\input{secciones/06_implementacion}
+	\input{secciones/07_implementacion}
 
 	% Presupuesto
 
 	\cite{gplv3}
 
 	% Conclusiones
-	\input{secciones/07_conclusiones}
+	\input{secciones/08_conclusiones}
 
 	% Trabajos futuros
 	
