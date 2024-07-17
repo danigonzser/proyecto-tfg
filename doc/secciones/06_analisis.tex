@@ -1,2 +1,84 @@
-\chapter{Análisis del problema}
- 
+\chapter{Análisis}
+
+En este capítulo, se realizará una explicación breve de la metodología de trabajo seguida en el mismo y un análisis de requisitos. Posteriormente, se procederá al proceso de selección lenguajes que más tarde se empleará para empezar a diseñar los objetos de nuestro proyecto.
+
+\section{Domain-Driven Design}
+
+En este capítulo, se hará un análisis detallado de los requisitos del proyecto haciendo uso del Diseño Orientado al Dominio o \textit{domain-driven design} que para mayor rapidez y concisión denominaremos como \textit{DDD}. Esta filosofía de desarrollo de software nos ayudará a comprender y modelar el dominio empresarial, asegurando que nuestras soluciones se alineen con las necesidades específicas de los usuarios y del negocio.
+
+El Diseño Orientado al Dominio (DDD) es una filosofía de desarrollo de software que se centra en comprender y modelar el dominio empresarial para alinear el software con las necesidades del negocio. Introducido por Eric Evans en su libro~\cite{evans2004domain}, DDD ha evolucionado con aportes de numerosos profesionales.
+
+En esencia, \textit{DDD} aborda la complejidad enfocándose en el ``dominio'', el contexto específico del software. Promueve el uso de un ``lenguaje ubicuo'', un lenguaje común entre desarrolladores y partes interesadas, para garantizar que el software refleje con precisión el ámbito empresarial. La modelización en \textit{DDD} no busca crear el modelo más realista, sino uno útil y apropiado para su propósito, similar a cómo una película representa la realidad de manera selectiva para cumplir su objetivo.
+
+Hemos elegido \textit{DDD} porque proporciona una estructura clara y coherente para manejar la complejidad del dominio del proyecto, asegurando que las soluciones técnicas se alineen estrechamente con las necesidades del negocio y los usuarios. Esta metodología nos permitirá identificar y definir las entidades principales que se necesitan para satisfacer los requisitos del sistema, facilitando la comunicación y la comprensión entre todas las partes involucradas.
+
+Hoy en día, DDD sigue siendo ampliamente utilizado en diversos proyectos, con numerosos casos de éxito en la industria que demuestran su eficacia, como se detalla en esta \href{https://blog.bitsrc.io/demystifying-domain-driven-design-ddd-in-modern-software-architecture-b57e27c210f7}{publicación}. Empresas como Netflix, Uber y Airbnb han adoptado DDD con notable éxito.
+
+\subsection{Enfoque Ágil y DDD}
+
+Es importante destacar que el diseño impulsado por el dominio (Domain-Driven Design, DDD) en~\cite{evans2004domain} no abandona la filosofía ágil. Aunque este libro no está vinculado a una metodología en particular, se orienta hacia la nueva familia de ``procesos de desarrollo ágil''. Específicamente, asume que se emplean dos prácticas en el proyecto, las cuales son prerrequisitos para aplicar el enfoque presentado en este libro.
+
+\begin{itemize}
+    \item \textbf{El desarrollo es iterativo.}
+    \item \textbf{Relación estrecha entre quiénes conocen el dominio y quiénes saben cómo construir \textit{software}.}
+\end{itemize}
+
+\section{Análisis de requisitos}
+
+Los requisitos han sido identificados a partir de las historias de usuario~\ref{sec:historias_de_usuario} anteriormente definidas y los usuarios identificados en~\ref{sec:usuarios_identificados}. Estos requisitos son los que llamamos los requisitos básicos o esenciales a partir de los cuales se desarrollará el diseño.
+
+\begin{itemize}
+    \item \textbf{Se debe proporcionar un editor de memes.}
+    \begin{itemize}
+        \item[-] Historias de usuario requeridas: HU01, HU04 y HU02.
+    \end{itemize}
+    \item \textbf{Se debe proporcionar un catálogo de memes predefinidos.}
+    \begin{itemize}
+        \item[-] Historias de usuario requeridas: HU01, HU02 y HU03.
+    \end{itemize}
+    \item \textbf{La solución debe poder permitir colaboración en la creación de memes.}
+    \begin{itemize}
+        \item[-] Historias de usuario requeridas: HU04.
+    \end{itemize}
+    \item \textbf{Se debe proporcionar un sistema de búsqueda avanzada de memes.}
+    \begin{itemize}
+        \item[-] Historias de usuario requeridas: HU03.
+    \end{itemize} 
+\end{itemize}
+
+\section{Análisis de las posibles soluciones}
+
+En este apartado, se analizarán las posibles soluciones para el desarrollo de la aplicación.
+
+\subsection{Desarrollo de una \href{https://apps.nextcloud.com/}{aplicación} para \href{https://nextcloud.com/es/}{\textit{Nextcloud}}}
+
+\textit{Nextcloud} es una plataforma de software libre que permite a los usuarios almacenar y sincronizar archivos, contactos, calendarios y más. Es una excelente opción para el desarrollo de nuestra aplicación, ya que proporciona una base sólida y una amplia gama de funcionalidades que pueden ser aprovechadas para implementar la funcionalidad de creación y gestión de memes. Para el desarrollo de una app en el ecosistema de \textit{Nextcloud}, se utiliza PHP y Vuejs. Además, \textit{Nextcloud} proporciona una API robusta que permite a los desarrolladores acceder a las funcionalidades del sistema.
+
+Esta solución tiene varios problemas para el usuario o cliente final: 
+
+\begin{itemize}
+    \item \textbf{Complejidad de la instalación:} La instalación de \textit{Nextcloud} puede ser complicada para los usuarios no técnicos. Por ejemplo para Ted Johnson González (experto conferenciante) que no tienen experiencia ni conocimientos técnicos podría ser un problema.
+    \item \textbf{Consumo de recursos:} \textit{Nextcloud} es una aplicación bastante exigente en términos de recursos, especialmente si se gestiona una gran cantidad de datos o usuarios como podría ser el caso del departamento de marketing de Corporate Solutions. Desarrollando nuestra propia aplicación, podemos optimizar los recursos para que los requisitos sean mínimos.
+\end{itemize}
+
+Por otro lado, la implementación de base de funcionalidades como la sincronización en local y en remoto, el almacenamiento y la búsqueda de archivos y la gestión de usuarios no justifica el tiempo que se va a dedicar a adaptarse al \href{https://nextcloud.com/developer/}{entorno de desarrollo} que proporciona Nextcloud para desarrollar apps, ya que estas funcionalidades se pueden aplicar mediante la implementación de repositorios o desde cero con un coste de tiempo y recursos mucho menor. 
+
+\subsection{Desarrollo de una app móvil}
+
+Otra posible solución sería el desarrollo de una aplicación móvil que permita a los usuarios crear y gestionar memes desde sus dispositivos móviles. Esta solución tiene varias ventajas, como la facilidad de uso y la accesibilidad, ya que los usuarios pueden elaborar memes en cualquier momento y lugar. Podría ser de bastante utilidad para todos y cada uno de los usuarios identificados.
+
+Sin embargo, esta solución también tiene sus inconvenientes. Por ejemplo, el desarrollo de aplicaciones móviles limita bastante la audiencia a la que se puede llegar, puesto que no todos los usuarios tienen un dispositivo móvil o prefieren utilizar un ordenador. La idea de este proyecto es justamente el poder llegar a un público amplio y diverso, por lo que esta solución no sería la más adecuada.
+
+\subsection{Desarrollo de una aplicación de escritorio}
+
+En esta solución que se ha considerado es el desarrollo de una aplicación de escritorio que permita a los usuarios generar y gestionar memes desde sus ordenadores. Esta solución tiene varias ventajas como la facilidad que va a tener el usuario final para adaptarse a este tipo de entorno, pues es donde se realizan este tipo de tareas para que la edición pueda llegar a ser más compleja.
+
+De nuevo, esta solución limita bastante la audiencia a la que se puede llegar, ya que no todos los usuarios tienen un ordenador o prefieren un dispositivo móvil (la cual es la mayoría actual).
+
+\subsection{Desarrollo de una aplicación web}
+
+El desarrollo de una aplicación web tiene lo bueno de las dos soluciones anteriores. Permite al usuario conectarse desde cualquier dispositivo sea PC o móvil. El desarrollo web es el más popular en la actualidad por lo que es bastante fácil encontrar comunidades, preguntas, documentación, artículos, etc.
+
+La idea detrás de esta solución reside en una aplicación web que sea igualmente accesible desde cualquier dispositivo con conexión y un navegador adecuado. Una vez accedes a la plataforma web, puedes crear, editar, almacenar, compartir y buscar memes. La forma de almacenar los memes podría llegar a hacerse en local o en remoto.
+
+\section{Selección de lenguajes de programación}
