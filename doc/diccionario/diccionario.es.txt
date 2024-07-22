@@ -87,3 +87,5 @@ bounded
 contexts
 Bounded
 Vuejs
+AngularJS
+framework

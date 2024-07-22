@@ -118,14 +118,30 @@ Una vez hayamos encontrado posibles soluciones que cumplan con los criterios de 
 
 \subsubsection{React}
 
-\textit{React} es una biblioteca de JavaScript de código abierto para construir interfaces de usuario o componentes de la interfaz de usuario, desarrollada por Facebook y lanzada en 2013. Es una de las bibliotecas más populares y ampliamente utilizadas en la actualidad. React está diseñada para ayudar a los desarrolladores a crear aplicaciones con datos dinámicos, siendo simple, declarativa y fácil de integrar. Se centra exclusivamente en la interfaz de usuario, actuando como la Vista en los patrones de diseño. Además, puede integrarse con extensiones basadas en React que gestionan las partes no relacionadas con la interfaz de usuario de una aplicación web~\cite{react-wikipedia}.
+\textit{React} es una biblioteca de JavaScript de código abierto para construir interfaces de usuario o componentes de la interfaz de usuario, desarrollada por Facebook y lanzada en 2013. Es una de las bibliotecas más populares y ampliamente utilizadas en la actualidad. React está diseñada para ayudar a los desarrolladores a crear aplicaciones con datos dinámicos, siendo simple, declarativa y fácil de integrar. Se centra exclusivamente en la interfaz de usuario, actuando como la Vista en los patrones de diseño. Además, puede integrarse con extensiones basadas en React que gestionan las partes no relacionadas con la interfaz de usuario de una aplicación web~\cite{react-wikipedia}. 
 
 Esta librería cumple todos los criterios de selección por lo que por ahora, se convierte en la mejor opción para el desarrollo de la parte del cliente. Lo único en lo que podríamos ver un inconveniente es en que no es un framework completo, sino una librería, por lo que se necesitará de otras librerías para completar la aplicación, de aquí pueden surgir varios problemas como dependencias no actualizadas, incompatibilidades, falta de optimización, se añade peso a la aplicación, etc. Además, cuando se trata de aplicaciones grandes, React puede ser un poco más complicado de manejar que otros.
 
 \begin{itemize}
-    \item[\regular] Escalabilidad: el manejo de estados puede llegar a ser algo bastante complejo.
-    \item[\bien] Mantenimiento: puede ser complicado en aplicaciones grandes.
+    \item[\bien] Escalabilidad: el manejo de estados puede llegar a ser algo bastante complejo.
+    \item[\regular] Mantenimiento: el actualizar podría llegar a ser un problema ya que deberíamos de actualizar todas las dependencias.
     \item[\regular] Rendimiento: rápido y eficiente aunque de igual manera, puede ralentizarse en aplicaciones grandes y con librerías añadidas que no estén optimizadas.
     \item[\esp] Comunidad: una de las comunidades más grandes y activas.
     \item[\bien] Documentación: documentación clara y completa.
 \end{itemize}
+
+\subsubsection{Angular}
+
+\textit{Angular} es un framework de código abierto desarrollado por Google para crear aplicaciones web de una sola página (SPA) y aplicaciones web dinámicas desarrollado en TypeScript. Angular es una reescritura completa de AngularJS, que se lanzó en 2010. Angular se centra en la creación de aplicaciones web de una sola página basándose en clases tipo componentes (como React) y proporciona una estructura para el desarrollo de aplicaciones web complejas. Angular es un framework completo que proporciona una amplia gama de funcionalidades y herramientas para el desarrollo de aplicaciones web, incluyendo enrutamiento, inyección de dependencias, pruebas unitarias y más~\cite{angular-wikipedia}.
+
+Una cosa a tener en cuenta y en la que se diferencia, por ejemplo de React, es en que es un framework completo y no una librería por lo que aunque no implemente mucha funcionalidad, de base, tiene un consumo de recursos más alto.
+
+\begin{itemize}
+    \item[\regular] Escalabilidad: complejo desde el principio. Está pensado para manejar una gran cantidad de datos desde el inicio.
+    \item[\bien] Mantenimiento: tiene un comando para actualizar aunque no siempre es tan sencillo.
+    \item[\regular] Rendimiento: como se ha mencionado, de base, es más lento al ser un framework completo.
+    \item[\regular] Comunidad: la comunidad es bastante activa aunque no tan grande como la de React.
+    \item[\regular] Documentación: documentación bastante clara aunque escasa, ya que hace poco se ha lanzado una nueva versión.
+\end{itemize}
+
+La curva de aprendizaje es mucho más pronunciada que la de React si no se tiene experiencia previa. Al ser una herramienta tan compleja y con tantas características implementadas de base, puede llegar a ser complicada de dominar.
