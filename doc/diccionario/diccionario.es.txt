@@ -93,3 +93,7 @@ frameworks
 Behance
 Evan
 You
+Schott
+astro
+Preact
+Svelte
