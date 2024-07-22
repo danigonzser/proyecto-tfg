@@ -101,3 +101,7 @@ frontend
 Vercel
 Rauch
 plugins
+api
+backend
+stack
+ChatGPT
