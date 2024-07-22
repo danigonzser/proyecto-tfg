@@ -89,7 +89,7 @@ El proyecto se va a desarrollar como una aplicación web teniendo esta usualment
 
 Esta parte del proyecto es la encargada con la interacción directa con el usuario y debe ser lo más amigable, rápida, intuitiva y accesible posible. Los frameworks de frontend son herramientas esenciales para los desarrolladores web, ya que proporcionan módulos de código reutilizables, tecnologías estandarizadas y bloques de interfaz prefabricados. Estos elementos simplifican el desarrollo de aplicaciones e interfaces de usuario, eliminando la necesidad de codificar cada función u objeto desde cero.
 
-En la actualidad, los frameworks inicialmente de frontend se han convertido en herramientas completas para el desarrollo de aplicaciones web o \textit{full stack web frameworks}. Algunos de los más populares son \textit{\href{https://es.react.dev/}{React}}, \textit{\href{https://angular.dev/}{Angular}}, \textit{\href{https://vuejs.org/}{Vue.js}} y \textit{\href{https://astro.build/}{Astro}}, siendo esta la alternativa que más está dando qué hablar recientemente. Cada uno de ellos tiene sus propias características, ventajas y desventajas, por lo que es importante evaluarlos cuidadosamente antes de tomar una decisión.
+En la actualidad, los frameworks inicialmente de frontend se han convertido en herramientas completas para el desarrollo de aplicaciones web o \textit{full stack web frameworks}. Algunos de los más populares son \textit{\href{https://es.react.dev/}{React}}, \textit{\href{https://angular.dev/}{Angular}}, \textit{\href{https://vuejs.org/}{Vue.js}}, \textit{\href{https://astro.build/}{Astro}} y textit{\href{https://nextjs.org/}{Next.js}}, siendo esta la alternativa que más está dando qué hablar recientemente. Cada uno de ellos tiene sus propias características, ventajas y desventajas, por lo que es importante evaluarlos cuidadosamente antes de tomar una decisión.
 
 \subsection{Criterios de búsqueda}
 
@@ -176,3 +176,20 @@ Astro es una de las mejores opciones para el desarrollo de aplicaciones web mode
     \item[\regular] Documentación: la documentación es bastante clara y completa aunque no hay muchos problemas resueltos por la escasez de la comunidad.
 \end{itemize}
 
+Uno de los principales problemas de Astro es que es una tecnología muy orientada al contenido estático como blogs, foros, etc. Además, Astro requiere que la página se recargue para cada cambio de ruta, lo que puede ser un problema en aplicaciones web modernas.
+
+\subsubsection{Next.js}
+
+Next.js es un marco web de desarrollo frontend de React de código abierto creado por Vercel y Guillermo Rauch en 2016 que permite a los desarrolladores la renderización del lado del servidor y la generación de sitios web estáticos. Next.js es una de las mejores opciones para el desarrollo de aplicaciones web modernas. Es uno de los frameworks más populares y ampliamente utilizados en la actualidad~\cite{nextjs-wikipedia}.
+
+Una de las mejores características que posee Next.js es su soporte para el SEO que es esencial si quieres que tu aplicación sea indexada por los motores de búsqueda. Al igual que Astro, tiene soporte SSR, pero no lo hace de forma predeterminada. Por último, tiene integradas las rutas dinámicas, la pre-generación de páginas y la exportación estática. Estas funcionalidades son muy importantes a la hora de la construcción de aplicaciones web. Los casos de éxito son numerosos como TikTok, Notion, ChatGPT, Spotify, etc.
+
+\begin{itemize}
+    \item[\bien] Escalabilidad: puede llegar a ser un problema para proyectos grandes.
+    \item[\mal] Mantenimiento: altos costes de desarrollo y mantenimiento.
+    \item[\regular] Rendimiento: el SSR se implementó para subsanar los problemas de rendimiento.
+    \item[\esp] Comunidad: al ser uno de los frameworks más utilizados, la comunidad es bastante grande y activa.
+    \item[\bien] Documentación: la documentación es bastante extensa e incluye tutoriales de inicio.
+\end{itemize}
+
+El principal problema de Next.js es que es un framework bastante completo que tiene implementadas muchas características por lo que los costes de desarrollo y mantenimiento son bastantes altos. Además, no tiene un gestor de estados integrado y falta facilidad a la hora de la integración de plugins.
