@@ -81,4 +81,51 @@ El desarrollo de una aplicación web tiene lo bueno de las dos soluciones anteri
 
 La idea detrás de esta solución reside en una aplicación web que sea igualmente accesible desde cualquier dispositivo con conexión y un navegador adecuado. Una vez accedes a la plataforma web, puedes crear, editar, almacenar, compartir y buscar memes. La forma de almacenar los memes podría llegar a hacerse en local o en remoto.
 
-\section{Selección de lenguajes de programación}
+\section{Selección de lenguajes de programación o tecnologías}
+
+El proyecto se va a desarrollar como una aplicación web teniendo esta usualmente una parte del cliente o frontend, una parte del servidor, api o backend y una parte de persistencia o base de datos. La elección de la tecnología en sendas partes es crucial a la hora de la experiencia de desarrollo, compatibilidad, escalabilidad, mantenimiento, etc.
+
+\subsection{Cliente o frontend}
+
+Esta parte del proyecto es la encargada con la interacción directa con el usuario y debe ser lo más amigable, rápida, intuitiva y accesible posible. Los frameworks de frontend son herramientas esenciales para los desarrolladores web, ya que proporcionan módulos de código reutilizables, tecnologías estandarizadas y bloques de interfaz prefabricados. Estos elementos simplifican el desarrollo de aplicaciones e interfaces de usuario, eliminando la necesidad de codificar cada función u objeto desde cero.
+
+En la actualidad, los frameworks inicialmente de frontend se han convertido en herramientas completas para el desarrollo de aplicaciones web o \textit{full stack web frameworks}. Algunos de los más populares son \textit{\href{https://es.react.dev/}{React}}, \textit{\href{https://angular.dev/}{Angular}}, \textit{\href{https://vuejs.org/}{Vue.js}} y \textit{\href{https://astro.build/}{Astro}}, siendo esta la alternativa que más está dando qué hablar recientemente. Cada uno de ellos tiene sus propias características, ventajas y desventajas, por lo que es importante evaluarlos cuidadosamente antes de tomar una decisión.
+
+\subsection{Criterios de búsqueda}
+
+Dado que el proyecto es una aplicación web multiplataforma, se necesita un framework rápido y eficiente que permita reactividad, escalabilidad y mantenimiento. Los criterios de búsqueda para la selección son los siguientes:
+
+\begin{itemize}
+    \item Reactividad: Debe ser reactivo y permitir la actualización de la interfaz de usuario en tiempo real.
+    \item Modularización: Debe ser modular y permitir la reutilización de componentes para facilitar el desarrollo.
+\end{itemize}
+
+\subsection{Criterios de selección}
+
+Una vez que se hayan encontrado posibles soluciones que cumplan con los criterios de búsqueda, se evaluará de acuerdo a los siguientes criterios de selección:
+
+\begin{itemize}
+    \item Escalabilidad: escalable y permitir la adición de nuevas funcionalidades y componentes.
+    \item Mantenimiento: fácil de mantener y actualizar.
+    \item Rendimiento: rápido y eficiente.
+    \item Comunidad: debe tener una comunidad activa y un ecosistema de desarrollo sólido. Además de librerías y plugins que faciliten el desarrollo.
+    \item Documentación: documentación clara y completa.
+\end{itemize}
+
+\subsection{Soluciones encontradas}
+
+Una vez hayamos encontrado posibles soluciones que cumplan con los criterios de búsqueda, se evaluarán de acuerdo a los criterios de selección. A continuación, se presentan las soluciones encontradas:
+
+\subsubsection{React}
+
+\textit{React} es una biblioteca de JavaScript de código abierto para construir interfaces de usuario o componentes de la interfaz de usuario, desarrollada por Facebook y lanzada en 2013. Es una de las bibliotecas más populares y ampliamente utilizadas en la actualidad. React está diseñada para ayudar a los desarrolladores a crear aplicaciones con datos dinámicos, siendo simple, declarativa y fácil de integrar. Se centra exclusivamente en la interfaz de usuario, actuando como la Vista en los patrones de diseño. Además, puede integrarse con extensiones basadas en React que gestionan las partes no relacionadas con la interfaz de usuario de una aplicación web~\cite{react-wikipedia}.
+
+Esta librería cumple todos los criterios de selección por lo que por ahora, se convierte en la mejor opción para el desarrollo de la parte del cliente. Lo único en lo que podríamos ver un inconveniente es en que no es un framework completo, sino una librería, por lo que se necesitará de otras librerías para completar la aplicación, de aquí pueden surgir varios problemas como dependencias no actualizadas, incompatibilidades, falta de optimización, se añade peso a la aplicación, etc. Además, cuando se trata de aplicaciones grandes, React puede ser un poco más complicado de manejar que otros.
+
+\begin{itemize}
+    \item[\regular] Escalabilidad: el manejo de estados puede llegar a ser algo bastante complejo.
+    \item[\bien] Mantenimiento: puede ser complicado en aplicaciones grandes.
+    \item[\regular] Rendimiento: rápido y eficiente aunque de igual manera, puede ralentizarse en aplicaciones grandes y con librerías añadidas que no estén optimizadas.
+    \item[\esp] Comunidad: una de las comunidades más grandes y activas.
+    \item[\bien] Documentación: documentación clara y completa.
+\end{itemize}
