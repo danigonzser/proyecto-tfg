@@ -105,3 +105,6 @@ api
 backend
 stack
 ChatGPT
+volatility
+decomposisiton
+mapping

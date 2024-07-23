@@ -1,29 +1,31 @@
-\chapter{Análisis}
+\chapter{Análisis del problema}
 
-En este capítulo, se realizará una explicación breve de la metodología de trabajo seguida en el mismo y un análisis de requisitos. Posteriormente, se procederá al proceso de selección lenguajes que más tarde se empleará para empezar a diseñar los objetos de nuestro proyecto.
+En este capítulo, se explicará la metodología seguida y se presentará un análisis de requisitos. Comenzaremos entendiendo el contexto del problema e identificando los requisitos a través de las historias de usuario y los usuarios identificados previamente. Posteriormente, se elaborará el código generado del DDD que modele las estructuras de datos necesarias para definir el problema.
 
-\section{Domain-Driven Design}
+Para garantizar una estructura coherente, organizada, eficiente y alineada con las mejores prácticas de desarrollo de software, se ha optado por un enfoque ágil junto con \textit{domain driven design} (DDD). Este enfoque permite profundizar en la comprensión y modelado del problema, a la vez el desarrollo se hace de forma incremental, continua y adaptativa.
 
-En este capítulo, se hará un análisis detallado de los requisitos del proyecto haciendo uso del Diseño Orientado al Dominio o \textit{domain-driven design} que para mayor rapidez y concisión denominaremos como \textit{DDD}. Esta filosofía de desarrollo de software nos ayudará a comprender y modelar el dominio empresarial, asegurando que nuestras soluciones se alineen con las necesidades específicas de los usuarios y del negocio.
+\section{Domain driven design}
 
-El Diseño Orientado al Dominio (DDD) es una filosofía de desarrollo de software que se centra en comprender y modelar el dominio empresarial para alinear el software con las necesidades del negocio. Introducido por Eric Evans en su libro~\cite{evans2004domain}, DDD ha evolucionado con aportes de numerosos profesionales.
+En esta sección, se analizará el problema utilizando el diseño orientado al dominio (DDD), una metodología introducida por Eric Evans. Esta metodología de desarrollo de software nos ayudará a comprender y modelar el dominio empresarial, asegurando que nuestras soluciones se alineen con las necesidades específicas de los usuarios y del negocio.
 
-En esencia, \textit{DDD} aborda la complejidad enfocándose en el ``dominio'', el contexto específico del software. Promueve el uso de un ``lenguaje ubicuo'', un lenguaje común entre desarrolladores y partes interesadas, para garantizar que el software refleje con precisión el ámbito empresarial. La modelización en \textit{DDD} no busca crear el modelo más realista, sino uno útil y apropiado para su propósito, similar a cómo una película representa la realidad de manera selectiva para cumplir su objetivo.
+DDD aborda la complejidad enfocándose en el ``dominio'' y promoviendo un ``lenguaje ubicuo'', un lenguaje común entre desarrolladores y partes interesadas para garantizar que el software refleje con precisión el ámbito empresarial. La modelización en DDD no busca crear el modelo más realista, sino uno útil y apropiado para su propósito~\cite{evans2004domain}.
 
-Hemos elegido \textit{DDD} porque proporciona una estructura clara y coherente para manejar la complejidad del dominio del proyecto, asegurando que las soluciones técnicas se alineen estrechamente con las necesidades del negocio y los usuarios. Esta metodología nos permitirá identificar y definir las entidades principales que se necesitan para satisfacer los requisitos del sistema, facilitando la comunicación y la comprensión entre todas las partes involucradas.
-
-Hoy en día, DDD sigue siendo ampliamente utilizado en diversos proyectos, con numerosos casos de éxito en la industria que demuestran su eficacia, como se detalla en esta \href{https://blog.bitsrc.io/demystifying-domain-driven-design-ddd-in-modern-software-architecture-b57e27c210f7}{publicación}. Empresas como Netflix, Uber y Airbnb han adoptado DDD con notable éxito.
-
-\subsection{Enfoque Ágil y DDD}
-
-Es importante destacar que el diseño impulsado por el dominio (Domain-Driven Design, DDD) en~\cite{evans2004domain} no abandona la filosofía ágil. Aunque este libro no está vinculado a una metodología en particular, se orienta hacia la nueva familia de ``procesos de desarrollo ágil''. Específicamente, asume que se emplean dos prácticas en el proyecto, las cuales son prerrequisitos para aplicar el enfoque presentado en este libro.
+El lenguaje ubicuo debe basarse en el modelo del dominio por lo que debe ser riguroso y preciso para evitar cualquier tipo de ambigüedad. De igual manera, debe ser especificado en una etapa temprana del proyecto por eso, está antes de todo el proceso. A continuación, algunos de los términos del lenguaje ubicuo:
 
 \begin{itemize}
-    \item \textbf{El desarrollo es iterativo.}
-    \item \textbf{Relación estrecha entre quiénes conocen el dominio y quiénes saben cómo construir \textit{software}.}
+    \item \textbf{Meme}: imagen, vídeo o texto que difunde un mensaje que suele ser humorístico.
+    \item \textbf{Plantilla}: formato base sobre la que se elaboran los memes.
+    \item \textbf{Catálogo de memes}: almacenamiento centralizado de memes.
+    \item \textbf{Colaborador}: usuario que puede editar un meme.
+    \item \textbf{Visualizador}: usuario que puede ver un meme.
+    \item \textbf{Búsqueda avanzada}: sistema de búsqueda en el catálogo de memes que permite filtrar memes por diferentes criterios.
 \end{itemize}
 
-\section{Análisis de requisitos}
+Además de DDD, se han contemplado alternativas como el \textit{domain mapping} que facilita la visualización del dominio y \textit{volatility decomposisiton} que permite identificar las partes del sistema que son más propensas a cambios. Empresas como \textit{Netflix}, \textit{Uber} y \textit{Airbnb} han adoptado DDD con notable éxito como se detalla en esta \href{https://blog.bitsrc.io demystifying-domain-driven-design-ddd-in-modern-software-architecture-b57e27c210f7}{publicación}.
+
+Es importante destacar que DDD no abandona la filosofía ágil. Aunque esta metodología no está vinculada a otra metodología en particular, se orienta hacia la nueva familia de ``procesos de desarrollo ágil''. Específicamente, asume que aplican dos prerrequisitos para aplicar el enfoque presentado en este libro: que el desarrollo sea iterativo y que la relación sea estrecha entre quiénes manejan el dominio y quiénes construyen el \textit{software}.
+
+\subsection{Análisis de requisitos}
 
 Los requisitos han sido identificados a partir de las historias de usuario~\ref{sec:historias_de_usuario} anteriormente definidas y los usuarios identificados en~\ref{sec:usuarios_identificados}. Estos requisitos son los que llamamos los requisitos básicos o esenciales a partir de los cuales se desarrollará el diseño.
 
