@@ -108,3 +108,5 @@ ChatGPT
 volatility
 decomposisiton
 mapping
+js
+StackOverflow
