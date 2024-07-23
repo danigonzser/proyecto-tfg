@@ -21,7 +21,7 @@ El lenguaje ubicuo debe basarse en el modelo del dominio por lo que debe ser rig
     \item \textbf{Búsqueda avanzada}: sistema de búsqueda en el catálogo de memes que permite filtrar memes por diferentes criterios.
 \end{itemize}
 
-Además de DDD, se han contemplado alternativas como el \textit{domain mapping} que facilita la visualización del dominio y \textit{volatility decomposisiton} que permite identificar las partes del sistema que son más propensas a cambios. Empresas como \textit{Netflix}, \textit{Uber} y \textit{Airbnb} han adoptado DDD con notable éxito como se detalla en esta \href{https://blog.bitsrc.io demystifying-domain-driven-design-ddd-in-modern-software-architecture-b57e27c210f7}{publicación}.
+Además de DDD, se han contemplado alternativas como el \textit{domain mapping} que facilita la visualización del dominio y \textit{volatility decomposisiton} que permite identificar las partes del sistema que son más propensas a cambios. Empresas como \textit{Netflix}, \textit{Uber} y \textit{Airbnb} han adoptado DDD con notable éxito como se detalla en esta~\href{https://blog.bitsrc.io demystifying-domain-driven-design-ddd-in-modern-software-architecture-b57e27c210f7}{publicación}.
 
 Es importante destacar que DDD no abandona la filosofía ágil. Aunque esta metodología no está vinculada a otra metodología en particular, se orienta hacia la nueva familia de ``procesos de desarrollo ágil''. Específicamente, asume que aplican dos prerrequisitos para aplicar el enfoque presentado en este libro: que el desarrollo sea iterativo y que la relación sea estrecha entre quiénes manejan el dominio y quiénes construyen el \textit{software}.
 
@@ -48,7 +48,6 @@ Los requisitos han sido identificados a partir de las historias de usuario~\ref{
     \end{itemize} 
 \end{itemize}
 
-
 \section{Selección del lenguaje de programación}
 
 Para la elaboración del código generado del DDD, se va a realizar un proceso de selección del lenguaje de programación en el que se va a escribir este código y posteriormente, realizar el proyecto.
@@ -58,8 +57,8 @@ Para la elaboración del código generado del DDD, se va a realizar un proceso d
 Los criterios que se han fijado para la búsqueda del lenguaje son los siguientes:
 
 \begin{itemize}
-    \item Permite crear interfaces que se tendrán que implementar en una clase.
-    \item Lenguaje íntimamente relacionado con el desarrollo web.
+    \item Permita crear interfaces que se tendrán que implementar en una clase.
+    \item Lenguaje relacionado con el desarrollo web para su posterior utilización.
 \end{itemize}
 
 \subsection{Criterios de selección}
@@ -67,29 +66,91 @@ Los criterios que se han fijado para la búsqueda del lenguaje son los siguiente
 Las propuestas encontradas tras los criterios de búsqueda serán evaluadas según:
 
 \begin{itemize}
-    \item Facilidad de uso.
-    \item Popularidad.
-    \item Fiabilidad y seguridad.
-    \item Documentación.
-    \item Comunidad.
+    \item \textbf{Estándares del lenguaje:} existen estándares establecidos y reconocidos del lenguaje para facilitar la integración y mantenimiento del código.
+    \item \textbf{Evolución continua:} evaluar que el lenguaje siga mejorando y actualizándose.
+    \item \textbf{Disponibilidad de herramientas:} compatibilidad con un conjunto de herramientas reconocidas y soportadas.
+    \item \textbf{Fiabilidad y seguridad:} posibilidad de prevenir errores comunes y seguridad del código.
+    \item \textbf{Rendimiento:} el lenguaje sea eficiente y rápido.
+    \item \textbf{Manejo de dependencias:} compatibilidad del lenguaje con gestores de dependencias eficientes, soportadas y reconocidas.
 \end{itemize}
 
 \subsection{Propuestas}
 
 \subsubsection{TypeScript}
 
-TypeScript, un superconjunto de JavaScript desarrollado por Microsoft y publicado en octubre 2012, extiende JavaScript con una sintaxis basada en un sistema de tipos estático para ofrecer una detección temprana de errores y una integración más profunda con los editores de código.
+\textit{TypeScript}, un superconjunto de JavaScript desarrollado por Microsoft y publicado en octubre 2012, extiende JavaScript con una sintaxis basada en un sistema de tipos estático para ofrecer una detección temprana de errores y una integración más profunda con los editores de código.
 
-Diseñado para compilarse a JavaScript, TypeScript es compatible y válido con cualquier código JavaScript. Esta extensión facilita la escritura y el mantenimiento de aplicaciones a gran escala al proporcionar inferencia de tipos y herramientas avanzadas sin necesidad de código adicional. Con TypeScript, los desarrolladores pueden definir tipos personalizados y recibir advertencias de errores directamente en el editor, lo que mejora significativamente la seguridad y eficiencia del proceso de desarrollo. A lo largo de los años, TypeScript ha ganado popularidad por su capacidad para mejorar la calidad del código y facilitar el trabajo en proyectos complejos.
+Diseñado para compilarse a JavaScript, \textit{TypeScript} es compatible y válido con cualquier código JavaScript. Esta extensión facilita la escritura y el mantenimiento de aplicaciones a gran escala al proporcionar inferencia de tipos y herramientas avanzadas sin necesidad de código adicional. Con \textit{TypeScript}, los desarrolladores pueden definir tipos personalizados y recibir advertencias de errores directamente en el editor, lo que mejora significativamente la seguridad y eficiencia del proceso de desarrollo. A lo largo de los años, \textit{TypeScript} ha ganado popularidad por su capacidad para mejorar la calidad del código y facilitar el trabajo en proyectos complejos~\cite{typescript-wiki}.
 
 \begin{itemize}
-    \item[\bien] \textbf{Facilidad de uso}: al ser un superconjunto de JavaScript, es fácil de aprender.
-    \item[\bien] Popularidad: JavaScript es el lenguaje más popular según esta \href{https://survey.stackoverflow.co/2023/#technology-most-popular-technologies}{encuesta} de StackOverflow, por lo que TypeScript también lo es.
-    \item[\esp] Fiabilidad y seguridad: al poseer un sistema de tipos fuerte y estático, se evitan errores mientras se escribe el código.
-    \item[\bien] Documentación: la documentación final junto con la de JavaScript es muy completa.
-    \item[\bien] Comunidad: al ser un lenguaje de Microsoft y superconjunto de JavaScript tiene una comunidad muy activa y completa
+    \item[\bien] \textbf{Estándares del lenguaje:} hay múltiples estándares establecidos y reconocidos de TypeScript. Además, al ser un superconjunto de JavaScript, suele ser compatible con los estándares de este último.
+    \item[\bien] \textbf{Evolución continua:} TypeScript sigue una actualización e integración de nuevas características de forma constante.
+    \item[\esp] \textbf{Disponibilidad de herramientas:} TypeScript es compatible con un amplio conjunto de herramientas. De nuevo, al ser un superconjunto, suele ser compatible con sus herramientas. La mayoría de herramientas a la hora de inicializar el proyecto suelen preguntar cuál de los dos se va a utilizar.
+    \item[\esp] \textbf{Fiabilidad y seguridad:} TypeScript posee un sistema de tipos fuerte y estático que evita errores comunes a la hora de la escritura del código.
+    \item[\bien] \textbf{Rendimiento:} no hay ningún deterioro en el rendimiento en runtime tras el compilado.
+    \item[\bien] \textbf{Manejo de dependencias:} TypeScript es compatible con gestores de dependencias reconocidos como \textit{npm}.
 \end{itemize}
+
+Por la parte del cliente, su subconjunto (JavaScript), es el lenguaje de programación más usado según la encuesta~\href{https://w3techs.com/technologies/overview/client_side_language}{W3Techs}.
+
+\subsubsection{Java}
+
+Java es un lenguaje de programación que fue desarrollado originalmente por James Gosling, de Sun Microsystems y posteriormente adquirida por su actual propietario, Oracle. La sintaxis deriva en gran medida de C/C++, pero cuenta con menos utilidades de bajo nivel. Las aplicaciones de Java son compiladas a bytecode que pueden ejecutarse en una máquina virtual Java sin importar la arquitectura de la computadora~\cite{java-wiki}.
+
+\begin{itemize}
+    \item[\bien] \textbf{Estándares del lenguaje:} Java en el ámbito web también tiene estándares y buenas prácticas establecidas para garantizar una buena calidad, mantenibilidad y escalabilidad del código en Spring Boot.
+    \item[\bien] \textbf{Evolución continua:} Java, a día de hoy, sigue actualizándose e incorporando nuevas características.
+    \item[\bien] \textbf{Disponibilidad de herramientas:} existen herramientas bastante completas como puede ser Spring Boot que permite elaborar aplicaciones web de forma sencilla.
+    \item[\esp] \textbf{Fiabilidad y seguridad:} maneja un sistema de memoria seguro y fiable además de un colector de basura que evita fugas de memoria. Además, al ejecutarse en una máquina virtual se vuelve mucho más seguro
+    \item[\bien] \textbf{Rendimiento:} Java es bastante rápido a la hora de la ejecución aunque tiene que ser compilado.
+    \item[\bien] \textbf{Manejo de dependencias:} es compatible con gestores de dependencias modernas y reconocidas como Maven (utilizado en Spring Boot).
+\end{itemize}
+
+Por la parte del servidor, es el cuarto lenguaje de programación más usado según la encuesta~\href{https://w3techs.com/technologies/overview/programming_language}{W3Techs}.
+
+\subsubsection{Python}
+
+Python es un lenguaje de alto nivel de programación interpretado cuya filosofía hace hincapié en la legibilidad de código. Se trata de un lenguaje de programación multiparadigma que soporta parcialmente la orientación a objetos, programación imperativa y, en menor medida, programación funcional. Es un lenguaje interpretado, dinámico y multiplataforma. Python es uno de los lenguajes más populares en la actualidad. Fue creado por Guido van Rossum en 1991~\cite{python-wiki}.
+
+\begin{itemize}
+    \item[\bien] \textbf{Estándares del lenguaje:} existen varios estándares establecidos como el PEP 8. Junto con eso existen herramientas para que automáticamente el código se ajuste a estos estándares.
+    \item[\bien] \textbf{Evolución continua:} a día de hoy, Python sigue incorporando nuevas funciones y arreglando fallos.
+    \item[\bien] \textbf{Disponibilidad de herramientas:} al ser uno de los lenguajes más populares y ampliamente usados existen todo tipo de herramientas, librerías y frameworks a disposición para todo tipo de casos de uso.
+    \item[\bien] \textbf{Fiabilidad y seguridad:} debido a su sistema de tipos dinámico el error puede detectar errores que otros lenguajes no podrían, establece protocolos de seguridad como la encriptación, hasheo y autenticación en librerías pertenecientes al estándar junto con eso está su filosofía de legibilidad de código asegurando una sintaxis clara y consistente. Además, puede ser ejecutado en un entorno virtual para aislar el entorno de ejecución, dependencias, librerías, etc.
+    \item[\regular] \textbf{Rendimiento:} el venir con muchas funciones incorporadas y poder emplearlo en casi cualquier ámbito que se nos ocurra, hace que sea un lenguaje bastante lento además de ser interpretado y necesita de muchos recursos en tiempo de ejecución para entender, traducir y validar las instrucciones del código.
+    \item[\bien] \textbf{Manejo de dependencias:} el manejo de dependencias es bastante sencillo y se puede hacer a través de \textit{pipenv} que es bastante similar a como se hace con \textit{npm}, solo que en este caso se crea un entorno virtual donde se produce la ejecución del código e instalación de las dependencias.
+\end{itemize}
+
+\subsubsection{Ruby}
+
+Ruby es un lenguaje de programación interpretado, reflexivo y orientado a objetos. El programador japonés Yukihiro Matsumoto, quien comenzó a trabajar en Ruby en 1993, lo presentó públicamente en 1995. Combina una sintaxis inspirada en Python y Perl con características de programación orientada a objetos similares a Smalltalk. Es interpretado de una sola pasada y su implementación oficial es distribuida bajo una licencia de software libre~\cite{ruby-wiki}.
+
+\begin{itemize}
+    \item[\bien] \textbf{Estándares del lenguaje:} también existen estándares establecidos y reconocidos de Ruby. Su sintaxis está diseñada para ser intuitiva y natural.
+    \item[\bien] \textbf{Evolución continua:} recibe actualizaciones y mantenimiento de forma continua. No se queda atrás en cuanto a nuevas características y mejoras.
+    \item[\bien] \textbf{Disponibilidad de herramientas:} existe un amplio ecosistema de herramientas y librerías como Ruby on Rails para el desarrollo web que facilitan la creación de aplicaciones.
+    \item[\bien] \textbf{Fiabilidad y seguridad:} se han implementado una serie de medidas de seguridad por defecto que protegen contra vulnerabilidades comunes. Una de sus ventajas más destacadas es su fiabilidad en el mundo del desarrollo web debido a su base estable y continua evolución.
+    \item[\regular] \textbf{Rendimiento:} en comparación con otros lenguajes, puede llegar a ser más lento en runtime.
+    \item[\bien] \textbf{Manejo de dependencias:} Ruby es compatible con gestores de dependencias eficientes, soportadas y reconocidas. Un ejemplo es \textit{RubyGems}. 
+\end{itemize}
+
+Por la parte del servidor, es el tercer lenguaje de programación más usado según la encuesta~\href{https://w3techs.com/technologies/overview/programming_language}{W3Techs}.
+
+\subsubsection{Php}
+
+PHP es un lenguaje de programación interpretado del lado del servidor y de uso general que se adapta especialmente al desarrollo web. Fue creado inicialmente por Rasmus Lerdorf en 1994. El código de PHP suele ser procesado en un servidor web por un intérprete. En un servidor web el resultado de la interpretación y ejecución del código PHP sería HTML o una imagen binaria que formarían parte de la totalidad o parte de la respuesta~\cite{php-wiki}.
+
+\begin{itemize}
+    \item[\bien] \textbf{Estándares del lenguaje:} la recomendación estándar de PP es el PHP Standards Recommendations (PSR) de manos de PHP-FIG que es un grupo que tiene como objetivo mejorar el ecosistema y promover buenos estándares.
+    \item[\bien] \textbf{Evolución continua:} incluso con la llegada de nuevos lenguajes, PHP sigue evolucionando y mejorando. La última versión (8.3.9) fue lanzada el 4 de julio de 2024.
+    \item[\bien] \textbf{Disponibilidad de herramientas:} en el ecosistema de PHP existen numerosas herramientas como una amplia gama de frameworks para desarrollo de aplicaciones web como Laravel, el cual es uno de los frameworks de backend más populares.
+    \item[\esp] \textbf{Fiabilidad y seguridad:} la implementación de mecanismos de seguridad robustos junto con el sistema de tipos y los estándares anteriormente mencionados PSR aportan una fiabilidad y seguridad muy alta al código
+    \item[\bien] \textbf{Rendimiento:} cada vez más se está mejorando su rendimiento. En las últimas versiones su rendimiento ha mejorado considerablemente.
+    \item[\bien] \textbf{Manejo de dependencias:} \textit{Composer} es un gestor de dependencias bastante eficiente y ampliamente utilizado en el ecosistema.
+\end{itemize}
+
+Por la parte del servidor, es el lenguaje de programación más usado según la encuesta \href{https://w3techs.com/technologies/overview/programming_language}{W3Techs}.
 
 \subsection{Conclusión}
 
-Al ser TypeScript la única propuesta que se ajusta a los criterios de búsqueda y se ajusta bastante bien a los criterios de selección se ha decidido que el lenguaje de programación en el que se va a escribir el código será TypeScript.
+Tras valorar todas las propuestas basándonos en los criterios de selección podemos ver que dos de los lenguajes que más se ajustan a los criterios son \textit{TypeScript} y \textit{PHP}. Aunque \textit{TypeScript} es un lenguaje que está en auge y que tiene una gran comunidad detrás, \textit{PHP} es uno de los lenguajes más veteranos y la opción más escogida por la parte del servidor en desarrollo web. Sin embargo, PHP tiene ciertas inconsistencias en su nombrado de funciones y parámetros que puede llegar a ser poco intuitivo, su fortaleza está por la parte del servidor y al ser un lenguaje con una curva de aprendizaje más grande y un toque más clásico que TypeScript se ha optado por emplear este último para la elaboración del código. Este lenguaje se integra perfectamente con el ecosistema JavaScript y es compatible con código JavaScript lo que reduce la deuda técnica y refactorización, junto con todo esto, la comunidad tan grande garantiza un acceso a un vasto conjunto de recursos y herramientas que facilitan el desarrollo.
