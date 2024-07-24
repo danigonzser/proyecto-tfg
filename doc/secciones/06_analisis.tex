@@ -57,9 +57,7 @@ Para la elaboración del código generado del DDD, se va a realizar un proceso d
 Los criterios que se han fijado para la búsqueda del lenguaje son los siguientes:
 
 \begin{itemize}
-    \item Permita crear interfaces que se tendrán que implementar en una clase.
-    \item Lenguaje relacionado con el desarrollo web para su posterior utilización.
-    \item 
+    \item Compatible con el desarrollo web para su posterior utilización.
 \end{itemize}
 
 \subsection{Criterios de selección}
@@ -67,15 +65,26 @@ Los criterios que se han fijado para la búsqueda del lenguaje son los siguiente
 Las propuestas encontradas tras los criterios de búsqueda serán evaluadas según:
 
 \begin{itemize}
-    \item \textbf{Estándares del lenguaje:} existen estándares establecidos y reconocidos del lenguaje para facilitar la integración y mantenimiento del código.
-    \item \textbf{Evolución continua:} evaluar que el lenguaje siga mejorando y actualizándose.
-    \item \textbf{Disponibilidad de herramientas:} compatibilidad con un conjunto de herramientas reconocidas y soportadas.
-    \item \textbf{Fiabilidad y seguridad:} posibilidad de prevenir errores comunes y seguridad del código.
-    \item \textbf{Rendimiento:} el lenguaje sea eficiente y rápido.
-    \item \textbf{Manejo de dependencias:} compatibilidad del lenguaje con gestores de dependencias eficientes, soportadas y reconocidas.
+    \item \textbf{Compatibilidad para desarrollo del cliente:} el lenguaje debe ser compatible con el desarrollo por la parte del cliente. Debe ser capaz de construir interfaces de usuario interactivas y dinámicas.
+    \item \textbf{Ecosistema:} el lenguaje debe ser capaz de contar con numerosas alternativas a la hora de facilitar la programación. Esto incluye bibliotecas, frameworks, etc.
+    \item \textbf{Sistema de tipos estáticos:} el lenguaje debe ofrecer este sistema de tipos estáticos que permita la detección temprana de errores, mejorando la seguridad, mantenibilidad, robustez, escalabilidad y documentación del código. Según~\cite{gao2017type} se concluyó que un lenguaje con tipificación estática como es TypeScript hubiera evitado el 15\% de los errores en el código de otro lenguaje sin tipificación como es JavaScript. Esto permite a los desarrolladores comprender mejor su código y detectar inconsistencias o errores mejora la capacidad de mantener y evolucionar el software con confianza y fiabilidad.
 \end{itemize}
 
+El desempeño de cada lenguaje en sendos criterios será etiquetado mediante la viñeta en el enumerado de los mismos desde \esp~si destaca por este criterio, \bien~si tiene un desempeño bueno sin llegar a destacar, \regular~si tiene un desempeño medio y \mal~si tiene un desempeño nulo.
+
 \subsection{Propuestas}
+
+\subsubsection{JavaScript}
+
+JavaScript es un lenguaje de programación de alto nivel, interpretado, orientado a objetos, basado en prototipos, imperativo y débilmente tipado y dinámico. Junto con HTML y CSS, JavaScript es una de las tres tecnologías fundamentales de la World Wide Web. Se utiliza principalmente del lado del cliente, implementado como parte de un navegador web. Todos los navegadores modernos interpretan código JavaScript. Fue desarrollado originalmente por Brendan Eich de Netscape con el nombre de Mocha, pasó por LiveScript y finalmente adoptó el nombre que tiene en la actualidad. Apareció por primera vez en el navegador Netscape Navigate en la versión 2002 en diciembre de 1995~\cite{javascript-wiki}.
+
+\begin{itemize}
+    \item[\esp] \textbf{Compatibilidad para desarrollo del cliente:} compatible, originalmente fue creado exactamente para este propósito y como hemos mencionado. Se puede ejecutar directamente en la consola integrada en el navegador, es fácil de implementar aunque puede ser también un problema, ya que entre navegadores puede haber diferencias en la interpretación del código.
+    \item[\esp] \textbf{Ecosistema:} tiene uno de los ecosistemas más grandes en el mundo de la programación incorporando todo tipo de bibliotecas y frameworks para facilitar el desarrollo. Algunos de los más conocidos son React, Angular, Vue, etc.
+    \item[\mal] \textbf{Sistema de tipos estáticos:} es un lenguaje con tipado dinámico.
+\end{itemize}
+
+Por la parte del cliente es el lenguaje de programación más usado según la encuesta~\href{https://w3techs.com/technologies/overview/client_side_language}{W3Techs}.
 
 \subsubsection{TypeScript}
 
@@ -84,42 +93,31 @@ Las propuestas encontradas tras los criterios de búsqueda serán evaluadas seg�
 Diseñado para compilarse a JavaScript, \textit{TypeScript} es compatible y válido con cualquier código JavaScript. Esta extensión facilita la escritura y el mantenimiento de aplicaciones a gran escala al proporcionar inferencia de tipos y herramientas avanzadas sin necesidad de código adicional. Con \textit{TypeScript}, los desarrolladores pueden definir tipos personalizados y recibir advertencias de errores directamente en el editor, lo que mejora significativamente la seguridad y eficiencia del proceso de desarrollo. A lo largo de los años, \textit{TypeScript} ha ganado popularidad por su capacidad para mejorar la calidad del código y facilitar el trabajo en proyectos complejos~\cite{typescript-wiki}.
 
 \begin{itemize}
-    \item[\bien] \textbf{Estándares del lenguaje:} hay múltiples estándares establecidos y reconocidos de TypeScript. Además, al ser un superconjunto de JavaScript, suele ser compatible con los estándares de este último.
-    \item[\bien] \textbf{Evolución continua:} TypeScript sigue una actualización e integración de nuevas características de forma constante.
-    \item[\esp] \textbf{Disponibilidad de herramientas:} TypeScript es compatible con un amplio conjunto de herramientas. De nuevo, al ser un superconjunto, suele ser compatible con sus herramientas. La mayoría de herramientas a la hora de inicializar el proyecto suelen preguntar cuál de los dos se va a utilizar.
-    \item[\esp] \textbf{Fiabilidad y seguridad:} TypeScript posee un sistema de tipos fuerte y estático que evita errores comunes a la hora de la escritura del código.
-    \item[\bien] \textbf{Rendimiento:} no hay ningún deterioro en el rendimiento en runtime tras el compilado.
-    \item[\bien] \textbf{Manejo de dependencias:} TypeScript es compatible con gestores de dependencias reconocidos como \textit{npm}.
+    \item[\esp] \textbf{Compatibilidad para desarrollo del cliente:} es completamente compatible para el desarrollo del lado del cliente, incluso se puede ejecutar directamente en la consola integrada en el navegador.
+    \item[\esp] \textbf{Ecosistema:} cuenta con uno bastante robusto y completo al igual que JavaScript. Incluye la mayoría de frameworks que se incluye JavaScript al ser completamente compatible con este.
+    \item[\esp] \textbf{Sistema de tipos estáticos:} si por algo destaca TypeScript es por su sistema de tipos estáticos que permite detectar errores a la vez que se codifica mediante la comprobación de tipos evitando bugs, errores aportando seguridad, mantenibilidad y escalabilidad y seguridad al código. Además, incorpora características únicas como la inferencia de tipos, tipos genéricos, tipos de unión, tipos de intersección\ldots que lo vuelven mucho más flexible que otros lenguajes que también incorporan un sistema de tipos estático.
 \end{itemize}
-
-Por la parte del cliente, su subconjunto (JavaScript), es el lenguaje de programación más usado según la encuesta~\href{https://w3techs.com/technologies/overview/client_side_language}{W3Techs}.
 
 \subsubsection{Java}
 
 Java es un lenguaje de programación que fue desarrollado originalmente por James Gosling, de Sun Microsystems y posteriormente adquirida por su actual propietario, Oracle. La sintaxis deriva en gran medida de C/C++, pero cuenta con menos utilidades de bajo nivel. Las aplicaciones de Java son compiladas a bytecode que pueden ejecutarse en una máquina virtual Java sin importar la arquitectura de la computadora~\cite{java-wiki}.
 
 \begin{itemize}
-    \item[\bien] \textbf{Estándares del lenguaje:} Java en el ámbito web también tiene estándares y buenas prácticas establecidas para garantizar una buena calidad, mantenibilidad y escalabilidad del código en Spring Boot.
-    \item[\bien] \textbf{Evolución continua:} Java, a día de hoy, sigue actualizándose e incorporando nuevas características.
-    \item[\bien] \textbf{Disponibilidad de herramientas:} existen herramientas bastante completas como puede ser Spring Boot que permite elaborar aplicaciones web de forma sencilla.
-    \item[\esp] \textbf{Fiabilidad y seguridad:} maneja un sistema de memoria seguro y fiable además de un colector de basura que evita fugas de memoria. Además, al ejecutarse en una máquina virtual se vuelve mucho más seguro
-    \item[\bien] \textbf{Rendimiento:} Java es bastante rápido a la hora de la ejecución aunque tiene que ser compilado.
-    \item[\bien] \textbf{Manejo de dependencias:} es compatible con gestores de dependencias modernas y reconocidas como Maven (utilizado en Spring Boot).
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} no es compatible con el desarrollo por la parte del cliente, Java es más comúnmente utilizado en el lado del servidor y para desarrollar aplicaciones de escritorio. 
+    \item[\bien] \textbf{Ecosistema:} posee un ecosistema muy maduro con herramientas de desarrollo y frameworks como Spring para backend.
+    \item[\esp] \textbf{Sistema de tipos estáticos:} tiene un sistema de tipos estáticos bastante estricto y el tipo de dato de un objeto no puede ser cambiado una vez sea creado lo que aporta una robustez, fiabilidad y documentación al código bastante alto.
 \end{itemize}
 
 Por la parte del servidor, es el cuarto lenguaje de programación más usado según la encuesta~\href{https://w3techs.com/technologies/overview/programming_language}{W3Techs}.
 
 \subsubsection{Python}
 
-Python es un lenguaje de alto nivel de programación interpretado cuya filosofía hace hincapié en la legibilidad de código. Se trata de un lenguaje de programación multiparadigma que soporta parcialmente la orientación a objetos, programación imperativa y, en menor medida, programación funcional. Es un lenguaje interpretado, dinámico y multiplataforma. Python es uno de los lenguajes más populares en la actualidad. Fue creado por Guido van Rossum en 1991~\cite{python-wiki}.
+Python es un lenguaje de alto nivel de programación interpretado cuya filosofía hace hincapié en la legibilidad de código. Se trata de un lenguaje de programación multiparadigma que soporta parcialmente la orientación a objetos, programación imperativa y, en menor medida, programación funcional. Es un lenguaje interpretado, dinámico y multiplataforma. Python es uno de los lenguajes más populares en la actualidad. Fue desarrollado por Guido van Rossum en 1991~\cite{python-wiki}.
 
 \begin{itemize}
-    \item[\bien] \textbf{Estándares del lenguaje:} existen varios estándares establecidos como el PEP 8. Junto con eso existen herramientas para que automáticamente el código se ajuste a estos estándares.
-    \item[\bien] \textbf{Evolución continua:} a día de hoy, Python sigue incorporando nuevas funciones y arreglando fallos.
-    \item[\bien] \textbf{Disponibilidad de herramientas:} al ser uno de los lenguajes más populares y ampliamente usados existen todo tipo de herramientas, librerías y frameworks a disposición para todo tipo de casos de uso.
-    \item[\bien] \textbf{Fiabilidad y seguridad:} debido a su sistema de tipos dinámico el error puede detectar errores que otros lenguajes no podrían, establece protocolos de seguridad como la encriptación, hasheo y autenticación en librerías pertenecientes al estándar junto con eso está su filosofía de legibilidad de código asegurando una sintaxis clara y consistente. Además, puede ser ejecutado en un entorno virtual para aislar el entorno de ejecución, dependencias, librerías, etc.
-    \item[\regular] \textbf{Rendimiento:} el venir con muchas funciones incorporadas y poder emplearlo en casi cualquier ámbito que se nos ocurra, hace que sea un lenguaje bastante lento además de ser interpretado y necesita de muchos recursos en tiempo de ejecución para entender, traducir y validar las instrucciones del código.
-    \item[\bien] \textbf{Manejo de dependencias:} el manejo de dependencias es bastante sencillo y se puede hacer a través de \textit{pipenv} que es bastante similar a como se hace con \textit{npm}, solo que en este caso se crea un entorno virtual donde se produce la ejecución del código e instalación de las dependencias.
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} aunque compatible, no es el mejor lenguaje para dedicarlo al desarrollo por parte del cliente. Python es mucho más versátil y potente cuando se utiliza para el desarrollo por parte del servidor, en la ciencia de datos, inteligencia artificial, etc.
+    \item[\bien] \textbf{Ecosistema:} tiene un ecosistema muy rico con una gran variedad de librerías y frameworks como puede ser \textit{Django} y \textit{Flask}.
+    \item[\mal] \textbf{Sistema de tipos estáticos:} como hemos dicho anteriormente es un lenguaje con un sistema de tipos dinámicos.
 \end{itemize}
 
 \subsubsection{Ruby}
@@ -127,12 +125,9 @@ Python es un lenguaje de alto nivel de programación interpretado cuya filosofí
 Ruby es un lenguaje de programación interpretado, reflexivo y orientado a objetos. El programador japonés Yukihiro Matsumoto, quien comenzó a trabajar en Ruby en 1993, lo presentó públicamente en 1995. Combina una sintaxis inspirada en Python y Perl con características de programación orientada a objetos similares a Smalltalk. Es interpretado de una sola pasada y su implementación oficial es distribuida bajo una licencia de software libre~\cite{ruby-wiki}.
 
 \begin{itemize}
-    \item[\bien] \textbf{Estándares del lenguaje:} también existen estándares establecidos y reconocidos de Ruby. Su sintaxis está diseñada para ser intuitiva y natural.
-    \item[\bien] \textbf{Evolución continua:} recibe actualizaciones y mantenimiento de forma continua. No se queda atrás en cuanto a nuevas características y mejoras.
-    \item[\bien] \textbf{Disponibilidad de herramientas:} existe un amplio ecosistema de herramientas y librerías como Ruby on Rails para el desarrollo web que facilitan la creación de aplicaciones.
-    \item[\bien] \textbf{Fiabilidad y seguridad:} se han implementado una serie de medidas de seguridad por defecto que protegen contra vulnerabilidades comunes. Una de sus ventajas más destacadas es su fiabilidad en el mundo del desarrollo web debido a su base estable y continua evolución.
-    \item[\regular] \textbf{Rendimiento:} en comparación con otros lenguajes, puede llegar a ser más lento en runtime.
-    \item[\bien] \textbf{Manejo de dependencias:} Ruby es compatible con gestores de dependencias eficientes, soportadas y reconocidas. Un ejemplo es \textit{RubyGems}. 
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} es compatible, pero su verdadero potencial se encuentra por parte del servidor donde se desempeña de una manera excelente. Aun así, no es conocido por su rendimiento, sino por su facilidad a la hora de escribir código agilizando el desarrollo.
+    \item[\bien] \textbf{Ecosistema:} \textit{Ruby on Rails}, Sinatra y Rack son algunos de los frameworks que utilizan Ruby. No es un ecosistema tan amplio como el de otros 
+    \item[\mal] \textbf{Sistema de tipos estáticos:} no es compatible, es un lenguaje dinámico.
 \end{itemize}
 
 Por la parte del servidor, es el tercer lenguaje de programación más usado según la encuesta~\href{https://w3techs.com/technologies/overview/programming_language}{W3Techs}.
@@ -142,16 +137,59 @@ Por la parte del servidor, es el tercer lenguaje de programación más usado seg
 PHP es un lenguaje de programación interpretado del lado del servidor y de uso general que se adapta especialmente al desarrollo web. Fue creado inicialmente por Rasmus Lerdorf en 1994. El código de PHP suele ser procesado en un servidor web por un intérprete. En un servidor web el resultado de la interpretación y ejecución del código PHP sería HTML o una imagen binaria que formarían parte de la totalidad o parte de la respuesta~\cite{php-wiki}.
 
 \begin{itemize}
-    \item[\bien] \textbf{Estándares del lenguaje:} la recomendación estándar de PP es el PHP Standards Recommendations (PSR) de manos de PHP-FIG que es un grupo que tiene como objetivo mejorar el ecosistema y promover buenos estándares.
-    \item[\bien] \textbf{Evolución continua:} incluso con la llegada de nuevos lenguajes, PHP sigue evolucionando y mejorando. La última versión (8.3.9) fue lanzada el 4 de julio de 2024.
-    \item[\bien] \textbf{Disponibilidad de herramientas:} en el ecosistema de PHP existen numerosas herramientas como una amplia gama de frameworks para desarrollo de aplicaciones web como Laravel, el cual es uno de los frameworks de backend más populares.
-    \item[\esp] \textbf{Fiabilidad y seguridad:} la implementación de mecanismos de seguridad robustos junto con el sistema de tipos y los estándares anteriormente mencionados PSR aportan una fiabilidad y seguridad muy alta al código
-    \item[\bien] \textbf{Rendimiento:} cada vez más se está mejorando su rendimiento. En las últimas versiones su rendimiento ha mejorado considerablemente.
-    \item[\bien] \textbf{Manejo de dependencias:} \textit{Composer} es un gestor de dependencias bastante eficiente y ampliamente utilizado en el ecosistema.
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} es compatible, pero es más conocido y es más un lenguaje interpretado por parte del servidor que por parte del cliente. El script php se puede incrustar directamente en el código html. Igualmente, este código se renderizaría en el servidor php y se enviaría al cliente.
+    \item[\bien] \textbf{Ecosistema:} existen una gran variedad de herramientas como \textit{Laravel} y \textit{Symfony}. Estos frameworks son bastante usados en el backend.
+    \item[\bien] \textbf{Sistema de tipos estáticos:} la calificación que más se ajustaría a su sistema de tipos sería: sistema de tipificación gradual (desde su versión 7.0 en adelante). Esta es una implementación que se sitúa entre un tipado estático y un tipado dinámico, es decir, algunas variables y expresiones pueden tener tipos y la corrección y tipificación se comprueba en tiempo de ejecución y otras en tiempo de compilación. Esto puede provocar inconsistencias en el código.
 \end{itemize}
 
-Por la parte del servidor, es el lenguaje de programación más usado según la encuesta \href{https://w3techs.com/technologies/overview/programming_language}{W3Techs}.
+Por la parte del servidor, es el lenguaje de programación más empleado según la encuesta \href{https://w3techs.com/technologies/overview/programming_language}{W3Techs}.
+
+\subsubsection{Go}
+
+Go es un lenguaje de programación concurrente y compilado con tipificación estática inspirado en la sintaxis de C pero con seguridad de memoria y recolección de basura. Ha sido desarrollado por Google y lanzado en 2009. También conocido como Golang, fue creado para resolver los problemas de programación en un proyecto grande. Destaca por su minimalismo, simplicidad y eficiencia. Además, incorpora una sintaxis y estructura moderna y familiar. Algunos de los proyectos más conocidos que utilizan Go son Docker, Kubernetes, Terraform, etc.~\cite{go-wiki}.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} debido a su carácter compilado, no es compatible.
+    \item[\regular] \textbf{Ecosistema:} no tiene un ecosistema muy amplio teniendo una comunidad no muy colaborativa y muy joven. Por lo general, si se quiere realizar algo en Go, tendrá que ser desde 0 y sin ningún framework. Esto más o menos se satisface con la simplicidad del lenguaje.
+    \item[\bien] \textbf{Sistema de tipos estáticos:} incorpora un sistema de tipos estático lo que resulta de bastante ayuda a la hora de trabajar en proyectos grandes. Además, incorpora algunas características como la inferencia de tipos y tipos personalizados. Go es bastante criticado por no tener tipos genéricos.
+\end{itemize}
+
+\subsubsection{Go}
+
+Go es un lenguaje de programación concurrente y compilado con tipificación estática inspirado en la sintaxis de C pero con seguridad de memoria y recolección de basura. Ha sido desarrollado por Google y lanzado en 2009. También conocido como Golang, fue creado para resolver los problemas de programación en un proyecto grande. Destaca por su minimalismo, simplicidad y eficiencia. Además, incorpora una sintaxis y estructura moderna y familiar. Algunos de los proyectos más conocidos que utilizan Go son Docker, Kubernetes, Terraform, etc.~\cite{go-wiki}.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} debido a su carácter compilado, no es compatible.
+    \item[\regular] \textbf{Ecosistema:} no tiene un ecosistema muy amplio teniendo una comunidad no muy colaborativa y muy joven. Por lo general, si se quiere realizar algo en Go, tendrá que ser desde 0 y sin ningún framework. Esto más o menos se satisface con la simplicidad del lenguaje.
+    \item[\bien] \textbf{Sistema de tipos estáticos:} incorpora un sistema de tipos estático lo que resulta de bastante ayuda a la hora de trabajar en proyectos grandes. Además, incorpora algunas características como la inferencia de tipos y tipos personalizados. Go es bastante criticado por no tener tipos genéricos.
+\end{itemize}
+
+\subsubsection{Kotlin}
+
+Kotlin es un lenguaje de programación multiplataforma, con tipificación estática, de alto nivel y de propósito general con inferencia de tipos. Fue desarrollado por JetBrains y lanzado en 2011 diseñado para ser totalmente interoperable con Java. En 2019 Google anunció que sería el lenguaje preferido para los desarrolladores de apps Android. Al igual que Java, es compilado a bytecode~\cite{kotlin-wiki}.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} Kotlin tiene soporte para la web compilando a JavaScript (backend Kotlin/JS) aunque su fuerte reside en el backend y en el desarrollo de aplicaciones móviles.
+    \item[\regular] \textbf{Ecosistema:} la mayoría del desarrollo de librerías y frameworks se centra en el desarrollo de aplicaciones móviles y en el backend. Aun así, existe Kotlin Multiplatform que permite reducir el tiempo al escribir código compatible con diferentes plataformas manteniendo la flexibilidad y los beneficios de la programación nativa.
+    \item[\bien] \textbf{Sistema de tipos estáticos:} como se ha mencionado anteriormente, implementa una tipificación estática con inferencia de tipos. Sin embargo, no se contempla la conversión implícita entre tipos.
+\end{itemize}
+
+\subsubsection{Scala}
+
+Scala es un lenguaje de programación multi-paradigma diseñado para expresar patrones comunes de programación en forma concisa, elegante y con una tipificación fuerte y estática. La implementación actual se ejecuta en la máquina virtual de Java. Fue diseñado por Martin Odersky y lanzado en 2003.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} no es compatible y principalmente orientado a la parte del servidor y procesamiento de datos.
+    \item[\mal] \textbf{Ecosistema:} tiene un ecosistema bastante centrado en campos como el procesamiento de datos y el backend. Aun así, Scala.js permite compilar a JavaScript.
+    \item[\regular] \textbf{Sistema de tipos estáticos:} es un lenguaje con tipificación fuerte y estática aunque es bastante complejo y confuso. A todo esto se le añade que el compilador de Scala (sbt) es bastante lento y pesado.
+\end{itemize}
 
 \subsection{Conclusión}
 
-Tras valorar todas las propuestas basándonos en los criterios de selección podemos ver que dos de los lenguajes que más se ajustan a los criterios son \textit{TypeScript} y \textit{PHP}. Aunque \textit{TypeScript} es un lenguaje que está en auge y que tiene una gran comunidad detrás, \textit{PHP} es uno de los lenguajes más veteranos y la opción más escogida por la parte del servidor en desarrollo web. Sin embargo, PHP tiene ciertas inconsistencias en su nombrado de funciones y parámetros que puede llegar a ser poco intuitivo, su fortaleza está por la parte del servidor y al ser un lenguaje con una curva de aprendizaje más grande y un toque más clásico que TypeScript se ha optado por emplear este último para la elaboración del código. Este lenguaje se integra perfectamente con el ecosistema JavaScript y es compatible con código JavaScript lo que reduce la deuda técnica y refactorización, junto con todo esto, la comunidad tan grande garantiza un acceso a un vasto conjunto de recursos y herramientas que facilitan el desarrollo.
+Según los criterios de selección el lenguaje que más se adapta a los mismos sería TypeScript, ya que es compatible con el desarrollo del cliente, tiene un ecosistema amplio y un sistema de tipos estáticos con características particulares que lo hace único.
+
+En comparación con su subconjunto, JavaScript, la diferencia principal no reside en la detección de errores en sí (que también) sino en qué se confía para detectarlos. Los programadores que escriben en JavaScript tienen que apoyarse en herramientas como los tests, linters para detectar errores de tipos mientras que TypeScript lo hace de forma ``nativa''. Si es verdad que el tipado supone un costo adicional al añadir un paso más, pero TypeScript en particular, reduce este coste usando tipos estructurales en vez de nominativos y haciendo inferencias.
+
+En cuanto a su diferencia y lo que lo hace único respecto a este tipo de lenguajes con tipificación estática como Java, Kotlin, Go, Scala y PHP es su optimización del coste de la tipificación mediante la inferencia de tipos y sobre todo, por su tipificación estática basada en estructuras. Esto permite considerar estructuras como equivalentes cuando dos estructuras tienen diferente nombre y campos idénticos. Sin embargo, en los otros lenguajes con tipificación estática nominativa estas estructuras serían consideradas diferentes.
+
+Por último, a modo de apunte, Go tiene una implementación híbrida entre tipificación basada en estructuras y nominativa, ya que puede llegar a verificar el tipo de los campos de la estructura.
