@@ -1,2 +1,185 @@
 \chapter{Análisis del problema}
- 
+
+En este capítulo, se explicará la metodología seguida y se presentará un análisis de requisitos. Comenzaremos entendiendo el contexto del problema e identificando los requisitos a través de las historias de usuario y los usuarios identificados previamente. Posteriormente, se elaborará el código generado del DDD que modele las estructuras de datos necesarias para definir el problema.
+
+Para garantizar una estructura coherente, organizada, eficiente y alineada con las mejores prácticas de desarrollo de software, se ha optado por un enfoque ágil junto con \textit{domain driven design} (DDD). Este enfoque permite profundizar en la comprensión y modelado del problema, a la vez el desarrollo se hace de forma incremental, continua y adaptativa.
+
+\section{Domain driven design}
+
+En esta sección, se analizará el problema utilizando el diseño orientado al dominio (DDD), una metodología introducida por Eric Evans. Esta metodología de desarrollo de software nos ayudará a comprender y modelar el dominio empresarial, asegurando que nuestras soluciones se alineen con las necesidades específicas de los usuarios y del negocio.
+
+DDD aborda la complejidad enfocándose en el ``dominio'' y promoviendo un ``lenguaje ubicuo'', un lenguaje común entre desarrolladores y partes interesadas para garantizar que el software refleje con precisión el ámbito empresarial. La modelización en DDD no busca crear el modelo más realista, sino uno útil y apropiado para su propósito~\cite{evans2004domain}.
+
+El lenguaje ubicuo debe basarse en el modelo del dominio por lo que debe ser riguroso y preciso para evitar cualquier tipo de ambigüedad. De igual manera, debe ser especificado en una etapa temprana del proyecto por eso, está antes de todo el proceso. A continuación, algunos de los términos del lenguaje ubicuo:
+
+\begin{itemize}
+    \item \textbf{Meme}: imagen, vídeo o texto que difunde un mensaje que suele ser humorístico.
+    \item \textbf{Plantilla}: formato base sobre la que se elaboran los memes.
+    \item \textbf{Catálogo de memes}: almacenamiento centralizado de memes.
+    \item \textbf{Colaborador}: usuario que puede editar un meme.
+    \item \textbf{Visualizador}: usuario que puede ver un meme.
+    \item \textbf{Búsqueda avanzada}: sistema de búsqueda en el catálogo de memes que permite filtrar memes por diferentes criterios.
+\end{itemize}
+
+Además de DDD, se han contemplado alternativas como el \textit{domain mapping} que facilita la visualización del dominio y \textit{volatility decomposisiton} que permite identificar las partes del sistema que son más propensas a cambios. Empresas como \textit{Netflix}, \textit{Uber} y \textit{Airbnb} han adoptado DDD con notable éxito como se detalla en esta~\href{https://blog.bitsrc.io demystifying-domain-driven-design-ddd-in-modern-software-architecture-b57e27c210f7}{publicación}.
+
+Es importante destacar que DDD no abandona la filosofía ágil. Aunque esta metodología no está vinculada a otra metodología en particular, se orienta hacia la nueva familia de ``procesos de desarrollo ágil''. Específicamente, asume que aplican dos prerrequisitos para aplicar el enfoque presentado en este libro: que el desarrollo sea iterativo y que la relación sea estrecha entre quiénes manejan el dominio y quiénes construyen el \textit{software}.
+
+\subsection{Análisis de requisitos}
+
+Los requisitos han sido identificados a partir de las historias de usuario~\ref{sec:historias_de_usuario} anteriormente definidas y los usuarios identificados en~\ref{sec:usuarios_identificados}. Estos requisitos son los que llamamos los requisitos básicos o esenciales a partir de los cuales se desarrollará el diseño.
+
+\begin{itemize}
+    \item \textbf{Se debe proporcionar un editor de memes.}
+    \begin{itemize}
+        \item[-] Historias de usuario requeridas: HU01, HU04 y HU02.
+    \end{itemize}
+    \item \textbf{Se debe proporcionar un catálogo de memes predefinidos.}
+    \begin{itemize}
+        \item[-] Historias de usuario requeridas: HU01, HU02 y HU03.
+    \end{itemize}
+    \item \textbf{La solución debe poder permitir colaboración en la creación de memes.}
+    \begin{itemize}
+        \item[-] Historias de usuario requeridas: HU04.
+    \end{itemize}
+    \item \textbf{Se debe proporcionar un sistema de búsqueda avanzada de memes.}
+    \begin{itemize}
+        \item[-] Historias de usuario requeridas: HU03.
+    \end{itemize} 
+\end{itemize}
+
+\section{Selección del lenguaje de programación}
+
+Para la elaboración del código generado del DDD, se va a realizar un proceso de selección del lenguaje de programación en el que se va a escribir este código y posteriormente, realizar el proyecto.
+
+\subsection{Criterios de búsqueda}
+
+Los criterios que se han fijado para la búsqueda del lenguaje son los siguientes:
+
+\begin{itemize}
+    \item Compatible con el desarrollo web para su posterior utilización.
+\end{itemize}
+
+\subsection{Criterios de selección}
+
+Las propuestas encontradas tras los criterios de búsqueda serán evaluadas según:
+
+\begin{itemize}
+    \item \textbf{Compatibilidad para desarrollo del cliente:} el lenguaje debe ser compatible con el desarrollo por la parte del cliente. Debe ser capaz de construir interfaces de usuario interactivas y dinámicas.
+    \item \textbf{Ecosistema:} el lenguaje debe ser capaz de contar con numerosas alternativas a la hora de facilitar la programación. Esto incluye bibliotecas, frameworks, etc.
+    \item \textbf{Sistema de tipos estáticos:} el lenguaje debe ofrecer este sistema de tipos estáticos que permita la detección temprana de errores, mejorando la seguridad, mantenibilidad, robustez, escalabilidad y documentación del código. Según~\cite{gao2017type} se concluyó que un lenguaje con tipificación estática como es TypeScript hubiera evitado el 15\% de los errores en el código de otro lenguaje sin tipificación como es JavaScript. Esto permite a los desarrolladores comprender mejor su código y detectar inconsistencias o errores mejora la capacidad de mantener y evolucionar el software con confianza y fiabilidad.
+\end{itemize}
+
+El desempeño de cada lenguaje en sendos criterios será etiquetado mediante la viñeta en el enumerado de los mismos desde \esp~si destaca por este criterio, \bien~si tiene un desempeño bueno sin llegar a destacar, \regular~si tiene un desempeño medio y \mal~si tiene un desempeño nulo.
+
+\subsection{Propuestas}
+
+\subsubsection{JavaScript}
+
+JavaScript es un lenguaje de programación de alto nivel, interpretado, orientado a objetos, basado en prototipos, imperativo y débilmente tipado y dinámico. Junto con HTML y CSS, JavaScript es una de las tres tecnologías fundamentales de la World Wide Web. Se utiliza principalmente del lado del cliente, implementado como parte de un navegador web. Todos los navegadores modernos interpretan código JavaScript. Fue desarrollado originalmente por Brendan Eich de Netscape con el nombre de Mocha, pasó por LiveScript y finalmente adoptó el nombre que tiene en la actualidad. Apareció por primera vez en el navegador Netscape Navigate en la versión 2002 en diciembre de 1995~\cite{javascript-wiki}.
+
+\begin{itemize}
+    \item[\esp] \textbf{Compatibilidad para desarrollo del cliente:} compatible, originalmente fue creado exactamente para este propósito y como hemos mencionado. Se puede ejecutar directamente en la consola integrada en el navegador, es fácil de implementar aunque puede ser también un problema, ya que entre navegadores puede haber diferencias en la interpretación del código.
+    \item[\esp] \textbf{Ecosistema:} tiene uno de los ecosistemas más grandes en el mundo de la programación incorporando todo tipo de bibliotecas y frameworks para facilitar el desarrollo. Algunos de los más conocidos son React, Angular, Vue, etc.
+    \item[\mal] \textbf{Sistema de tipos estáticos:} es un lenguaje con tipado dinámico.
+\end{itemize}
+
+Por la parte del cliente es el lenguaje de programación más usado según la encuesta~\href{https://w3techs.com/technologies/overview/client_side_language}{W3Techs}.
+
+\subsubsection{TypeScript}
+
+\textit{TypeScript}, un superconjunto de JavaScript desarrollado por Microsoft y publicado en octubre 2012, extiende JavaScript con una sintaxis basada en un sistema de tipos estático para ofrecer una detección temprana de errores y una integración más profunda con los editores de código.
+
+Diseñado para compilarse a JavaScript, \textit{TypeScript} es compatible y válido con cualquier código JavaScript. Esta extensión facilita la escritura y el mantenimiento de aplicaciones a gran escala al proporcionar inferencia de tipos y herramientas avanzadas sin necesidad de código adicional. Con \textit{TypeScript}, los desarrolladores pueden definir tipos personalizados y recibir advertencias de errores directamente en el editor, lo que mejora significativamente la seguridad y eficiencia del proceso de desarrollo. A lo largo de los años, \textit{TypeScript} ha ganado popularidad por su capacidad para mejorar la calidad del código y facilitar el trabajo en proyectos complejos~\cite{typescript-wiki}.
+
+\begin{itemize}
+    \item[\esp] \textbf{Compatibilidad para desarrollo del cliente:} es completamente compatible para el desarrollo del lado del cliente, incluso se puede ejecutar directamente en la consola integrada en el navegador.
+    \item[\esp] \textbf{Ecosistema:} cuenta con uno bastante robusto y completo al igual que JavaScript. Incluye la mayoría de frameworks que se incluye JavaScript al ser completamente compatible con este.
+    \item[\esp] \textbf{Sistema de tipos estáticos:} si por algo destaca TypeScript es por su sistema de tipos estáticos que permite detectar errores a la vez que se codifica mediante la comprobación de tipos evitando bugs, errores aportando seguridad, mantenibilidad y escalabilidad y seguridad al código. Además, incorpora características únicas como la inferencia de tipos, tipos genéricos, tipos de unión, tipos de intersección\ldots que lo vuelven mucho más flexible que otros lenguajes que también incorporan un sistema de tipos estático.
+\end{itemize}
+
+\subsubsection{Java}
+
+Java es un lenguaje de programación que fue desarrollado originalmente por James Gosling, de Sun Microsystems y posteriormente adquirida por su actual propietario, Oracle. La sintaxis deriva en gran medida de C/C++, pero cuenta con menos utilidades de bajo nivel. Las aplicaciones de Java son compiladas a bytecode que pueden ejecutarse en una máquina virtual Java sin importar la arquitectura de la computadora~\cite{java-wiki}.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} no es compatible con el desarrollo por la parte del cliente, Java es más comúnmente utilizado en el lado del servidor y para desarrollar aplicaciones de escritorio. 
+    \item[\bien] \textbf{Ecosistema:} posee un ecosistema muy maduro con herramientas de desarrollo y frameworks como Spring para backend.
+    \item[\esp] \textbf{Sistema de tipos estáticos:} tiene un sistema de tipos estáticos bastante estricto y el tipo de dato de un objeto no puede ser cambiado una vez sea creado lo que aporta una robustez, fiabilidad y documentación al código bastante alto.
+\end{itemize}
+
+Por la parte del servidor, es el cuarto lenguaje de programación más usado según la encuesta~\href{https://w3techs.com/technologies/overview/programming_language}{W3Techs}.
+
+\subsubsection{Python}
+
+Python es un lenguaje de alto nivel de programación interpretado cuya filosofía hace hincapié en la legibilidad de código. Se trata de un lenguaje de programación multiparadigma que soporta parcialmente la orientación a objetos, programación imperativa y, en menor medida, programación funcional. Es un lenguaje interpretado, dinámico y multiplataforma. Python es uno de los lenguajes más populares en la actualidad. Fue desarrollado por Guido van Rossum en 1991~\cite{python-wiki}.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} aunque compatible, no es el mejor lenguaje para dedicarlo al desarrollo por parte del cliente. Python es mucho más versátil y potente cuando se utiliza para el desarrollo por parte del servidor, en la ciencia de datos, inteligencia artificial, etc.
+    \item[\bien] \textbf{Ecosistema:} tiene un ecosistema muy rico con una gran variedad de librerías y frameworks como puede ser \textit{Django} y \textit{Flask}.
+    \item[\mal] \textbf{Sistema de tipos estáticos:} como hemos dicho anteriormente es un lenguaje con un sistema de tipos dinámicos.
+\end{itemize}
+
+\subsubsection{Ruby}
+
+Ruby es un lenguaje de programación interpretado, reflexivo y orientado a objetos. El programador japonés Yukihiro Matsumoto, quien comenzó a trabajar en Ruby en 1993, lo presentó públicamente en 1995. Combina una sintaxis inspirada en Python y Perl con características de programación orientada a objetos similares a Smalltalk. Es interpretado de una sola pasada y su implementación oficial es distribuida bajo una licencia de software libre~\cite{ruby-wiki}.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} es compatible, pero su verdadero potencial se encuentra por parte del servidor donde se desempeña de una manera excelente. Aun así, no es conocido por su rendimiento, sino por su facilidad a la hora de escribir código agilizando el desarrollo.
+    \item[\bien] \textbf{Ecosistema:} \textit{Ruby on Rails}, Sinatra y Rack son algunos de los frameworks que utilizan Ruby. No es un ecosistema tan amplio como el de otros 
+    \item[\mal] \textbf{Sistema de tipos estáticos:} no es compatible, es un lenguaje dinámico.
+\end{itemize}
+
+Por la parte del servidor, es el tercer lenguaje de programación más usado según la encuesta~\href{https://w3techs.com/technologies/overview/programming_language}{W3Techs}.
+
+\subsubsection{\MakeUppercase{Php}}
+
+PHP es un lenguaje de programación interpretado del lado del servidor y de uso general que se adapta especialmente al desarrollo web. Fue creado inicialmente por Rasmus Lerdorf en 1994. El código de PHP suele ser procesado en un servidor web por un intérprete. En un servidor web el resultado de la interpretación y ejecución del código PHP sería HTML o una imagen binaria que formarían parte de la totalidad o parte de la respuesta~\cite{php-wiki}.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} es compatible, pero es más conocido y es más un lenguaje interpretado por parte del servidor que por parte del cliente. El script php se puede incrustar directamente en el código html. Igualmente, este código se renderizaría en el servidor php y se enviaría al cliente.
+    \item[\bien] \textbf{Ecosistema:} existen una gran variedad de herramientas como \textit{Laravel} y \textit{Symfony}. Estos frameworks son bastante usados en el backend.
+    \item[\bien] \textbf{Sistema de tipos estáticos:} la calificación que más se ajustaría a su sistema de tipos sería: sistema de tipificación gradual (desde su versión 7.0 en adelante). Esta es una implementación que se sitúa entre un tipado estático y un tipado dinámico, es decir, algunas variables y expresiones pueden tener tipos y la corrección y tipificación se comprueba en tiempo de ejecución y otras en tiempo de compilación. Esto puede provocar inconsistencias en el código.
+\end{itemize}
+
+Por la parte del servidor, es el lenguaje de programación más empleado según la encuesta \href{https://w3techs.com/technologies/overview/programming_language}{W3Techs}.
+
+\subsubsection{Go}
+
+Go es un lenguaje de programación concurrente y compilado con tipificación estática inspirado en la sintaxis de C pero con seguridad de memoria y recolección de basura. Ha sido desarrollado por Google y lanzado en 2009. También conocido como Golang, fue creado para resolver los problemas de programación en un proyecto grande. Destaca por su minimalismo, simplicidad y eficiencia. Además, incorpora una sintaxis y estructura moderna y familiar. Algunos de los proyectos más conocidos que utilizan Go son Docker, Kubernetes, Terraform, etc.~\cite{go-wiki}.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} debido a su carácter compilado, no es compatible.
+    \item[\regular] \textbf{Ecosistema:} no tiene un ecosistema muy amplio teniendo una comunidad no muy colaborativa y muy joven. Por lo general, si se quiere realizar algo en Go, tendrá que ser desde 0 y sin ningún framework. Esto más o menos se satisface con la simplicidad del lenguaje.
+    \item[\bien] \textbf{Sistema de tipos estáticos:} incorpora un sistema de tipos estático lo que resulta de bastante ayuda a la hora de trabajar en proyectos grandes. Además, incorpora algunas características como la inferencia de tipos y tipos personalizados. Go es bastante criticado por no tener tipos genéricos.
+\end{itemize}
+
+\subsubsection{Kotlin}
+
+Kotlin es un lenguaje de programación multiplataforma, con tipificación estática, de alto nivel y de propósito general con inferencia de tipos. Fue desarrollado por JetBrains y lanzado en 2011 diseñado para ser totalmente interoperable con Java. En 2019 Google anunció que sería el lenguaje preferido para los desarrolladores de apps Android. Al igual que Java, es compilado a bytecode~\cite{kotlin-wiki}.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} Kotlin tiene soporte para la web compilando a JavaScript (backend Kotlin/JS) aunque su fuerte reside en el backend y en el desarrollo de aplicaciones móviles.
+    \item[\regular] \textbf{Ecosistema:} la mayoría del desarrollo de librerías y frameworks se centra en el desarrollo de aplicaciones móviles y en el backend. Aun así, existe Kotlin Multiplatform que permite reducir el tiempo al escribir código compatible con diferentes plataformas manteniendo la flexibilidad y los beneficios de la programación nativa.
+    \item[\bien] \textbf{Sistema de tipos estáticos:} como se ha mencionado anteriormente, implementa una tipificación estática con inferencia de tipos. Sin embargo, no se contempla la conversión implícita entre tipos.
+\end{itemize}
+
+\subsubsection{Scala}
+
+Scala es un lenguaje de programación multi-paradigma diseñado para expresar patrones comunes de programación en forma concisa, elegante y con una tipificación fuerte y estática. La implementación actual se ejecuta en la máquina virtual de Java. Fue diseñado por Martin Odersky y lanzado en 2003.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} no es compatible y principalmente orientado a la parte del servidor y procesamiento de datos.
+    \item[\mal] \textbf{Ecosistema:} tiene un ecosistema bastante centrado en campos como el procesamiento de datos y el backend. Aun así, Scala.js permite compilar a JavaScript.
+    \item[\regular] \textbf{Sistema de tipos estáticos:} es un lenguaje con tipificación fuerte y estática aunque es bastante complejo y confuso. A todo esto se le añade que el compilador de Scala (sbt) es bastante lento y pesado.
+\end{itemize}
+
+\subsection{Conclusión}
+
+Según los criterios de selección el lenguaje que más se adapta a los mismos sería TypeScript, ya que es compatible con el desarrollo del cliente, tiene un ecosistema amplio y un sistema de tipos estáticos con características particulares que lo hace único.
+
+En comparación con su subconjunto, JavaScript, la diferencia principal no reside en la detección de errores en sí (que también) sino en qué se confía para detectarlos. Los programadores que escriben en JavaScript tienen que apoyarse en herramientas como los tests, linters para detectar errores de tipos mientras que TypeScript lo hace de forma ``nativa''. Si es verdad que el tipado supone un costo adicional al añadir un paso más, pero TypeScript en particular, reduce este coste usando tipos estructurales en vez de nominativos y haciendo inferencias.
+
+En cuanto a su diferencia y lo que lo hace único respecto a este tipo de lenguajes con tipificación estática como Java, Kotlin, Go, Scala y PHP es su optimización del coste de la tipificación mediante la inferencia de tipos y sobre todo, por su tipificación estática basada en estructuras. Esto permite considerar estructuras como equivalentes cuando dos estructuras tienen diferente nombre y campos idénticos. Sin embargo, en los otros lenguajes con tipificación estática nominativa estas estructuras serían consideradas diferentes.
+
+Por último, a modo de apunte, Go tiene una implementación híbrida entre tipificación basada en estructuras y nominativa, ya que puede llegar a verificar el tipo de los campos de la estructura.
