@@ -1,0 +1,20 @@
+{
+  "name": "proyecto-tfg",
+  "version": "1.0.0",
+  "description": "Código fuente del proyecto de fin de grado de Daniel González Serrano",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Daniel González Serrano",
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "^9.8.0",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^7.18.0"
+  }
+}
