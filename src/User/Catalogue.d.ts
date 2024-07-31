@@ -1,4 +1,4 @@
-export const enum Rol {
+export const enum Role {
   Admin,
   Collaborator,
   Viewer,
@@ -11,13 +11,13 @@ export interface Catalogo {
   readonly creationDate: Date;
   lastModificationDate: Date;
   memes: Meme[];
-  allowedUserRoles: Map<Rol, User>;
+  allowedUserRoles: Map<Role, User>;
   label: Label[];
   cover: string; // Imagen
   private: boolean;
 
   addMeme(meme: Meme): void;
-  addAllowedUser(user: User, rol: Rol): void;
+  addAllowedUser(user: User, role: Role): void;
   addLabel(label: Label): void;
 
   removeMeme(meme: Meme): void;
@@ -31,6 +31,6 @@ export interface Catalogo {
 
   getMemes(): Meme[] | never;
   getAllowedUserRoles(): User[] | never;
-  getAllowedUser(user: User): Rol | undefined;
+  getAllowedUser(user: User): Role | undefined;
   getLabels(): Label[] | never;
 }

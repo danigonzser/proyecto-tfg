@@ -4,9 +4,9 @@ export interface Label {
   description: string;
   readonly creationDate: Date;
   lastModificationDate: Date;
-  color: string;
+  colour: string;
 
-  editarname(name: string): void;
-  editardescription(description: string): void;
-  editarColor(color: string): void;
+  changeName(name: string): void;
+  changeDescription(description: string): void;
+  changeColour(colour: string): void;
 }

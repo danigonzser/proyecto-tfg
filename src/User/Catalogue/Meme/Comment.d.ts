@@ -1,4 +1,4 @@
-export interface Comentario {
+export interface Comment {
   readonly id: number;
   content: string;
   readonly creationDate: Date;

@@ -1,4 +1,4 @@
-export const enum Rol {
+export const enum Role {
   Admin,
   Collaborator,
   Viewer,
@@ -10,7 +10,7 @@ export interface Meme {
   content?: unknown;
   isTemplate: boolean;
   creator: User;
-  allowedUserRoles: Map<Rol, User>;
+  allowedUserRoles: Map<Role, User>;
   readonly creationDate: Date;
   lastModificationDate: Date;
   labels: Label[];
