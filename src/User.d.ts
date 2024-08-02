@@ -1,6 +1,6 @@
 export interface User {
   readonly id: number;
-  Name: string;
+  name: string;
   email: string;
   birthDate: Date;
   gender: string;
