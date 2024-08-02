@@ -12,7 +12,7 @@ export interface Catalogue {
   lastModificationDate: Date;
   memes: Meme[];
   allowedUserRoles: Map<Role, User>[];
-  label: Label[];
+  labels: Label[];
   cover: string; // Imagen
   private: boolean;
 
