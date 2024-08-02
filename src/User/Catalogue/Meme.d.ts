@@ -19,7 +19,7 @@ export interface Meme {
   reactions: Reaction[];
   edits: Edit[];
 
-  addLabel(Label: Label): void;
+  addLabel(label: Label): void;
   addComment(comment: Comment): void;
   addLike(user: User): void;
   addReaction(reaction: Reaction): void;
