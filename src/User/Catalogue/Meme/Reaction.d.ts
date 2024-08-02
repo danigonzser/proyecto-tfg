@@ -1,5 +1,5 @@
 export interface Reaction {
-  readonly id: number;
+  readonly id: UUID;
   emoji: string;
   whoReact: User;
   readonly creationDate: Date;

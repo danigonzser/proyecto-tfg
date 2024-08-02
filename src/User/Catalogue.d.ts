@@ -5,7 +5,7 @@ export const enum Role {
 }
 
 export interface Catalogue {
-  readonly id: number;
+  readonly id: UUID;
   title: string;
   description: string;
   readonly creationDate: Date;

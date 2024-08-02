@@ -1,5 +1,5 @@
 export interface Comment {
-  readonly id: number;
+  readonly id: UUID;
   content: string;
   readonly creationDate: Date;
   lastModificationDate: Date;

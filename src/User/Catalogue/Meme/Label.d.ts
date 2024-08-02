@@ -1,5 +1,5 @@
 export interface Label {
-  readonly id: number;
+  readonly id: UUID;
   name: string;
   description: string;
   readonly creationDate: Date;

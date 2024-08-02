@@ -5,7 +5,7 @@ export const enum Role {
 }
 
 export interface Meme {
-  readonly id: number;
+  readonly id: UUID;
   title: string;
   content?: unknown;
   isTemplate: boolean;
