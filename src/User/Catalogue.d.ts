@@ -4,7 +4,7 @@ export const enum Role {
   Viewer,
 }
 
-export interface Catalogo {
+export interface Catalogue {
   readonly id: number;
   title: string;
   description: string;
