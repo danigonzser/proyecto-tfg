@@ -183,3 +183,59 @@ En comparación con su subconjunto, JavaScript, la diferencia principal no resid
 En cuanto a su diferencia y lo que lo hace único respecto a este tipo de lenguajes con tipificación estática como Java, Kotlin, Go, Scala y PHP es su optimización del coste de la tipificación mediante la inferencia de tipos y sobre todo, por su tipificación estática basada en estructuras. Esto permite considerar estructuras como equivalentes cuando dos estructuras tienen diferente nombre y campos idénticos. Sin embargo, en los otros lenguajes con tipificación estática nominativa estas estructuras serían consideradas diferentes.
 
 Por último, a modo de apunte, Go tiene una implementación híbrida entre tipificación basada en estructuras y nominativa, ya que puede llegar a verificar el tipo de los campos de la estructura.
+
+\section{Selección de la herramienta de testeo}
+
+Antes de comenzar con el desarrollo, es necesario seleccionar la herramienta de testeo que se va a utilizar para asegurar la calidad del código porque el código que no está probado, está roto. Además de asegurarse de que el código cumple con las historias de usuario e issues, la implementación de estos también debe funcionar; aquí es donde entran en juego los tests.
+
+Hasta ahora se ha explicado el porqué hacer tests, pero ¿qué tipo de tests hay que hacer?, ¿cómo se hacen?, ¿qué tipo de tests existen? Cuantos más tests se hagan y más casos de uso se contemplen en ellos, más robusto, fiable, seguro y libre de fallos será el código. A continuación, se explicarán los diferentes tipos de tests que se pueden hacer:
+
+\begin{itemize}
+    \item \textbf{Tests unitarios:} se encargan de probar una unidad de código, es decir, una función, clase, método, etc. Estos tests se encargan de comprobar cada funcionalidad desde un punto de vista lógico o de bajo nivel. De hecho, hoy en día se habla mucho del \textit{code coverage} o cobertura de código que es la cantidad de flujos que se han probado en los tests, cuanto más alto sea, más confianza se podrá tener en el código.
+    \item \textbf{Tests de integración:} el proyecto suele constar de trozos de código que se comunican entre ellos, los tests de integración se encargan de verificar que estos funcionen correctamente. Esto resulta cada vez más útil cuanto más grande sea el proyecto por lo que en nuestro caso y en principio, no es nuestro mayor problema.
+    \item \textbf{Tests \textit{end to end}:} se encargan de probar la funcionalidad de la aplicación desde el punto de vista del usuario. Se suele automatizar una simulación de un posible usuario final que interactúa con el sistema.
+\end{itemize}
+
+\subsection{Criterios de búsqueda}
+
+Los criterios que se han fijado para la búsqueda de la herramienta de testeo son los siguientes:
+
+\begin{itemize}
+    \item Compatible con TypeScript.
+    \item Aserciones y tests unitarios.
+    \item CLI para ejecutar los tests.
+\end{itemize}
+
+\subsection{Criterios de selección}
+
+Las propuestas encontradas tras los criterios de búsqueda serán evaluadas según:
+
+\begin{itemize}
+    \item \textbf{Cobertura de pruebas:} las herramientas para tests pueden incluir la posibilidad de hacer tests en diferentes niveles de abstracción. Este nivel de abstracción será lo que determine la evaluación de este criterio. Algunos de los tests que se pueden escribir con estas herramientas o frameworks suelen ser: \textit{end to end} tests, tests de componentes y test de integración.
+\end{itemize}
+
+\subsubsection{Propuestas}
+
+\subsubsection{\textit{Jest}}
+
+\textit{Jest} es un framework de testing JavaScript creado por Facebook. Usualmente, se utiliza para los tests unitarios. Es compatible con TypeScript a través del paquete \textit{ts-jest}. \textit{Jest} destaca por su facilidad de uso y rapidez. Además, incluye funcionalidades como partir desde una configuración nula o casi nula, las snapshots que captura el estado de un objeto y lo expone para que sirva de referencia para debugear, los tests se realizan de forma paralela para maximizar la eficiencia. Además, incorpora una buena compatibilidad con muchos de los lenguajes, frameworks y librerías más usadas.
+
+En cuanto a cobertura de pruebas, \textit{Jest} destaca en los test unitarios y en los tests de integración donde tiene una gran api como \textit{it} y \textit{expect}. Sin embargo, para los tests \textit{end to end} se necesita de \textit{Puppeteer} que es una librería de \textit{Node} que proporciona una API para controlar Chrome o Firefox a través del protocolo de \textit{DevTools} o \textit{WebDriver DiDi}.
+
+\subsubsection{\textit{Vitest}}
+
+\textit{Jest} es un framework de testing orientado a los tests unitarios. Fue creado para complementar \textit{Vite} que es una herramienta para ayudar a mantener y construir aplicaciones web JavaScript. Debido a su creación por y para \textit{Vite}, si no se utiliza esta herramienta para el desarrollo, se requerirá un mayor esfuerzo a la hora de configurar y ejecutar los tests. \textit{Vitest} es mayoritariamente compatible con la api de \textit{Jest}. Al igual que \textit{Jest}, es bastante simple y rápido el construir tests debido a su amplio catálogo de funcionalidades para la api como los importes globales, primitivos SSR y existencia de numerosos plugins para el amplio ecosistema actualmente existente.
+
+En cuanto a cobertura de pruebas, \textit{Vitest} destaca en los test unitarios, en los tests de integración y sobre todo en la velocidad y modernidad donde se destaca por encima de \textit{Jest} y otros frameworks de testing. Sin embargo, al igual que en \textit{Jest}, se necesita de \textit{Puppeteer} para realizar los tests \textit{end to end}.
+
+\subsubsection{Cypress}
+
+\textit{Cypress} es una herramienta de automatización de tests para aplicaciones web. Es compatible de forma nativa con TypeScript sin necesidad de instalar ningún paquete adicional. Es una aplicación de código abierto. \textit{Cypress} destaca por su facilidad de uso, rapidez y eficiencia. Además, incluye funcionalidades como la grabación de los tests, la posibilidad de correr tests en diferentes navegadores (no a la vez), la posibilidad de hacerlos para diferentes resoluciones, etc. Está orientado al testing frontend, pero también se pueden test unitarios y de integración.
+
+En cuanto a cobertura de pruebas, \textit{Cypress} destaca en los test \textit{end to end} donde es uno de los mejores frameworks para este tipo de tests, teniendo una integración completa debido a que se ejecutan directamente contra el navegador. Esto puede llegar a ser un problema, pues todos los tests que se ejecutan en el navegador y el código no es evaluado en \textit{Node}, por ejemplo, sino en el navegador.
+
+\subsection{Conclusión}
+
+Tras analizar todas estas herramientas para el desarrollo de tests y teniendo en cuenta los criterios de selección, la herramienta que más se ajusta a los mismos es \textit{Cypress}. Es la herramienta que más cobertura de pruebas tiene sin necesidad de instalar paquetes adicionales, es compatible con TypeScript de forma nativa y tiene una aplicación bastante potente que se ejecuta en el navegador para los tests \textit{end to end}.
+
+Con \textit{Cypress} se pueden realizar tests unitarios, de integración y \textit{end to end}. Además, se puede ejecutar en diferentes navegadores y resoluciones, se puede grabar los tests para poder verlos en un futuro (o hacer capturas de pantalla con el estado de la aplicación si fallan los tests) y se pueden ejecutar en paralelo para maximizar la eficiencia. Por último, el trabajar con solo una herramienta para todas las pruebas facilita y agiliza este proceso.
