@@ -11,7 +11,7 @@ export interface Catalogue {
   readonly creationDate: Date;
   lastModificationDate: Date;
   memes: Meme[];
-  allowedUserRoles: Map<Role, User>;
+  allowedUserRoles: Map<Role, User>[];
   label: Label[];
   cover: string; // Imagen
   private: boolean;

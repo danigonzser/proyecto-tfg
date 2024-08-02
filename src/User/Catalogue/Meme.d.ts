@@ -10,7 +10,7 @@ export interface Meme {
   content?: unknown;
   isTemplate: boolean;
   creator: User;
-  allowedUserRoles: Map<Role, User>;
+  allowedUserRoles: Map<Role, User>[];
   readonly creationDate: Date;
   lastModificationDate: Date;
   labels: Label[];
