@@ -21,7 +21,7 @@ export interface Catalogue {
   addLabel(label: Label): void;
 
   removeMeme(meme: Meme): void;
-  removeAllowedUser(User: User): void;
+  removeAllowedUser(user: User): void;
   removeLabel(label: Label): void;
 
   changeTitle(title: string): void;
