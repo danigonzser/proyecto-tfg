@@ -31,6 +31,6 @@ export interface Meme {
 
   removeLabel(label: Label): void;
   removeComment(comment: Comment): void;
-  removeLike(usuario: Usuario): void;
+  removeLike(usuario: User): void;
   removeReaction(reaction: Reaction): void;
 }
