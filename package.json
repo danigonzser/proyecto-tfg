@@ -4,19 +4,22 @@
   "description": "Código fuente del proyecto de fin de grado de Daniel González Serrano",
   "main": "index.js",
   "scripts": {
-    "tsc": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cypress open",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run lint"
   },
   "keywords": [],
   "author": "Daniel González Serrano",
   "license": "GPL-3.0-only",
   "devDependencies": {
-    "@eslint/js": "^9.8.0",
-    "@types/eslint-config-prettier": "^6.11.3",
-    "@types/eslint__js": "^8.42.3",
-    "eslint": "^9.8.0",
-    "prettier": "3.3.3",
-    "typescript": "^5.5.4",
-    "typescript-eslint": "^7.18.0"
+    "@types/node": "20.12.7",
+    "cypress": "^13.13.2",
+    "gts": "^5.3.1",
+    "typescript": "^5.4.3"
   }
 }
