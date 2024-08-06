@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Código fuente del proyecto de fin de grado de Daniel González Serrano",
   "main": "index.js",
+  "packageManager": "pnpm@9.6.0",
   "scripts": {
     "test": "cypress run",
     "tcy:open": "cypress open",
