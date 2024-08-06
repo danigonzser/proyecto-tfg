@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: 'pnpm'
-          cache-dependency-path: pnpm-lock.yaml
+          cache-dependency-path: ./pnpm-lock.yaml
       - name: Ejectar los tests unitarios
         uses: cypress-io/github-action@v6
         with:
