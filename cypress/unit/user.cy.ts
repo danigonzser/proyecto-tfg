@@ -1,4 +1,4 @@
-import {User} from '../../../src/Implementation/User';
+import {User} from '../../src/Implementation/User';
 
 describe('Unit Testing for reaction class', () => {
   const userted = new User(

@@ -1,5 +1,5 @@
-import {User} from '../../../src/Implementation/User';
-import {Users} from '../../../src/Implementation/Users';
+import {User} from '../../src/Implementation/User';
+import {Users} from '../../src/Implementation/Users';
 
 describe('Unit testing for users class', () => {
   const userted = new User(

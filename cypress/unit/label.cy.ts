@@ -1,13 +1,14 @@
 /// <reference types="cypress" />
 
-import {User} from '../../../src/Implementation/User';
-import {Label} from '../../../src/Implementation/User/Catalogue/Meme/Label';
+import {User} from '../../src/Implementation/User';
+import {Label} from '../../src/Implementation/User/Catalogue/Meme/Label';
 
 describe('Unit Testing for labels', () => {
   const userlabel = new User(
     new Date(),
     new Date(),
     'Ted Johson González',
+    '@teddy',
     'tedjg@gmail.com',
     new Date('1985-05-15'),
     'male',

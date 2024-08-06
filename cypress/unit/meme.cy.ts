@@ -1,10 +1,10 @@
 /// <reference types="cypress" />
 
-import {User} from '../../../src/Implementation/User';
-import {Meme} from '../../../src/Implementation/User/Catalogue/Meme';
-import {Comment} from '../../../src/Implementation/User/Catalogue/Meme/Comment';
-import {Label} from '../../../src/Implementation/User/Catalogue/Meme/Label';
-import {Reaction} from '../../../src/Implementation/User/Catalogue/Meme/Reaction';
+import {User} from '../../src/Implementation/User';
+import {Meme} from '../../src/Implementation/User/Catalogue/Meme';
+import {Comment} from '../../src/Implementation/User/Catalogue/Meme/Comment';
+import {Label} from '../../src/Implementation/User/Catalogue/Meme/Label';
+import {Reaction} from '../../src/Implementation/User/Catalogue/Meme/Reaction';
 
 describe('Unit Testing for meme class', () => {
   const userted = new User(

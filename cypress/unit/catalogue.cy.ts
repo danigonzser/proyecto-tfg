@@ -1,9 +1,9 @@
 /// <reference types="cypress" />
 
-import {User} from '../../../src/Implementation/User';
-import {Catalogue} from '../../../src/Implementation/User/Catalogue';
-import {Meme} from '../../../src/Implementation/User/Catalogue/Meme';
-import {Label} from '../../../src/Implementation/User/Catalogue/Meme/Label';
+import {User} from '../../src/Implementation/User';
+import {Catalogue} from '../../src/Implementation/User/Catalogue';
+import {Meme} from '../../src/Implementation/User/Catalogue/Meme';
+import {Label} from '../../src/Implementation/User/Catalogue/Meme/Label';
 
 describe('Unit Test for memes catalogue', () => {
   const userWithCatalogue = new User(

@@ -1,6 +1,6 @@
-import {User} from '../../../src/Implementation/User';
-import {Meme} from '../../../src/Implementation/User/Catalogue/Meme';
-import {Reaction} from '../../../src/Implementation/User/Catalogue/Meme/Reaction';
+import {User} from '../../src/Implementation/User';
+import {Meme} from '../../src/Implementation/User/Catalogue/Meme';
+import {Reaction} from '../../src/Implementation/User/Catalogue/Meme/Reaction';
 
 describe('Unit Testing for reaction class', () => {
   const userted = new User(
