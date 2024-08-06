@@ -7,13 +7,13 @@ import {UUID} from 'crypto';
 import {Role} from '../../Model/types';
 
 export class Catalogue implements CatalogueDefinition {
-  id: UUID;
+  readonly id: UUID;
   title: string;
   description: string;
-  creationDate: Date;
+  readonly creationDate: Date;
   lastModificationDate: Date;
   memes: Meme[];
-  owner: User;
+  readonly owner: User;
   allowedUserRoles: Map<User, Role>;
   labels: Label[];
   cover: string;
