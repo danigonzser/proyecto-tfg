@@ -17,7 +17,7 @@ export class Catalogue implements CatalogueDefinition {
   allowedUserRoles: Map<User, Role>;
   labels: Label[];
   cover: string;
-  private: boolean;
+  isPrivate: boolean;
 
   constructor(
     title: string,
@@ -42,7 +42,7 @@ export class Catalogue implements CatalogueDefinition {
     this.title = title;
     this.description = description;
     this.cover = cover;
-    this.private = privacity;
+    this.isPrivate = privacity;
     this.owner = owner;
   }
 }

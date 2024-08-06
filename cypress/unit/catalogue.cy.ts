@@ -215,9 +215,9 @@ describe('Unit Test for memes catalogue', () => {
 
       expect(memeCatalogue.cover).to.equal('cover2.jpg');
 
-      memeCatalogue.private = true;
+      memeCatalogue.isPrivate = true;
 
-      expect(memeCatalogue.private).to.equal(true);
+      expect(memeCatalogue.isPrivate).to.equal(true);
 
       done();
     });

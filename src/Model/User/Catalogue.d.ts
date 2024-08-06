@@ -15,5 +15,5 @@ export interface Catalogue {
   allowedUserRoles: Map<User, Role>;
   labels: Label[];
   cover: string; // Imagen
-  private: boolean;
+  isPrivate: boolean;
 }
