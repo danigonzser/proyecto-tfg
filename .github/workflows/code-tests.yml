@@ -1,0 +1,33 @@
+name: testing-workflow
+
+on:
+  push:
+    paths:
+      - 'src/**/*.ts'
+      - 'cypress/**/*.ts'
+
+jobs:
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: 'pnpm'
+          cache-dependency-path: ./pnpm-lock.yaml
+      - name: Ejectar los tests unitarios
+        uses: cypress-io/github-action@v6
+        with:
+          command: pnpm run test
+          spec: |
+            cypress/unit/*.cy.js
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore

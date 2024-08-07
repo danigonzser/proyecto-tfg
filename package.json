@@ -1,0 +1,27 @@
+{
+  "name": "proyecto-tfg",
+  "version": "1.0.0",
+  "description": "Código fuente del proyecto de fin de grado de Daniel González Serrano",
+  "main": "index.js",
+  "packageManager": "pnpm@9.6.0",
+  "scripts": {
+    "test": "cypress run",
+    "tcy:open": "cypress open",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "pnpm run compile",
+    "pretest": "pnpm run compile",
+    "posttest": "pnpm run lint"
+  },
+  "keywords": [],
+  "author": "Daniel González Serrano",
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "@types/node": "20.12.7",
+    "cypress": "13.13.2",
+    "gts": "5.3.1",
+    "typescript": "5.4.3"
+  }
+}
