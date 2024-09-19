@@ -186,3 +186,6 @@ User
 Comment
 Label
 Reaction
+yarn
+pnpm
+benchmarks
