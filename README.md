@@ -5,8 +5,6 @@
 
 ## Documentación
 
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/danigonzser/proyecto-tfg/latex.yml?logo=latex&logoColor=%23008181&label=spell%2C%20grammar%20and%20compilation%20checks)](https://github.com/danigonzser/proyecto-tfg/actions/workflows/latex.yml)
-
 La documentación está realizada con `LaTeX` por lo tanto es necesario compilar la memoria para generar el archivo PDF. 
 
 Primero, hay que comprobar la ortografía y gramática con [TeXtidote](https://github.com/sylvainhalle/textidote) para ello:
@@ -33,6 +31,42 @@ En el archivo [Makefile](https://github.com/danigonzser/proyecto-tfg/blob/m0/est
 - texlive
 - texlive-fonts-extra
 - texlive-lang-spanish
+
+## Código
+
+El código está realizado en TypeScript. Existe una configuración recomendada para ejecutar el linter en Visual Studio Code que es la siguiente:
+
+```json
+"[typescript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+  },
+},
+```
+
+Aún así, si se desea correr el lint por consola:
+
+```bash
+pnpm run lint
+```
+
+> [!WARNING]
+> Si se desea colaborar en el proyecto es obligatorio el uso de linter.
+
+Aún en esta parte del proyecto no existe funcionalidad, simplemente se pueden ejecutar los tests. Para ello:
+
+```bash
+pnpm run test
+```
+
+Si se desean ejecutar a través de la interfaz de Cypress:
+
+```bash
+pnpm run tcy:open
+```
+
 ## Licencia
 
 Este proyecto tiene la licencia GPLv3.
