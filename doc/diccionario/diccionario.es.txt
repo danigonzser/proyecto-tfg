@@ -182,3 +182,6 @@ DevTools
 Typescript
 Image
 Link
+yarn
+pnpm
+benchmarks
