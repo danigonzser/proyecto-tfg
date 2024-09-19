@@ -231,6 +231,12 @@ En cuanto a su diferencia y lo que lo hace único respecto a este tipo de lengua
 
 Por último, a modo de apunte, Go tiene una implementación híbrida entre tipificación basada en estructuras y nominativa, ya que puede llegar a verificar el tipo de los campos de la estructura.
 
+\section{Gestor de paquetes}
+
+Tras seleccionar el lenguaje de programación, se procedió a elegir un gestor de paquetes para la gestión de dependencias. En este proyecto, se ha optado por \textit{pnpm}, una herramienta que ha demostrado ser más rápida y eficiente que otras alternativas como \textit{npm} y \textit{yarn}. \textit{Pnpm} utiliza un algoritmo de enlaces simbólicos que permite almacenar una única copia de cada paquete en el disco, reduciendo significativamente el espacio utilizado y el tiempo de instalación, al mismo tiempo que mantiene compatibilidad con los gestores mencionados.
+
+Aunque \textit{npm} ha sido el estándar tradicional, pnpm ha emergido como una alternativa sólida, ofreciendo mejoras notables en rendimiento y gestión de dependencias. Además, su comunidad activa y su mantenimiento regular garantizan su continuidad y evolución. Se destaca especialmente por su velocidad, siendo hasta un 60\% más rápido que sus competidores, según diversos \textit{benchmarks}, y por gestionar las dependencias de manera más segura, limitando el acceso de cada paquete únicamente a sus propias dependencias, lo que disminuye los riesgos de vulnerabilidad.
+
 \subsection{Selección de la herramienta de testeo}
 
 Antes de comenzar con el desarrollo, es necesario seleccionar la herramienta de testeo que se va a utilizar para asegurar la calidad del código porque el código que no está probado, está roto. Además de asegurarse de que el código cumple con las historias de usuario e issues, la implementación de estos también debe funcionar; aquí es donde entran en juego los tests.
