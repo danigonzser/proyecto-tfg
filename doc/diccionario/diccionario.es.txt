@@ -179,6 +179,13 @@ Node
 testing
 WebDriver
 DevTools
+Typescript
+Image
+Link
+User
+Comment
+Label
+Reaction
 yarn
 pnpm
 benchmarks

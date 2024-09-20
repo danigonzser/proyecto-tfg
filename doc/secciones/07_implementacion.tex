@@ -1,5 +1,376 @@
 \chapter{Implementación}
 
-La implementación del software se ha dividido en hitos. Estos han sido definidos en GitHub
-y cada uno de ellos contiene un grupo de \textit{issues} que se corresponden con las distintas
-mejoras que se han ido incorporando al software a lo largo de su desarrollo.\\
+Una vez explicada la metodología, planificación y análisis, se va a proceder con explicación de la implementación de la solución. Así como en las otras secciones, se van a explicar todas y cada una de las decisiones tomadas, problemas encontrados y soluciones propuestas.
+
+\section{Análisis de las posibles soluciones}
+
+En este apartado, se analizarán las posibles soluciones para el desarrollo de la aplicación.
+
+\subsection{Desarrollo de una \href{https://apps.nextcloud.com/}{aplicación} para \href{https://nextcloud.com/es/}{\textit{Nextcloud}}}
+
+\textit{Nextcloud} es una plataforma de software libre que permite a los usuarios almacenar y sincronizar archivos, contactos, calendarios y más. Es una excelente opción para el desarrollo de nuestra aplicación, ya que proporciona una base sólida y una amplia gama de funcionalidades que pueden ser aprovechadas para implementar la funcionalidad de creación y gestión de memes. Para el desarrollo de una app en el ecosistema de \textit{Nextcloud}, se utiliza PHP y Vuejs. Además, \textit{Nextcloud} proporciona una API robusta que permite a los desarrolladores acceder a las funcionalidades del sistema.
+
+Esta solución tiene varios problemas para el usuario o cliente final: 
+
+\begin{itemize}
+    \item \textbf{Complejidad de la instalación:} La instalación de \textit{Nextcloud} puede ser complicada para los usuarios no técnicos. Por ejemplo para Ted Johnson González (experto conferenciante) que no tienen experiencia ni conocimientos técnicos podría ser un problema.
+    \item \textbf{Consumo de recursos:} \textit{Nextcloud} es una aplicación bastante exigente en términos de recursos, especialmente si se gestiona una gran cantidad de datos o usuarios como podría ser el caso del departamento de marketing de Corporate Solutions. Desarrollando nuestra propia aplicación, podemos optimizar los recursos para que los requisitos sean mínimos.
+\end{itemize}
+
+Por otro lado, la implementación de base de funcionalidades como la sincronización en local y en remoto, el almacenamiento y la búsqueda de archivos y la gestión de usuarios no justifica el tiempo que se va a dedicar a adaptarse al \href{https://nextcloud.com/developer/}{entorno de desarrollo} que proporciona Nextcloud para desarrollar apps, ya que estas funcionalidades se pueden aplicar mediante la implementación de repositorios o desde cero con un coste de tiempo y recursos mucho menor. 
+
+\subsection{Desarrollo de una app móvil}
+
+Otra posible solución sería el desarrollo de una aplicación móvil que permita a los usuarios crear y gestionar memes desde sus dispositivos móviles. Esta solución tiene varias ventajas, como la facilidad de uso y la accesibilidad, ya que los usuarios pueden elaborar memes en cualquier momento y lugar. Podría ser de bastante utilidad para todos y cada uno de los usuarios identificados.
+
+Sin embargo, esta solución también tiene sus inconvenientes. Por ejemplo, el desarrollo de aplicaciones móviles limita bastante la audiencia a la que se puede llegar, puesto que no todos los usuarios tienen un dispositivo móvil o prefieren utilizar un ordenador. La idea de este proyecto es justamente el poder llegar a un público amplio y diverso, por lo que esta solución no sería la más adecuada.
+
+\subsection{Desarrollo de una aplicación de escritorio}
+
+En esta solución que se ha considerado es el desarrollo de una aplicación de escritorio que permita a los usuarios generar y gestionar memes desde sus ordenadores. Esta solución tiene varias ventajas como la facilidad que va a tener el usuario final para adaptarse a este tipo de entorno, pues es donde se realizan este tipo de tareas para que la edición pueda llegar a ser más compleja.
+
+De nuevo, esta solución limita bastante la audiencia a la que se puede llegar, ya que no todos los usuarios tienen un ordenador o prefieren un dispositivo móvil (la cual es la mayoría actual).
+
+\subsection{Desarrollo de una aplicación web}
+
+El desarrollo de una aplicación web tiene lo bueno de las dos soluciones anteriores. Permite al usuario conectarse desde cualquier dispositivo sea PC o móvil. El desarrollo web es el más popular en la actualidad por lo que es bastante fácil encontrar comunidades, preguntas, documentación, artículos, etc.
+
+La idea detrás de esta solución reside en una aplicación web que sea igualmente accesible desde cualquier dispositivo con conexión y un navegador adecuado. Una vez accedes a la plataforma web, puedes crear, editar, almacenar, compartir y buscar memes. La forma de almacenar los memes podría llegar a hacerse en local o en remoto.
+
+\subsection{Conclusión}
+
+El proyecto se va a desarrollar como una aplicación web teniendo esta usualmente una parte del cliente o frontend, una parte del servidor, api o backend y una parte de persistencia o base de datos. La elección de la tecnología en sendas partes es crucial a la hora de la experiencia de desarrollo, compatibilidad, escalabilidad, mantenimiento, etc.
+
+\section{Milestones}
+
+Como ya se ha explicado, el proyecto se dividirá en milestones o hitos. Cada uno de estos hitos representará un Producto Mínimo Viable (PMV), por lo que se irán generando entregables a lo largo de la implementación. En cada una de las siguientes subsecciones se describirá el producto que se generará en cada hito y las decisiones que se han tomado.
+
+\section{Milestone 1: Modelo el problema}
+
+El objetivo de este milestone es desarrollar un conjunto de definiciones de tipos en TypeScript para modelar los datos clave del dominio del problema, seguido de la implementación y prueba de dichas definiciones. Se crearán clases que representen los componentes principales del sistema, y se llevarán a cabo pruebas unitarias para verificar el correcto funcionamiento de las clases y sus métodos.
+
+Para este desarrollo, se ha seguido un enfoque ágil combinado con Domain-Driven Design (DDD), lo que permite un modelado profundo del problema y un desarrollo incremental y continuo. Los requisitos se analizarán a través de historias de usuario, y se generará el código basado en DDD para estructurar los datos, garantizando una solución coherente y eficiente que se alinee con las mejores prácticas de desarrollo.
+
+\subsection{Domain driven design}
+
+Vamos a proceder al análisis del problema utilizando el diseño orientado al dominio (DDD), una metodología introducida por Eric Evans. Esta metodología de desarrollo de software nos ayudará a comprender y modelar el dominio empresarial, asegurando que nuestras soluciones se alineen con las necesidades específicas de los usuarios y del negocio.
+
+DDD aborda la complejidad enfocándose en el ``dominio'' y promoviendo un ``lenguaje ubicuo'', un lenguaje común entre desarrolladores y partes interesadas para garantizar que el software refleje con precisión el ámbito empresarial. La modelización en DDD no busca crear el modelo más realista, sino uno útil y apropiado para su propósito~\cite{evans2004domain}.
+
+El lenguaje ubicuo debe basarse en el modelo del dominio por lo que debe ser riguroso y preciso para evitar cualquier tipo de ambigüedad. De igual manera, debe ser especificado en una etapa temprana del proyecto por eso, está antes de todo el proceso. A continuación, algunos de los términos del lenguaje ubicuo:
+
+\begin{itemize}
+    \item \textbf{Meme}: imagen, vídeo o texto que difunde un mensaje que suele ser humorístico.
+    \item \textbf{Plantilla}: formato base sobre la que se elaboran los memes.
+    \item \textbf{Catálogo de memes}: almacenamiento centralizado de memes.
+    \item \textbf{Colaborador}: usuario que puede editar un meme.
+    \item \textbf{Visualizador}: usuario que puede ver un meme.
+    \item \textbf{Búsqueda avanzada}: sistema de búsqueda en el catálogo de memes que permite filtrar memes por diferentes criterios.
+\end{itemize}
+
+Además de DDD, se han contemplado alternativas como el \textit{domain mapping} que facilita la visualización del dominio y \textit{volatility decomposisiton} que permite identificar las partes del sistema que son más propensas a cambios. Empresas como \textit{Netflix}, \textit{Uber} y \textit{Airbnb} han adoptado DDD con notable éxito como se detalla en esta~\href{https://blog.bitsrc.io demystifying-domain-driven-design-ddd-in-modern-software-architecture-b57e27c210f7}{publicación}.
+
+Es importante destacar que DDD no abandona la filosofía ágil. Aunque esta metodología no está vinculada a otra metodología en particular, se orienta hacia la nueva familia de ``procesos de desarrollo ágil''. Específicamente, asume que aplican dos prerrequisitos para aplicar el enfoque presentado en este libro: que el desarrollo sea iterativo y que la relación sea estrecha entre quiénes manejan el dominio y quiénes construyen el \textit{software}.
+
+\subsubsection{Análisis de requisitos}
+
+Los requisitos han sido identificados a partir de las historias de usuario~\ref{sec:historias_de_usuario} anteriormente definidas y los usuarios identificados en~\ref{sec:usuarios_identificados}. Estos requisitos son los que llamamos los requisitos básicos o esenciales a partir de los cuales se desarrollará el diseño.
+
+\begin{itemize}
+    \item \textbf{Se debe proporcionar un editor de memes.}
+    \begin{itemize}
+        \item[-] Historias de usuario requeridas: HU01, HU04 y HU02.
+    \end{itemize}
+    \item \textbf{Se debe proporcionar un catálogo de memes predefinidos.}
+    \begin{itemize}
+        \item[-] Historias de usuario requeridas: HU01, HU02 y HU03.
+    \end{itemize}
+    \item \textbf{La solución debe poder permitir colaboración en la creación de memes.}
+    \begin{itemize}
+        \item[-] Historias de usuario requeridas: HU04.
+    \end{itemize}
+    \item \textbf{Se debe proporcionar un sistema de búsqueda avanzada de memes.}
+    \begin{itemize}
+        \item[-] Historias de usuario requeridas: HU03.
+    \end{itemize} 
+\end{itemize}
+
+\subsection{Selección del lenguaje de programación}
+
+Para la elaboración del código generado del DDD, se va a realizar un proceso de selección del lenguaje de programación en el que se va a escribir este código y posteriormente, realizar el proyecto.
+
+\subsubsection{Criterios de búsqueda}
+
+Los criterios que se han fijado para la búsqueda del lenguaje son los siguientes:
+
+\begin{itemize}
+    \item Compatible con el desarrollo web para su posterior utilización.
+\end{itemize}
+
+\subsubsection{Criterios de selección}
+
+Las propuestas encontradas tras los criterios de búsqueda serán evaluadas según:
+
+\begin{itemize}
+    \item \textbf{Compatibilidad para desarrollo del cliente:} el lenguaje debe ser compatible con el desarrollo por la parte del cliente. Debe ser capaz de construir interfaces de usuario interactivas y dinámicas.
+    \item \textbf{Ecosistema:} el lenguaje debe ser capaz de contar con numerosas alternativas a la hora de facilitar la programación. Esto incluye bibliotecas, frameworks, etc.
+    \item \textbf{Sistema de tipos estáticos:} el lenguaje debe ofrecer este sistema de tipos estáticos que permita la detección temprana de errores, mejorando la seguridad, mantenibilidad, robustez, escalabilidad y documentación del código. Según~\cite{gao2017type} se concluyó que un lenguaje con tipificación estática como es TypeScript hubiera evitado el 15\% de los errores en el código de otro lenguaje sin tipificación como es JavaScript. Esto permite a los desarrolladores comprender mejor su código y detectar inconsistencias o errores mejora la capacidad de mantener y evolucionar el software con confianza y fiabilidad.
+\end{itemize}
+
+El desempeño de cada lenguaje en sendos criterios será etiquetado mediante la viñeta en el enumerado de los mismos desde \esp~si destaca por este criterio, \bien~si tiene un desempeño bueno sin llegar a destacar, \regular~si tiene un desempeño medio y \mal~si tiene un desempeño nulo.
+
+\subsubsection{Propuestas}
+
+\subsubsection{JavaScript}
+
+\href{https://es.wikipedia.org/w/index.php?title=JavaScript&oldid=161023746}{JavaScript} es un lenguaje de programación de alto nivel, interpretado, orientado a objetos, basado en prototipos, imperativo y débilmente tipado y dinámico. Junto con HTML y CSS, JavaScript es una de las tres tecnologías fundamentales de la World Wide Web. Se utiliza principalmente del lado del cliente, implementado como parte de un navegador web. Todos los navegadores modernos interpretan código JavaScript. Fue desarrollado originalmente por Brendan Eich de Netscape con el nombre de Mocha, pasó por LiveScript y finalmente adoptó el nombre que tiene en la actualidad. Apareció por primera vez en el navegador Netscape Navigate en la versión 2002 en diciembre de 1995.
+
+\begin{itemize}
+    \item[\esp] \textbf{Compatibilidad para desarrollo del cliente:} compatible, originalmente fue creado exactamente para este propósito y como hemos mencionado. Se puede ejecutar directamente en la consola integrada en el navegador, es fácil de implementar aunque puede ser también un problema, ya que entre navegadores puede haber diferencias en la interpretación del código.
+    \item[\esp] \textbf{Ecosistema:} tiene uno de los ecosistemas más grandes en el mundo de la programación incorporando todo tipo de bibliotecas y frameworks para facilitar el desarrollo. Algunos de los más conocidos son React, Angular, Vue, etc.
+    \item[\mal] \textbf{Sistema de tipos estáticos:} es un lenguaje con tipado dinámico.
+\end{itemize}
+
+Por la parte del cliente es el lenguaje de programación más usado según la encuesta~\href{https://w3techs.com/technologies/overview/client_side_language}{W3Techs}.
+
+\subsubsection{TypeScript}
+
+\href{https://es.wikipedia.org/w/index.php?title=TypeScript&oldid=156203640}{\textit{TypeScript}}, un superconjunto de JavaScript desarrollado por Microsoft y publicado en octubre 2012, extiende JavaScript con una sintaxis basada en un sistema de tipos estático para ofrecer una detección temprana de errores y una integración más profunda con los editores de código.
+
+Diseñado para compilarse a JavaScript, \textit{TypeScript} es compatible y válido con cualquier código JavaScript. Esta extensión facilita la escritura y el mantenimiento de aplicaciones a gran escala al proporcionar inferencia de tipos y herramientas avanzadas sin necesidad de código adicional. Con \textit{TypeScript}, los desarrolladores pueden definir tipos personalizados y recibir advertencias de errores directamente en el editor, lo que mejora significativamente la seguridad y eficiencia del proceso de desarrollo. A lo largo de los años, \textit{TypeScript} ha ganado popularidad por su capacidad para mejorar la calidad del código y facilitar el trabajo en proyectos complejos.
+
+\begin{itemize}
+    \item[\esp] \textbf{Compatibilidad para desarrollo del cliente:} es completamente compatible para el desarrollo del lado del cliente, incluso se puede ejecutar directamente en la consola integrada en el navegador.
+    \item[\esp] \textbf{Ecosistema:} cuenta con uno bastante robusto y completo al igual que JavaScript. Incluye la mayoría de frameworks que se incluye JavaScript al ser completamente compatible con este.
+    \item[\esp] \textbf{Sistema de tipos estáticos:} si por algo destaca TypeScript es por su sistema de tipos estáticos que permite detectar errores a la vez que se codifica mediante la comprobación de tipos evitando bugs, errores aportando seguridad, mantenibilidad y escalabilidad y seguridad al código. Además, incorpora características únicas como la inferencia de tipos, tipos genéricos, tipos de unión, tipos de intersección\ldots que lo vuelven mucho más flexible que otros lenguajes que también incorporan un sistema de tipos estático.
+\end{itemize}
+
+\subsubsection{Java}
+
+\href{https://es.wikipedia.org/w/index.php?title=Java_(lenguaje_de_programaci%C3%B3n)&oldid=161108422}{Java} es un lenguaje de programación que fue desarrollado originalmente por James Gosling, de Sun Microsystems y posteriormente adquirida por su actual propietario, Oracle. La sintaxis deriva en gran medida de C/C++, pero cuenta con menos utilidades de bajo nivel. Las aplicaciones de Java son compiladas a bytecode que pueden ejecutarse en una máquina virtual Java sin importar la arquitectura de la computadora.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} no es compatible con el desarrollo por la parte del cliente, Java es más comúnmente utilizado en el lado del servidor y para desarrollar aplicaciones de escritorio. 
+    \item[\bien] \textbf{Ecosistema:} posee un ecosistema muy maduro con herramientas de desarrollo y frameworks como Spring para backend.
+    \item[\esp] \textbf{Sistema de tipos estáticos:} tiene un sistema de tipos estáticos bastante estricto y el tipo de dato de un objeto no puede ser cambiado una vez sea creado lo que aporta una robustez, fiabilidad y documentación al código bastante alto.
+\end{itemize}
+
+Por la parte del servidor, es el cuarto lenguaje de programación más usado según la encuesta~\href{https://w3techs.com/technologies/overview/programming_language}{W3Techs}.
+
+\subsubsection{Python}
+
+\href{https://es.wikipedia.org/w/index.php?title=Python&oldid=161467974}{Python} es un lenguaje de alto nivel de programación interpretado cuya filosofía hace hincapié en la legibilidad de código. Se trata de un lenguaje de programación multiparadigma que soporta parcialmente la orientación a objetos, programación imperativa y, en menor medida, programación funcional. Es un lenguaje interpretado, dinámico y multiplataforma. Python es uno de los lenguajes más populares en la actualidad. Fue desarrollado por Guido van Rossum en 1991.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} aunque compatible, no es el mejor lenguaje para dedicarlo al desarrollo por parte del cliente. Python es mucho más versátil y potente cuando se utiliza para el desarrollo por parte del servidor, en la ciencia de datos, inteligencia artificial, etc.
+    \item[\bien] \textbf{Ecosistema:} tiene un ecosistema muy rico con una gran variedad de librerías y frameworks como puede ser \textit{Django} y \textit{Flask}.
+    \item[\mal] \textbf{Sistema de tipos estáticos:} como hemos dicho anteriormente es un lenguaje con un sistema de tipos dinámicos.
+\end{itemize}
+
+\subsubsection{Ruby}
+
+\href{https://es.wikipedia.org/w/index.php?title=Ruby&oldid=159723570}{Ruby} es un lenguaje de programación interpretado, reflexivo y orientado a objetos. El programador japonés Yukihiro Matsumoto, quien comenzó a trabajar en Ruby en 1993, lo presentó públicamente en 1995. Combina una sintaxis inspirada en Python y Perl con características de programación orientada a objetos similares a Smalltalk. Es interpretado de una sola pasada y su implementación oficial es distribuida bajo una licencia de software libre.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} es compatible, pero su verdadero potencial se encuentra por parte del servidor donde se desempeña de una manera excelente. Aun así, no es conocido por su rendimiento, sino por su facilidad a la hora de escribir código agilizando el desarrollo.
+    \item[\bien] \textbf{Ecosistema:} \textit{Ruby on Rails}, Sinatra y Rack son algunos de los frameworks que utilizan Ruby. No es un ecosistema tan amplio como el de otros 
+    \item[\mal] \textbf{Sistema de tipos estáticos:} no es compatible, es un lenguaje dinámico.
+\end{itemize}
+
+Por la parte del servidor, es el tercer lenguaje de programación más usado según la encuesta~\href{https://w3techs.com/technologies/overview/programming_language}{W3Techs}.
+
+\subsubsection{\MakeUppercase{Php}}
+
+\href{https://es.wikipedia.org/w/index.php?title=PHP&oldid=161463562}{PHP} es un lenguaje de programación interpretado del lado del servidor y de uso general que se adapta especialmente al desarrollo web. Fue creado inicialmente por Rasmus Lerdorf en 1994. El código de PHP suele ser procesado en un servidor web por un intérprete. En un servidor web el resultado de la interpretación y ejecución del código PHP sería HTML o una imagen binaria que formarían parte de la totalidad o parte de la respuesta.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} es compatible, pero es más conocido y es más un lenguaje interpretado por parte del servidor que por parte del cliente. El script php se puede incrustar directamente en el código html. Igualmente, este código se renderizaría en el servidor php y se enviaría al cliente.
+    \item[\bien] \textbf{Ecosistema:} existen una gran variedad de herramientas como \textit{Laravel} y \textit{Symfony}. Estos frameworks son bastante usados en el backend.
+    \item[\bien] \textbf{Sistema de tipos estáticos:} la calificación que más se ajustaría a su sistema de tipos sería: sistema de tipificación gradual (desde su versión 7.0 en adelante). Esta es una implementación que se sitúa entre un tipado estático y un tipado dinámico, es decir, algunas variables y expresiones pueden tener tipos y la corrección y tipificación se comprueba en tiempo de ejecución y otras en tiempo de compilación. Esto puede provocar inconsistencias en el código.
+\end{itemize}
+
+Por la parte del servidor, es el lenguaje de programación más empleado según la encuesta \href{https://w3techs.com/technologies/overview/programming_language}{W3Techs}.
+
+\subsubsection{Go}
+
+\href{https://es.wikipedia.org/w/index.php?title=Go_(lenguaje_de_programaci%C3%B3n)&oldid=158783243}{Go} es un lenguaje de programación concurrente y compilado con tipificación estática inspirado en la sintaxis de C pero con seguridad de memoria y recolección de basura. Ha sido desarrollado por Google y lanzado en 2009. También conocido como Golang, fue creado para resolver los problemas de programación en un proyecto grande. Destaca por su minimalismo, simplicidad y eficiencia. Además, incorpora una sintaxis y estructura moderna y familiar. Algunos de los proyectos más conocidos que utilizan Go son Docker, Kubernetes, Terraform, etc.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} debido a su carácter compilado, no es compatible.
+    \item[\regular] \textbf{Ecosistema:} no tiene un ecosistema muy amplio teniendo una comunidad no muy colaborativa y muy joven. Por lo general, si se quiere realizar algo en Go, tendrá que ser desde 0 y sin ningún framework. Esto más o menos se satisface con la simplicidad del lenguaje.
+    \item[\bien] \textbf{Sistema de tipos estáticos:} incorpora un sistema de tipos estático lo que resulta de bastante ayuda a la hora de trabajar en proyectos grandes. Además, incorpora algunas características como la inferencia de tipos y tipos personalizados. Go es bastante criticado por no tener tipos genéricos.
+\end{itemize}
+
+\subsubsection{Kotlin}
+
+\href{https://es.wikipedia.org/w/index.php?title=Kotlin_(lenguaje_de_programaci%C3%B3n)&oldid=160779037}{Python} es un lenguaje de programación multiplataforma, con tipificación estática, de alto nivel y de propósito general con inferencia de tipos. Fue desarrollado por JetBrains y lanzado en 2011 diseñado para ser totalmente interoperable con Java. En 2019 Google anunció que sería el lenguaje preferido para los desarrolladores de apps Android. Al igual que Java, es compilado a bytecode.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} Kotlin tiene soporte para la web compilando a JavaScript (backend Kotlin/JS) aunque su fuerte reside en el backend y en el desarrollo de aplicaciones móviles.
+    \item[\regular] \textbf{Ecosistema:} la mayoría del desarrollo de librerías y frameworks se centra en el desarrollo de aplicaciones móviles y en el backend. Aun así, existe Kotlin Multiplatform que permite reducir el tiempo al escribir código compatible con diferentes plataformas manteniendo la flexibilidad y los beneficios de la programación nativa.
+    \item[\bien] \textbf{Sistema de tipos estáticos:} como se ha mencionado anteriormente, implementa una tipificación estática con inferencia de tipos. Sin embargo, no se contempla la conversión implícita entre tipos.
+\end{itemize}
+
+\subsubsection{Scala}
+
+\href{https://es.wikipedia.org/w/index.php?title=Scala_(lenguaje_de_programaci%C3%B3n)&oldid=161998724}{Scala} es un lenguaje de programación multi-paradigma diseñado para expresar patrones comunes de programación en forma concisa, elegante y con una tipificación fuerte y estática. La implementación actual se ejecuta en la máquina virtual de Java. Fue diseñado por Martin Odersky y lanzado en 2003.
+
+\begin{itemize}
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} no es compatible y principalmente orientado a la parte del servidor y procesamiento de datos.
+    \item[\mal] \textbf{Ecosistema:} tiene un ecosistema bastante centrado en campos como el procesamiento de datos y el backend. Sin embargo, Scala.js permite compilar a JavaScript.
+    \item[\regular] \textbf{Sistema de tipos estáticos:} es un lenguaje con tipificación fuerte y estática aunque es bastante complejo y confuso. A todo esto se le añade que el compilador de Scala (sbt) es bastante lento y pesado.
+\end{itemize}
+
+\subsection{Conclusión}
+
+Según los criterios de selección el lenguaje que más se adapta a los mismos sería TypeScript, ya que es compatible con el desarrollo del cliente, tiene un ecosistema amplio y un sistema de tipos estáticos con características particulares que lo hace único.
+
+En comparación con su subconjunto, JavaScript, la diferencia principal no reside en la detección de errores en sí (que también) sino en qué se confía para detectarlos. Los programadores que escriben en JavaScript tienen que apoyarse en herramientas como los tests, linters para detectar errores de tipos mientras que TypeScript lo hace de forma ``nativa''. Si es verdad que el tipado supone un costo adicional al añadir un paso más, pero TypeScript en particular, reduce este coste usando tipos estructurales en vez de nominativos y haciendo inferencias.
+
+En cuanto a su diferencia y lo que lo hace único respecto a este tipo de lenguajes con tipificación estática como Java, Kotlin, Go, Scala y PHP es su optimización del coste de la tipificación mediante la inferencia de tipos y sobre todo, por su tipificación estática basada en estructuras. Esto permite considerar estructuras como equivalentes cuando dos estructuras tienen diferente nombre y campos idénticos. Sin embargo, en los otros lenguajes con tipificación estática nominativa estas estructuras serían consideradas diferentes.
+
+Por último, a modo de apunte, Go tiene una implementación híbrida entre tipificación basada en estructuras y nominativa, ya que puede llegar a verificar el tipo de los campos de la estructura.
+
+\subsection{Gestor de paquetes}
+
+Tras seleccionar el lenguaje de programación, se procedió a elegir un gestor de paquetes para la gestión de dependencias. En este proyecto, se ha optado por \textit{pnpm}, una herramienta que ha demostrado ser más rápida y eficiente que otras alternativas como \textit{npm} y \textit{yarn}. \textit{Pnpm} utiliza un algoritmo de enlaces simbólicos que permite almacenar una única copia de cada paquete en el disco, reduciendo significativamente el espacio utilizado y el tiempo de instalación, al mismo tiempo que mantiene compatibilidad con los gestores mencionados.
+
+Aunque \textit{npm} ha sido el estándar tradicional, pnpm ha emergido como una alternativa sólida, ofreciendo mejoras notables en rendimiento y gestión de dependencias. Además, su comunidad activa y su mantenimiento regular garantizan su continuidad y evolución. Se destaca especialmente por su velocidad, siendo hasta un 60\% más rápido que sus competidores, según diversos \textit{benchmarks}, y por gestionar las dependencias de manera más segura, limitando el acceso de cada paquete únicamente a sus propias dependencias, lo que disminuye los riesgos de vulnerabilidad.
+
+\subsection{Selección de la herramienta de testeo}
+
+Antes de comenzar con el desarrollo, es necesario seleccionar la herramienta de testeo que se va a emplear para asegurar la calidad del código porque el código que no está probado, está roto. Además de asegurarse de que el código cumple con las historias de usuario e issues, la implementación de estos también debe funcionar; aquí es donde entran en juego los tests.
+
+Hasta ahora se ha explicado el porqué hacer tests, pero ¿qué tipo de tests hay que hacer?, ¿cómo se hacen?, ¿qué tipo de tests existen? Cuantos más tests se hagan y más casos de uso se contemplen en ellos, más robusto, fiable, seguro y libre de fallos será el código. A continuación, se explicarán los diferentes tipos de tests que se pueden hacer:
+
+\begin{itemize}
+    \item \textbf{Tests unitarios:} se encargan de probar una unidad de código, es decir, una función, clase, método, etc. Estos tests se encargan de comprobar cada funcionalidad desde un punto de vista lógico o de bajo nivel. De hecho, hoy en día se habla mucho del \textit{code coverage} o cobertura de código que es la cantidad de flujos que se han probado en los tests, cuanto más alto sea, más confianza se podrá tener en el código.
+    \item \textbf{Tests de integración:} el proyecto suele constar de trozos de código que se comunican entre ellos, los tests de integración se encargan de verificar que estos funcionen correctamente. Esto resulta cada vez más útil cuanto más grande sea el proyecto por lo que en nuestro caso y en principio, no es nuestro mayor problema.
+    \item \textbf{Tests \textit{end to end}:} se encargan de probar la funcionalidad de la aplicación desde el punto de vista del usuario. Se suele automatizar una simulación de un posible usuario final que interactúa con el sistema.
+\end{itemize}
+
+\subsubsection{Criterios de búsqueda}
+
+Los criterios que se han fijado para la búsqueda de la herramienta de testeo son los siguientes:
+
+\begin{itemize}
+    \item Compatible con TypeScript.
+    \item Aserciones y tests unitarios.
+    \item CLI para ejecutar los tests.
+\end{itemize}
+
+\subsubsection{Criterios de selección}
+
+Las propuestas encontradas tras los criterios de búsqueda serán evaluadas según:
+
+\begin{itemize}
+    \item \textbf{Cobertura de pruebas:} las herramientas para tests pueden incluir la posibilidad de hacer tests en diferentes niveles de abstracción. Este nivel de abstracción será lo que determine la evaluación de este criterio. Algunos de los tests que se pueden escribir con estas herramientas o frameworks suelen ser: \textit{end to end} tests, tests de componentes y test de integración.
+\end{itemize}
+
+\subsubsection{Propuestas}
+
+\subsubsection{\textit{Jest}}
+
+\textit{Jest} es un framework de testing \textit{JavaScript} creado por \textit{Facebook}. Usualmente, se utiliza para los tests unitarios. Es compatible con \textit{TypeScript} a través del paquete \textit{ts-jest}. \textit{Jest} destaca por su facilidad de uso y rapidez. Además, incluye funcionalidades como partir desde una configuración nula o casi nula, las snapshots que captura el estado de un objeto y lo expone para que sirva de referencia para debugear, los tests se realizan de forma paralela para maximizar la eficiencia. Además, incorpora una buena compatibilidad con muchos de los lenguajes, \textit{frameworks} y librerías más usadas.
+
+En cuanto a cobertura de pruebas, \textit{Jest} destaca en los test unitarios y en los tests de integración donde tiene una gran api como \textit{it} y \textit{expect}. Sin embargo, para los tests \textit{end to end} se necesita de \textit{Puppeteer} que es una librería de \textit{Node} que proporciona una API para controlar Chrome o Firefox a través del protocolo de \textit{DevTools} o \textit{WebDriver DiDi}.
+
+\subsubsection{\textit{Vitest}}
+
+\textit{Jest} es un framework de testing orientado a los tests unitarios. Fue creado para complementar \textit{Vite} que es una herramienta para ayudar a mantener y construir aplicaciones web \textit{JavaScript}. Debido a su creación por y para \textit{Vite}, si no se utiliza esta herramienta para el desarrollo, se requerirá un mayor esfuerzo a la hora de configurar y ejecutar los tests. \textit{Vitest} es mayoritariamente compatible con la api de \textit{Jest}. Al igual que \textit{Jest}, es bastante simple y rápido el construir tests debido a su amplio catálogo de funcionalidades para la api como los importes globales, primitivos SSR y existencia de numerosos plugins para el amplio ecosistema actualmente existente.
+
+En cuanto a cobertura de pruebas, \textit{Vitest} destaca en los test unitarios, en los tests de integración y sobre todo en la velocidad y modernidad donde se destaca por encima de \textit{Jest} y otros \textit{frameworks} de testing. Sin embargo, al igual que en \textit{Jest}, se necesita de \textit{Puppeteer} para realizar los tests \textit{end to end}.
+
+\subsubsection{Cypress}
+
+\textit{Cypress} es una herramienta de automatización de tests para aplicaciones web. Es compatible de forma nativa con \textit{TypeScript} sin necesidad de instalar ningún paquete adicional. Es una aplicación de código abierto. \textit{Cypress} destaca por su facilidad de uso, rapidez y eficiencia. Además, incluye funcionalidades como la grabación de los tests, la posibilidad de correr tests en diferentes navegadores (no a la vez), la posibilidad de hacerlos para diferentes resoluciones, etc. Está orientado al testing frontend, pero también se pueden test unitarios y de integración.
+
+En cuanto a cobertura de pruebas, \textit{Cypress} destaca en los test \textit{end to end} donde es uno de los mejores \textit{frameworks} para este tipo de tests, teniendo una integración completa debido a que se ejecutan directamente contra el navegador. Esto puede llegar a ser un problema, pues todos los tests que se ejecutan en el navegador y el código no es evaluado en \textit{Node}, por ejemplo, sino en el navegador.
+
+\subsection{Conclusión}
+
+Tras analizar todas las herramientas para el desarrollo de pruebas y teniendo en cuenta los criterios de selección, la herramienta que mejor se ajusta a los mismos es Cypress. Cypress proporciona una excelente cobertura de pruebas sin necesidad de instalar paquetes adicionales, es compatible con TypeScript de forma nativa y destaca por ejecutar las pruebas directamente en un entorno de navegador. Este aspecto es fundamental, ya que permite simular la interacción real de un usuario con la aplicación web en su entorno nativo.
+
+Otra ventaja es su capacidad para grabar las pruebas o capturar pantallas en caso de fallos, lo que facilita la depuración. También permite la ejecución en paralelo para maximizar la eficiencia. Por último, usar una sola herramienta para todas las pruebas no solo simplifica el proceso, sino que lo agiliza considerablemente.
+
+\subsection{Producto Mínimo Viable}
+
+Como entregable de este milestone se han definido las siguientes interfaces:
+
+\begin{itemize}
+    \item \textbf{Catalogue}: Responde a la historia de usuario HU03 debido al requisito de poder acceder a memes relevantes y atractivos fácilmente accesibles.
+    \item \textbf{Meme}: es la unidad básica de contenido de la aplicación. Responde básicamente a todas las historias de usuario.
+\end{itemize}
+
+Estas interfaces se han definido e implementado en TypeScript en módulos \href{https://stackoverflow.com/q/21247278?stw=2 }{\textit{«d.ts»}} que se utilizan para proporcionar definiciones de tipos para luego, poder consumirlo en el código. Estos módulos se desarrollan para, desde JavaScript, obtener los beneficios de la comprobación estática de tipos.
+
+Además, se han realizado tests unitarios a partir de las implementaciones de las definiciones, con el fin de verificar que las interfaces definidas cumplen con lo especificado en los módulos \textit{«d.ts»}.
+
+\section{Milestone 2: Persistencia de datos}
+
+El producto mínimo viable (PMV) o entregable resultante tras este hito consiste será un sistema que permita la gestión eficiente de las entidades, garantizando su almacenamiento y recuperación, además de proporcionar las pruebas correspondientes que comprueben la correcta ejecución de dichas operaciones. Este hito marca el inicio de la implementación del proyecto, por lo que también incluirá la elección de la tecnología para el desarrollo de la solución propuesta.
+
+\subsection{Selección de la tecnología}
+
+Anteriormente, se hizo la selección del lenguaje de programación que se iba a emplear para desarrollar código para el DDD, el cual es TypeScript. Ahora, el siguiente paso es seleccionar la tecnología que va a ser empleada junto con TypeScript para desarrollar la solución.
+
+Actualmente, cuando nos referimos a una tecnología web nos referimos a un conjunto de herramientas o framework que nos permiten desarrollar de forma más rápida y eficiente ayudándonos con ciertas características ya implementadas de base como la gestión de rutas, la gestión de estados, la gestión de peticiones, etc.
+
+Una vez aclarado a qué nos referimos por tecnología, vamos a proceder al proceso en sí conforme se ha ido haciendo anteriormente, es decir, pasando primero por los criterios de búsqueda, selección, propuesta y finalmente, las conclusiones y justificación.
+
+\subsubsection{Criterios de búsqueda}
+
+Los criterios de búsqueda que se han fijado son:
+
+\begin{itemize}
+  \item \textbf{Typescript}: el lenguaje de programación que se va a usar es TypeScript, por lo que la tecnología seleccionada debe ser compatible con TypeScript.
+  \item La tecnología debe ser compatible con \textbf{React}, una de las bibliotecas de JavaScript más populares en la actualidad para el desarrollo de interfaces de usuario, y que también es compatible con TypeScript. Su selección como criterio de búsqueda se basa en la escasa deuda técnica que presenta, su rapidez de uso y su estatus como un estándar, demostrado su aplicación en entornos reales. Además, cuenta con una amplia cantidad de recursos, bibliotecas adicionales y un mantenimiento continuo y estable.
+\end{itemize}
+
+\subsubsection{Criterios de selección}
+
+Las propuestas encontradas tras los criterios de búsqueda serán evaluadas según:
+
+\begin{itemize}
+  \item Reactividad: la tecnología debe ser reactiva, es decir, debe ser capaz de reaccionar a los cambios de estado de la aplicación de forma eficiente.
+\end{itemize}
+
+\subsubsection{Propuestas}
+
+\subsubsection{React}
+
+\href{https://react.dev/}{\textit{React}} es una biblioteca de JavaScript de código abierto para construir interfaces de usuario o componentes de la interfaz de usuario, desarrollada por Facebook y lanzada en 2013. Es una de las bibliotecas más populares y ampliamente utilizadas en la actualidad. React está diseñada para ayudar a los desarrolladores a crear aplicaciones con datos dinámicos, siendo simple, declarativa y fácil de integrar. Se centra exclusivamente en la interfaz de usuario, actuando como la Vista en los patrones de diseño. Además, puede integrarse con extensiones basadas en React que gestionan las partes no relacionadas con la interfaz de usuario de una aplicación web. 
+
+\begin{itemize}
+  \item[\bien] En cuanto a reactividad es una de las mejores opciones y más empleadas desde siempre. Fue una de las primeras tecnologías que introdujo la reactividad como característica principal a la hora del diseño de interfaces de usuario.
+\end{itemize}
+
+Lo único en lo que podríamos ver un inconveniente es en que no es un framework completo, sino una librería, por lo que se necesitará de otras librerías para completar la aplicación, de aquí pueden surgir varios problemas como dependencias no actualizadas, incompatibilidades, falta de optimización, se añade peso a la aplicación, etc. Además, cuando se trata de aplicaciones grandes, React puede ser un poco más complicado de manejar que otros. Esto mismo puede generar cierta deuda técnica en el futuro al tener que integrar herramientas que ayuden a la hora de gestionar el estado.
+
+\subsubsection{\textit{Next.js}}
+
+\href{https://nextjs.org/}{\textit{Next.js}} es un marco web de desarrollo frontend de React de código abierto creado por Vercel y Guillermo Rauch en 2016 que permite a los desarrolladores la renderización del lado del servidor y la generación de sitios web estáticos. \textit{Next.js} es una de las mejores opciones para el desarrollo de aplicaciones web modernas. Es el framework más popular y ampliamente utilizados en la actualidad.
+
+Una de las mejores características que posee \textit{Next.js} es su soporte para el SEO que es esencial si quieres que tu aplicación sea indexada por los motores de búsqueda. Tiene soporte SSR, pero no lo hace de forma predeterminada. Por último, tiene integradas las rutas dinámicas, la pre-generación de páginas (renderizado prefijado) y la exportación estática. Estas funcionalidades son muy importantes a la hora de la construcción de aplicaciones web. Los casos de éxito son numerosos como TikTok, Notion, ChatGPT, Spotify, etc.
+
+\begin{itemize}
+  \item[\bien] Cuando hablamos de reactividad en una aplicación web, \textit{Next.js} ofrece muchas mejoras en este sentido aportando numerosas opciones de renderizado y optimización aportando características y componentes que lo facilitan en gran medida. Algunos de estos ejemplos son el componente Image, el componente Link, etc.
+\end{itemize}
+
+La incorporación de esas características únicas y diferenciadoras de \textit{Next.js} puede ser un problema a la hora de la escalabilidad de la aplicación, ya que puede ser que no se necesiten todas las características que ofrece y que se añada peso y lentitud a la aplicación. Además, la curva de aprendizaje puede ser un poco más pronunciada que con otras tecnologías.
+
+\subsubsection{Astro}
+
+\href{https://astro.build/}{Astro} es un nuevo marco de desarrollo de aplicaciones web de código abierto que permite a los desarrolladores crear sitios web rápidos y eficientes. Fue desarrollado por Fred K. Schott y lanzado en 2022. Astro se centra en la creación de sitios web estáticos y dinámicos, proporcionando una estructura para el desarrollo de aplicaciones web modernas. Es conocido por su simplicidad y facilidad de uso.
+
+Astro se ha convertido en una de las mejores opciones para el desarrollo de aplicaciones web modernas. Esta tecnología emergente ha ganado popularidad en los últimos años, principalmente porque, de forma predeterminada, no añade código JavaScript a menos que sea necesario. Otra de sus características más destacadas es su agnosticismo hacia la interfaz de usuario, lo que lo hace compatible con bibliotecas como React, Preact, Svelte, Vue, entre otras. Además, dado que el lenguaje de la interfaz de usuario es un superconjunto de HTML (la extensión Astro), la experiencia de desarrollo resulta familiar y accesible.
+
+\begin{itemize}
+  \item[\regular] En cuanto a la reactividad, Astro, al igual que \textit{Next.js}, ofrece muchas mejoras en este sentido aportando numerosas opciones de renderizado y optimización. Sin embargo, es una tecnología que se centra más en la elaboración de una aplicación web estática. 
+\end{itemize}
+
+Como se ha mencionado, Astro se centra más en la elaboración de una aplicación web estática, por lo que puede ser que no se adapte del todo a las necesidades de la aplicación.
+
+\subsubsection{Conclusión}
+
+Tras valorar cada uno de los criterios de selección de las diferentes tecnologías, se ha llegado a la conclusión de que la que mejor se adapta a las necesidades del proyecto y que más va a facilitar el desarrollo de la solución es \textbf{\textit{Next.js}}. Este marco de desarrollo web ofrece numerosas características y funcionalidades que influirán de forma positiva a lo largo de todo el proyecto. A mayores, el hecho de ser un framework por encima de una librería como React, va a facilitar la implementación de casi cualquier característica.
