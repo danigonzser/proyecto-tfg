@@ -119,7 +119,7 @@ Las propuestas encontradas tras los criterios de búsqueda serán evaluadas seg�
 
 El desempeño de cada lenguaje en sendos criterios será etiquetado mediante la viñeta en el enumerado de los mismos desde \esp~si destaca por este criterio, \bien~si tiene un desempeño bueno sin llegar a destacar, \regular~si tiene un desempeño medio y \mal~si tiene un desempeño nulo.
 
-\subsection{Propuestas}
+\subsubsection{Propuestas}
 
 \subsubsection{JavaScript}
 
@@ -231,7 +231,7 @@ En cuanto a su diferencia y lo que lo hace único respecto a este tipo de lengua
 
 Por último, a modo de apunte, Go tiene una implementación híbrida entre tipificación basada en estructuras y nominativa, ya que puede llegar a verificar el tipo de los campos de la estructura.
 
-\section{Gestor de paquetes}
+\subsection{Gestor de paquetes}
 
 Tras seleccionar el lenguaje de programación, se procedió a elegir un gestor de paquetes para la gestión de dependencias. En este proyecto, se ha optado por \textit{pnpm}, una herramienta que ha demostrado ser más rápida y eficiente que otras alternativas como \textit{npm} y \textit{yarn}. \textit{Pnpm} utiliza un algoritmo de enlaces simbólicos que permite almacenar una única copia de cada paquete en el disco, reduciendo significativamente el espacio utilizado y el tiempo de instalación, al mismo tiempo que mantiene compatibilidad con los gestores mencionados.
 
@@ -249,7 +249,7 @@ Hasta ahora se ha explicado el porqué hacer tests, pero ¿qué tipo de tests ha
     \item \textbf{Tests \textit{end to end}:} se encargan de probar la funcionalidad de la aplicación desde el punto de vista del usuario. Se suele automatizar una simulación de un posible usuario final que interactúa con el sistema.
 \end{itemize}
 
-\subsection{Criterios de búsqueda}
+\subsubsection{Criterios de búsqueda}
 
 Los criterios que se han fijado para la búsqueda de la herramienta de testeo son los siguientes:
 
@@ -259,7 +259,7 @@ Los criterios que se han fijado para la búsqueda de la herramienta de testeo so
     \item CLI para ejecutar los tests.
 \end{itemize}
 
-\subsection{Criterios de selección}
+\subsubsection{Criterios de selección}
 
 Las propuestas encontradas tras los criterios de búsqueda serán evaluadas según:
 
@@ -298,12 +298,8 @@ Otra ventaja es su capacidad para grabar las pruebas o capturar pantallas en cas
 Como entregable de este milestone se han definido las siguientes interfaces:
 
 \begin{itemize}
-    \item \textbf{User}: corresponde a los usuarios de la aplicación. Responde a la historia de usuario HU04 debido al requerimiento de procesar usuarios.
     \item \textbf{Catalogue}: Responde a la historia de usuario HU03 debido al requisito de poder acceder a memes relevantes y atractivos fácilmente accesibles.
     \item \textbf{Meme}: es la unidad básica de contenido de la aplicación. Responde básicamente a todas las historias de usuario.
-    \item \textbf{Comment}: para la interacción con los memes, de esta forma se pueden ver opiniones de los mismos. Responde a la historia de usuario HU04.
-    \item \textbf{Label}: de nuevo, otra manera de interactuar con los memes. Esto también puede ayudar a la hora de la búsqueda de los mismos.
-    \item \textbf{Reaction}: las reacciones servirán para dar a primera vista, retroalimentación sobre el meme. Responde de nuevo, a la historia de usuario HU04.
 \end{itemize}
 
 Estas interfaces se han definido e implementado en TypeScript en módulos \href{https://stackoverflow.com/q/21247278?stw=2 }{\textit{«d.ts»}} que se utilizan para proporcionar definiciones de tipos para luego, poder consumirlo en el código. Estos módulos se desarrollan para, desde JavaScript, obtener los beneficios de la comprobación estática de tipos.
