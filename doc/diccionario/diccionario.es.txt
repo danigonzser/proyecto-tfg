@@ -189,3 +189,6 @@ Reaction
 yarn
 pnpm
 benchmarks
+Prisma
+ORM
+schema

@@ -374,3 +374,32 @@ Como se ha mencionado, Astro se centra más en la elaboración de una aplicació
 \subsubsection{Conclusión}
 
 Tras valorar cada uno de los criterios de selección de las diferentes tecnologías, se ha llegado a la conclusión de que la que mejor se adapta a las necesidades del proyecto y que más va a facilitar el desarrollo de la solución es \textbf{\textit{Next.js}}. Este marco de desarrollo web ofrece numerosas características y funcionalidades que influirán de forma positiva a lo largo de todo el proyecto. A mayores, el hecho de ser un framework por encima de una librería como React, va a facilitar la implementación de casi cualquier característica.
+
+\subsection{Persistencia de datos}
+
+En esta subsección se va a proceder a la explicación de la implementación de la persistencia de datos en el proyecto. Cuando hablamos de esto, nos referimos a la capacidad de que un sistema almacene y recupere las entidades definidas en el proyecto. Este proceso es esencial para asegurar la consistencia de la información.
+
+La tecnología que se va a emplear para esta parte es \href{https://www.prisma.io/}{Prisma}, que es una herramienta de mapeo relacional de objetos u ORM moderna y de código abierto para Node.js y TypeScript. Proporciona un cliente de base de datos de tipado seguro haciendo que el acceso a la base de datos sea fácil, intuitivo y robusto.
+
+Un ORM elige de manera sistemática y predictiva qué tablas crear y usar y que sentencias SQL generar a partir de la implementación en código orientado a objetos. Prisma mejora esta idea e implementa un ORM con un tipado seguro ya mencionado anteriormente, un modelado de datos declarativo llamado \textit{schema}, una API de cliente automáticamente generada y consistente, agnosticismo a la base de datos, manejo de migraciones cosa que puede llegar a ser muy útil a la hora de modificar el esquema de datos. Todas estas ventajas que provee Prisma hacen que la implementación de la persistencia sea más sencilla, segura y eficiente.
+
+\subsubsection{Esquema de la base de datos}
+
+Como se ha mencionado anteriormente, el esquema que se va a utilizar a partir del cliente de Prisma es un declarativo. A partir de él se puede generar un gráfico de relaciones entre las entidades que se van a almacenar en la base de datos.
+
+\begin{figure}[H]
+    \caption{Esquema modelo base de datos.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.2]{figuras/prisma-orm.png}
+\end{figure}
+
+Como se puede ver en la figura se han definido dos entidades que son \textit{Meme} y \textit{Catalogue}. La entidad \textit{Catalogue} tiene una relación de uno a muchos con la entidad \textit{Meme}. Esto significa que un catálogo puede tener muchos memes, pero un meme solo puede pertenecer a un catálogo.
+
+La entidad de catálogo tiene el campo de identificador, del título, de la descripción, fecha de creación y fecha de actualización junto con los memes que pertenecen a ese catálogo. La entidad de meme tiene el campo de identificador, del título, de la descripción, de la imagen, de la fecha de creación y de la fecha de actualización junto con el catálogo al que pertenece.
+
+\subsubsection{Mejores prácticas Prisma ORM y Next.js}
+
+Para la implementación de la persistencia de datos en el proyecto se han seguido las \href{https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/nextjs-prisma-client-dev-practices}{mejores prácticas} recogidas en la documentación de Prisma para Next.js.
+
+La misma dice que se debe inicializar el cliente de Prisma en un archivo separado y exportarlo para que pueda ser importado en cualquier parte de la aplicación. Esto se hace para evitar la creación de múltiples instancias del cliente de Prisma, lo que puede provocar problemas de rendimiento y de memoria. Esto ocurre debido a que cuando se ejecuta el entorno de desarrollo la caché de Node.js se limpia.
