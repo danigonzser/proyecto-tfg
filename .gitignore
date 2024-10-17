@@ -310,3 +310,7 @@ typings/
 # emacs
 *~
 
+# actual and diff cypress snapshots
+cypress/screenshots
+cypress/snapshot/actual/*
+cypress/snapshot/diff/*
