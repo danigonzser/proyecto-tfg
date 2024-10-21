@@ -403,3 +403,250 @@ La entidad de catálogo tiene el campo de identificador, del título, de la desc
 Para la implementación de la persistencia de datos en el proyecto se han seguido las \href{https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/nextjs-prisma-client-dev-practices}{mejores prácticas} recogidas en la documentación de Prisma para Next.js.
 
 La misma dice que se debe inicializar el cliente de Prisma en un archivo separado y exportarlo para que pueda ser importado en cualquier parte de la aplicación. Esto se hace para evitar la creación de múltiples instancias del cliente de Prisma, lo que puede provocar problemas de rendimiento y de memoria. Esto ocurre debido a que cuando se ejecuta el entorno de desarrollo la caché de Node.js se limpia.
+
+\section{Milestone 3: Interacción con memes}
+
+El producto mínimo viable (PMV) o entregable resultante tras este hito consiste en un sistema que permita la interacción con los memes, es decir, un editor de memes que permita la creación y edición, por ahora, de los mismos.
+
+El desarrollo del editor de memes es una parte fundamental del proyecto, ya que es una de las partes principales de cara al usuario final. El código ha sido desarrollado pensando en un canvas que es dónde se realiza la edición en sí. Alrededor del mismo se ubican las diferentes herramientas, funcionalidades y operaciones disponibles.
+
+Este hito también se incluye la creación y ejecución de los tests correspondientes para comprobar las operaciones. Antes de comenzar con la explicación de la implementación se da paso a las diferentes decisiones técnicas que se han tomado.
+
+En primer lugar, hay que decidir cómo implementar la parte del canvas. El implementar un motor de renderizado desde cero es una tarea que para nuestro caso, es impracticable debido a la cantidad de tiempo y recursos que se necesitarían. Por ello, se ha decidido emplear un motor de renderizado ya existente.
+
+\subsection{Selección del motor de renderizado}
+
+Como se ha mencionado anteriormente, se ha decidido usar un motor de renderizado ya existente como librería e incluirlo en el proyecto de forma que se va a proceder con la selección del motor.
+
+\subsubsection{Criterios de búsqueda}
+
+Los criterios de búsqueda establecidos para la selección de la biblioteca para el renderizado del canvas son:
+
+\begin{itemize}
+  \item \textbf{Compatibilidad con tecnologías ya seleccionadas}: la biblioteca seleccionada debe ser compatible con React y Next.js.
+  \item \textbf{Tipado}: la biblioteca debe estar escrita en TypeScript o tener definiciones de tipos.
+\end{itemize}
+
+\subsubsection{Criterios de selección}
+
+Las propuestas serán evaluadas según los siguientes criterios:
+
+\begin{itemize}
+  \item \textbf{Integración}: debe ser fácil de integrar en el proyecto.
+  \item \textbf{Mantenibilidad}: debe estar activamente mantenida y actualizada.
+  \item \textbf{Rendimiento}: debe poder manejar gráficos incluso en condiciones de bajos recursos.
+\end{itemize}
+
+El desempeño de cada lenguaje en sendos criterios será etiquetado mediante la viñeta en el enumerado de los mismos desde \esp~si destaca por este criterio, \bien~si tiene un desempeño bueno sin llegar a destacar, \regular~si tiene un desempeño medio y \mal~si tiene un desempeño nulo.
+
+\subsubsection{Propuestas}
+
+\subsubsection{Konva.js}
+
+Konva.js es una biblioteca o framework de código abierto que permite la creación de gráficos interactivos en el canvas para aplicaciones de escritorio y móviles. Permite animaciones, manejo de eventos, manipulación y anidación de nodos, capas y filtros. Este proyecto se tuvo sus inicios a partir de KineticJS (otra biblioteca del mismo estilo, pero que fue discontinuada, en 2014 fue su última actualización).
+
+\begin{itemize}
+    \item[\regular] \textbf{Integración:} Ha estado a punto de no entrar siquiera en la lista de propuestas, ya que necesita de una dependencia extra para funcionar en React (react-konva).
+    \item[\bien] \textbf{Mantenibilidad:} Está activamente mantenida y actualizada. La última actualización el 9 del pasado mes. Sin embargo, la dependencia de react-konva no está tan actualizada siendo la última en 2019.
+    \item[\bien] \textbf{Rendimiento:} Se ha demostrado que su rendimiento es bueno incluso en condiciones de bajos recursos.
+\end{itemize}
+
+Konva.js destaca por su alto rendimiento a la hora de manejar eventos y gestos, como el arrastre y el zum que los hace de manera muy eficiente. Sin embargo, el enfoque de capas y nodos puede resultar en una curva de aprendizaje bastante más pronunciada.
+
+\subsubsection{Fabric.js}
+
+\href{http://fabricjs.com/}{Fabric.js} es una biblioteca JavaScript de código abierto centrada en la manipulación de gráficos y objetos dentro del canvas. Permite la creación de gráficos interactivos, la manipulación de imágenes y la edición de texto.
+
+\begin{itemize}
+    \item[\esp] \textbf{Integración:} Gracias a su enfoque modular y orientado a objetos se integra fácilmente con las tecnologías seleccionadas anteriormente. No necesita ninguna dependencia extra para funcionar junto con React y tener el tipado de TypeScript.
+    \item[\bien] \textbf{Mantenibilidad:} Se actualiza continuamente, siendo la última hace dos semanas.
+    \item[\bien] \textbf{Rendimiento:} En cuanto a rendimiento es un framework bastante bueno no llegando a destacar.
+\end{itemize}
+
+Fabric.js destaca por su enfoque orientado a objetos lo que vuelve mucho más intuitivo la experiencia de desarrollo. Permite manejar elementos del canvas como objetos manipulables y editables. La desventaja que provee esta biblioteca puede residir en el rendimiento que no destaca tanto como otras bibliotecas.
+
+\subsubsection{PixiJS}
+
+PixiJS es un sistema de código abierto basado en la web que provee de un motor de renderizado de canvas potente para juegos, visualización de datos y otras aplicaciones que requieran de gráficos avanzados e intensivos.
+
+\begin{itemize}
+    \item[\regular] \textbf{Integración:} PixiJS necesita de una dependencia extra para poder llegar a un funcionar de manera óptima en React (pixijs-react).
+    \item[\bien] \textbf{Mantenibilidad:} Está activamente mantenida y actualizada. La última actualización fue en marzo.
+    \item[\esp] \textbf{Rendimiento:} PixiJS principalmente destaca por su rendimiento.
+\end{itemize}
+
+PixiJS está diseñada principalmente para el desarrollo de videojuegos de ahí, su rendimiento basado en la aceleración por hardware. Esto puede llegar a tener una desventaja y es, por ejemplo, en nuestro caso, que queremos algo más sencillo que no requiera de tanto rendimiento y que puede llegar a ser ejecutado en dispositivos de bajo rendimiento.
+
+\subsubsection{Conclusión}
+
+Después de evaluar las diferentes propuestas bajo los criterios establecidos, Fabric.js se destaca como la mejor opción para el proyecto de editor de memes online. Su enfoque orientado a objetos, facilidad de integración con React y TypeScript, junto con la asidua actualización y mantenimiento de la biblioteca, la convierten en la elección más adecuada para el desarrollo de la solución propuesta.
+
+PixiJS, aunque, ofrece el mejor rendimiento de entre las propuestas gracias a su aceleración por hardware, el enfoque hacia el desarrollo de videojuegos introduce una complejidad innecesaria para algo mucho más simplista. Konva.js, por su parte, presenta algunas limitaciones en cuanto a su integración con TypeScript y su ecosistema más pequeño. Aunque Konva.js tenga más descargas en npm que Fabric.js, la biblioteca de Fabric.js tiene una comunidad mucho más grande en GitHub~\href{https://stackshare.io/stackups/bower-pixi-js-vs-fabricjs-vs-konva#description}{según sus estrellas}.
+
+En definitiva, Fabric.js no solo cumple con los requisitos de rendimiento y compatibilidad, sino que también ofrece una excelente mantenibilidad y soporte comunitario, asegurando que el proyecto pueda evolucionar de manera sostenible y con una deuda técnica mínima.
+
+\subsection{Diseño de interfaces}
+
+Antes de empezar a hablar de la implementación del editor en sí, se va a proceder a la explicación de la decisión tomada acerca del diseño de interfaces, ya que se ha tomado en este milestone al ser necesario implementar la interfaz.
+
+El diseño de interfaces por lo general, conlleva consigo una elección de framework de UI y un catálogo o catálogos de componentes que ayuden, agilicen y provean de consistencia a la UI.
+
+En nuestro caso todas las interfaces del proyecto se han implementado utilizando \textbf{\textit{Tailwind}} como framework de UI CSS y \textbf{\textit{ShadCN}}, un catálogo de componentes.
+
+\subsubsection{Tailwind CSS}
+
+Tailwind es un framework de CSS que se ha integrado en el desarrollo de estilos para componentes mediante el uso de clases directamente en el marcado. Es una herramienta ampliamente adoptada por aproximadamente el 50\% de los desarrolladores según la encuesta \href{https://2023.stateofcss.com/es-ES/css-frameworks/}{\textit{stateofcss}}. Su popularidad se debe, en gran medida, a su facilidad en la implementación, ya que permite definir estilos directamente en el lenguaje de marcado, simplificando el proceso de diseño. 
+
+Además, Tailwind se adapta perfectamente a Next.js, pues al crear un nuevo proyecto con Next.js, se ofrece la opción de incluirlo automáticamente en las dependencias sin ningún tipo de configuración extra, lo que refuerza su presencia como una solución casi nativa para los desarrolladores de esta plataforma.
+
+\subsubsection{ShadCN}
+
+ShadCN es un conjunto de componentes UI que funciona como un catálogo para desarrollar interfaces de usuario, proporcionando una solución sólida, intuitiva, consistente y escalable para proyectos. Este catálogo está diseñado con un enfoque muy alineado con el ecosistema de Next.js, ya que incluye los mismos componentes que se utilizan en la página web oficial de Next.js y Vercel, la compañía que desarrolla y mantiene Next.js. Gracias a esta estrecha relación, ShadCN se convierte en una opción ideal para quienes ya tienen experiencia sobre Next.js en sus proyectos porque permite construir interfaces de usuario con la misma coherencia y calidad visual que la propia plataforma oficial de Vercel.
+
+ShadCN ofrece una serie de componentes listos hechos a partir de Tailwind CSS que se pueden incluir en cualquier proyecto de React. Además, se puede personalizar fácilmente para adaptarse a las necesidades de la aplicación como colores, tamaños, etc. Además, están preparados para seguir con los estándares de las mejores prácticas de accesibilidad asegurando que la página sea accesible.
+
+\subsubsection{Decisiones de diseño y prácticas}
+
+Durante todo el diseño del proyecto se van a seguir una serie de buenas prácticas en cuanto al diseño. Estas prácticas van a tener de base a Tailwind y ShadCN. Algunas son:
+
+\begin{itemize}
+    \item \textbf{Adaptabilidad}: las interfaces implementadas van a ser diseñadas de base para que se adapten a cualquier dispositivo.
+    \item \textbf{Consistencia visual}: una paleta de colores y tipografía coherente en todo el proyecto.
+    \item Experiencia de usuario: para mejorarla se van a incorporar mejoras de calidad de vida, interactividad, animaciones, etc.
+\end{itemize}
+
+\subsection{Editor de memes}
+
+El editor de memes se ha diseñado basado en una arquitectura modular, aprovechando las ventajas de React para gestionar el estado y la reactividad, de Fabric.js como motor para el renderizado y manejo de eventos del canvas y de \href{https://hammerjs.github.io/}{Hammer.js} para apoyar la cobertura de gestos táctiles (en nuestro caso tanto para el pellizco como para el desplazamiento).
+
+\begin{figure}[H]
+    \caption{Tema claro de la interfaz de usuario del editor.}
+    \centering
+    \includegraphics[scale=0.11]{figuras/editor_tema_claro.png}
+\end{figure}
+
+Para poner en contexto la explicación siguiente se ha mostrado una captura actual del editor. En la parte izquierda se encuentran las diferentes herramientas para interactuar con el canvas, la parte superior se encuentran las opciones más referentes al almacenamiento y gestión de estado y en la parte central se encuentra el componente principal, el canvas.
+
+\subsubsection{Componente principal: Canvas}
+
+El componente principal del editor es el canvas, cuya gestión completa está a cargo de Fabric.js, una potente librería especializada en la manipulación de gráficos y eventos en lienzos HTML. Fabric.js proporciona, de forma nativa, herramientas robustas para gestionar figuras, interacciones y personalizaciones dentro del canvas, lo que lo convierte en una elección ideal para este tipo de proyectos.
+
+\subsubsection{Inicialización del canvas}
+
+Siguiendo las mejores prácticas de Fabric.js para entornos React, se utiliza el hook useEffect para controlar la inicialización del canvas. Este enfoque garantiza que:
+
+\begin{itemize}
+    \item La instancia del canvas se cree antes de que el componente sea renderizado, asegurando que esté completamente disponible para su manipulación.
+    \item Solo se origine una única instancia del canvas durante el ciclo de vida del componente, evitando así la creación innecesaria de múltiples instancias.
+    \item Cuando el componente se desmonta, se realiza una limpieza adecuada del canvas para liberar recursos y evitar problemas de memoria o rendimiento.
+\end{itemize}
+
+\subsubsection{Enfoque orientado a objetos de Fabric.js}
+
+Fabric.js adopta un enfoque claro de programación orientada a objetos (POO), lo que lo hace altamente intuitivo para desarrolladores familiarizados con este paradigma. La creación de la instancia del canvas sigue un patrón estándar en POO:
+
+\begin{itemize}
+    \item Se genera un objeto del canvas mediante la palabra clave \texttt{new}.
+    \item Se pasan las opciones de configuración iniciales como argumentos, lo que permite personalizar el comportamiento y las propiedades del canvas desde el momento de su creación.
+\end{itemize}
+
+\subsubsection{Gestión de objetos en el canvas}
+
+Uno de los aspectos más poderosos de Fabric.js es su enfoque modular y orientado a objetos para la gestión de los elementos dentro del canvas. Cada figura u objeto gráfico se trata como una entidad independiente, que puede añadirse, modificarse o eliminarse del canvas sin afectar a los demás elementos. Esto ofrece una gran flexibilidad, permitiendo:
+
+\begin{itemize}
+    \item Manipulación granular de cada objeto dentro del canvas.
+    \item Edición y personalización independiente de cada elemento gráfico, mejorando la modularidad del código.
+\end{itemize}
+
+Este diseño modular fue un factor clave en la elección de Fabric.js para el proyecto, ya que facilita la construcción de aplicaciones complejas donde cada componente gráfico necesita ser tratado de manera autónoma y flexible.
+
+\subsubsection{Inicialización nuevo proyecto}
+
+Como se ha visto en la captura de pantalla del editor anteriormente insertada, en el componente principal no aparece como podemos ver en otros editores el lienzo en blanco, sino que, por el contrario, aparece un formulario con una serie de opciones para la creación personalizada de este lienzo. Se puede configurar tanto si partir desde un lienzo vacío o desde una imagen que el usuario importe. Cualquiera de las dos opciones crea un canvas de manera responsiva, es decir, adaptándose al ancho de la pantalla disponible manteniendo la relación de aspecto de la imagen original (por lo que una vez el meme resultante se exporte, tendrá las dimensiones inicialmente configuradas).
+
+Si seleccionamos la opción de empezar el nuevo proyecto desde un lienzo vacío, se pueden configurar las dimensiones del lienzo y el color de fondo.
+
+De lo contrario, si se selecciona la opción de empezar desde una imagen, se puede importar una imagen desde el dispositivo y empezar con nuestro meme a partir de ella.
+
+\begin{figure}[H]
+    \caption{Formulario nuevo proyecto desde imagen tema oscuro.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.5]{figuras/meme_imagen_oscuro.png}
+\end{figure}
+
+Una vez se haya cargado el lienzo con nuestra configuración seleccionada se puede empezar a trabajar sobre el mismo.
+
+\subsubsection{Inserción de imágenes}
+
+Otro de los objetos para añadir al canvas es la imagen. Para ello, se ha implementado un sistema de carga de imágenes desde el dispositivo. Si queremos añadir cualquier imagen al canvas, se puede hacer desde la barra izquierda que más adelante mencionaremos o arrastrando la imagen directamente al canvas. Al hacer esto, se desenfoca el canvas, dando retroalimentación al usuario de que suelte la imagen para insertarla en el canvas.
+
+\subsubsection{Barra izquierda: Herramientas}
+
+\begin{figure}[H]
+    \caption{Barra de herramientas en móvil y escritorio.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.2]{figuras/barra_movil_escritorio.png}
+\end{figure}
+
+En la barra izquierda se encuentran básicamente las herramientas que se pueden utilizar para la gestión de objetos del canvas. Estas herramientas son (de arriba a abajo):
+
+\begin{itemize}
+    \item \textbf{Arrastre}: permite hacer un barrido de cámara usando gestos táctiles (más pensado para móvil).
+    \item \textbf{Selección}: permite seleccionar un objeto para poder moverlo, redimensionarlo, rotarlo, etc.
+    \item \textbf{Rectángulo}: permite añadir un rectángulo.
+    \item \textbf{Dibujo}: permite habilitar el modo dibujo para poder realizar trazos.
+    \item \textbf{Texto}: permite añadir un texto.
+    \item \textbf{Limpiar todo}: aplica una limpieza total, eliminando todos los objetos e historial para deshacer y rehacer.
+    \item \textbf{Añadir imagen}: permite añadir una imagen.
+\end{itemize}
+
+Por último, tenemos la opción de guardar meme representada con un botón amarillo con un icono de descarga. Al hacer clic en este botón, se abre un modal o un cajón (si el dispositivo es móvil) en el que podemos seleccionar si guardarlo como imagen en el dispositivo o guardarlo en un catálogo de memes.
+
+\begin{figure}[H]
+    \caption{Diálogo y cajón para guardar meme.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.2]{figuras/guardar_meme.png}
+\end{figure}
+
+Si seleccionamos la opción de guardarlo en local, se descargará el meme que actualmente esté en el editor con el nombre y extensión especificados en el formulario.
+
+Por otro lado, si seleccionamos la opción de guardarlo en el catálogo, se guardará el meme en el catálogo seleccionado. Si no se selecciona ningún catálogo, se guardará en el catálogo por defecto.
+
+Aparte, existe el icono de una casa que nos lleva a la página principal de la aplicación.
+
+\subsection{Barra superior: Operaciones}
+
+\begin{figure}[H]
+    \caption{Barra superior de operaciones.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.2]{figuras/barra_operaciones.png}
+\end{figure}
+
+En la barra superior se encuentran las operaciones más referentes al almacenamiento y gestión de estado. Estas operaciones son (de izquierda a derecha):
+
+\begin{itemize}
+    \item \textbf{Deshacer}
+    \item \textbf{Rehacer}
+    \item \textbf{Guardar}: estado actual del meme. Si hacemos clic en este botón y estamos en un meme ya guardado se guardará el estado actual del mismo. De igual manera, cada 5 minutos se guarda automáticamente. Sin embargo, si estamos en un meme nuevo, se notificará al usuario para que guarde el meme en un catálogo. De forma pasiva, este botón informa de cuando hay cambios sin guardar con un círculo amarillo pulsante.
+    \item \textbf{Nombre de meme}: indica el nombre del meme actualmente.
+    \item \textbf{Aumentar zum} 
+    \item \textbf{Disminuir zum}
+\end{itemize}
+
+\subsubsection{Propiedades de las figuras}
+
+Esta sección es independiente a las demás debido a que dependiendo del dispositivo del usuario se mostrarán las propiedades en la barra superior o en la inferior (si el dispositivo es móvil).
+
+\begin{figure}[H]
+    \caption{Propiedades de las figuras.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.2]{figuras/propiedades_objetos.png}
+\end{figure}
+
+Como se puede apreciar en la figura, las propiedades de las figuras se muestran de acuerdo a las establecidas manualmente en el momento o configuradas en el objeto seleccionado. En el caso del rectángulo las propiedades modificables son el color de relleno, del borde y la anchura del borde. En el caso del texto, las propiedades modificables son el color del texto, la tipografía y el estilo. Por último, en el caso del trazado las propiedades modificables son el color y la anchura.
