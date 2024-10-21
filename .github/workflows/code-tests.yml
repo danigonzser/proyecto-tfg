@@ -2,9 +2,9 @@ name: testing-workflow
 
 on:
   push:
-    paths:
-      - 'src/**/*.ts'
-      - 'cypress/**/*.ts'
+    # paths:
+    #   - 'src/**/*.ts'
+    #   - 'cypress/**/*.ts'
 
 jobs:
 
