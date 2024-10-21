@@ -7,12 +7,15 @@ on:
     #   - 'cypress/**/*.ts'
 
 jobs:
-
-  install:
+                
+  unit-tests:
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:node-20.18.0-chrome-129.0.6668.89-1-ff-131.0.2-edge-129.0.2792.65-1
       options: --user 1001
+    strategy:
+      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,55 +28,6 @@ jobs:
         with:
           cache: 'pnpm'
           cache-dependency-path: ./pnpm-lock.yaml
-
-      - name: Cypress install
-        uses: cypress-io/github-action@v6
-        with:
-          runTests: false
-          build: pnpm run build
-
-      - name: Cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.pnpm
-            ${{ github.workspace }}/.next/cache
-
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
-                
-  unit-tests:
-    timeout-minutes: 15
-    runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node-20.18.0-chrome-129.0.6668.89-1-ff-131.0.2-edge-129.0.2792.65-1
-      options: --user 1001
-    needs: install
-    strategy:
-      fail-fast: false
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.pnpm
-            ${{ github.workspace }}/.next/cache
-
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
-
-      - name: Node info
-        run: node -v
-
-      - name: __e Dir
-        run: ls /__e
 
       - name: "Unit tests"
         uses: cypress-io/github-action@v6
@@ -89,30 +43,20 @@ jobs:
     container:
       image: cypress/browsers:node-20.18.0-chrome-129.0.6668.89-1-ff-131.0.2-edge-129.0.2792.65-1
       options: --user 1001
-    needs: install
     strategy:
       fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cache
-        uses: actions/cache@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          path: |
-            ~/.pnpm
-            ${{ github.workspace }}/.next/cache
-
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
-
-      - name: Node info
-        run: node -v
-
-      - name: __e Dir
-        run: ls /__e
+          cache: 'pnpm'
+          cache-dependency-path: ./pnpm-lock.yaml
 
       - name: "UI Desktop Tests - Chrome"
         uses: cypress-io/github-action@v6
@@ -132,24 +76,20 @@ jobs:
     container:
       image: cypress/browsers:node-20.18.0-chrome-129.0.6668.89-1-ff-131.0.2-edge-129.0.2792.65-1
       options: --user 1001
-    needs: install
     strategy:
       fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cache
-        uses: actions/cache@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          path: |
-            ~/.pnpm
-            ${{ github.workspace }}/.next/cache
-
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+          cache: 'pnpm'
+          cache-dependency-path: ./pnpm-lock.yaml
 
       - name: "UI Tests - Chrome - Mobile"
         uses: cypress-io/github-action@v6
