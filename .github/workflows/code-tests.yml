@@ -56,11 +56,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-        ports:
-          - 5432:5432
-
-    env:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
     steps:
       - name: Checkout
@@ -85,6 +80,9 @@ jobs:
           browser: chrome
           spec: cypress/e2e/*
           config-file: cypress.config.ts
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
   ui-chrome-mobile-tests:
     timeout-minutes: 15
