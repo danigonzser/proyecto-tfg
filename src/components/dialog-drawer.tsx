@@ -103,7 +103,11 @@ export const DialogDrawer: React.FC<Props> = ({
 
           setMemeInCatalogue(catalogueIdRef.current, values.name, JSON.stringify(memeJson)).then(() => {
             setOpen(false)
-            window.onbeforeunload = null
+
+            if (typeof window !== 'undefined') {
+              window.onbeforeunload = null
+            }
+
             router.push(`/catalogues/${catalogueIdRef.current}`)
           })
 

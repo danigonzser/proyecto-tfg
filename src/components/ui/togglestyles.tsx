@@ -4,11 +4,8 @@ import {
 } from "@/components/ui/toggle-group"
 import { Style } from "@/lib/types"
 import { Bold, Italic, Underline } from "lucide-react"
-import { fabric } from "fabric"
 
-export function ToggleStylesGroup({ canvas, value, onValueChange }: { canvas: fabric.Canvas | undefined, value: string[], onValueChange: (value: string[]) => void }) {
-
-
+export function ToggleStylesGroup({ value, onValueChange }: { value: string[], onValueChange: (value: string[]) => void }) {
 
   return (
     <ToggleGroup type="multiple" value={value} onValueChange={onValueChange}>

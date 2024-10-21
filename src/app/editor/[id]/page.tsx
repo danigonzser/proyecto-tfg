@@ -1,6 +1,11 @@
 import type { Metadata, ResolvingMetadata } from 'next'
-import FabricCanvas from "@/components/fabric-canvas"
 import prisma from '@/lib/db'
+import dynamic from 'next/dynamic'
+
+const FabricCanvasNoSSR = dynamic(
+  () => import('@/components/fabric-canvas'),
+  { ssr: false }
+)
 
 export async function generateMetadata(
   { params }: {
@@ -35,7 +40,7 @@ export default function EditMeme({ params }: {
 }) {
   return (
     <div className="h-full w-full">
-      <FabricCanvas memeId={params.id} />
+      <FabricCanvasNoSSR memeId={params.id} />
     </div>
   )
 }

@@ -680,9 +680,11 @@ function App({
 
     c.on('object:added', function (opt) {
 
-      if (window.onbeforeunload !== null) {
-        window.onbeforeunload = function () {
-          return "Any progress not saved will be lost."
+      if (typeof window !== 'undefined') {
+        if (window.onbeforeunload !== null) {
+          window.onbeforeunload = function () {
+            return "Any progress not saved will be lost."
+          }
         }
       }
 
@@ -700,11 +702,14 @@ function App({
 
     c.on('object:modified', function (opt) {
 
-      if (window.onbeforeunload !== null) {
-        window.onbeforeunload = function () {
-          return "Any progress not saved will be lost."
+      if (typeof window !== 'undefined') {
+        if (window.onbeforeunload !== null) {
+          window.onbeforeunload = function () {
+            return "Any progress not saved will be lost."
+          }
         }
       }
+
       handleModificationSaved(false)
 
       if (!isLoadingFromHistory.current) {
@@ -719,11 +724,14 @@ function App({
 
     c.on('object:removed', function (opt) {
 
-      if (window.onbeforeunload !== null) {
-        window.onbeforeunload = function () {
-          return "Any progress not saved will be lost."
+      if (typeof window !== 'undefined') {
+        if (window.onbeforeunload !== null) {
+          window.onbeforeunload = function () {
+            return "Any progress not saved will be lost."
+          }
         }
       }
+
       handleModificationSaved(false)
 
       if (!isLoadingFromHistory.current) {
@@ -886,33 +894,39 @@ function App({
     canvasRef.current = c
     c.requestRenderAll()
 
-    //Uncomment this with strict mode off
-    window.addEventListener("keydown", (e) => {
+    if (typeof window !== 'undefined') {
 
-      console.log(e.ctrlKey, e.key, e.code, undoHistoryElementsRef.current, redoHistoryElementsRef.current)
+      //Uncomment this with strict mode off
+      window.addEventListener("keydown", (e) => {
 
-      if (e.code === "Delete" || e.code === "Backspace") {
-        handleObjectRemove(c)
-      }
+        console.log(e.ctrlKey, e.key, e.code, undoHistoryElementsRef.current, redoHistoryElementsRef.current)
 
-      // if (e.ctrlKey && e.key === "s") {
-      //   e.preventDefault()
-      //   document.getElementById('save_as_dialog')?.click()
-      // }
-    })
+        if (e.code === "Delete" || e.code === "Backspace") {
+          handleObjectRemove(c)
+        }
 
-    // window.addEventListener("keypress", (e) => {
-    //   if (e.ctrlKey && e.key === "z" && undoHistoryElementsRef.current > 1) {
-    //     console.log("undo")
-    //     const element = document.getElementById('undo_canvas_button')
-    //     if (element) element.click()
-    //   }
+        // if (e.ctrlKey && e.key === "s") {
+        //   e.preventDefault()
+        //   document.getElementById('save_as_dialog')?.click()
+        // }
+      })
 
-    // })
+      // window.addEventListener("keypress", (e) => {
+      //   if (e.ctrlKey && e.key === "z" && undoHistoryElementsRef.current > 1) {
+      //     console.log("undo")
+      //     const element = document.getElementById('undo_canvas_button')
+      //     if (element) element.click()
+      //   }
+
+      // })
+
+    }
 
     return () => {
       c.dispose()
-      window.onbeforeunload = null
+      if (typeof window !== 'undefined') {
+        window.onbeforeunload = null
+      }
       handleModificationSaved(true)
     }
   }, [])
@@ -941,7 +955,9 @@ function App({
               description: "This occurs every minute",
               action: <Cloud />
             })
-            window.onbeforeunload = null
+            if (typeof window !== 'undefined') {
+              window.onbeforeunload = null
+            }
             handleModificationSaved(true)
 
           })
@@ -1180,8 +1196,9 @@ function App({
           description: "Just in case, it happens every minute 😉",
           action: <Cloud />
         })
-
-        window.onbeforeunload = null
+        if (typeof window !== 'undefined') {
+          window.onbeforeunload = null
+        }
         handleModificationSaved(true)
       })
 
@@ -1199,15 +1216,19 @@ function App({
         action: <Megaphone />
       })
 
-      document.getElementById('save_as_dialog')?.focus()
-      setTimeout(() => document.getElementById('save_as_dialog')?.blur(), 500)
-      setTimeout(() => document.getElementById('save_as_dialog')?.focus(), 1000)
-      setTimeout(() => document.getElementById('save_as_dialog')?.blur(), 1500)
+      if (typeof document !== 'undefined') {
 
-      document.getElementById('save_as_drawer')?.focus()
-      setTimeout(() => document.getElementById('save_as_drawer')?.blur(), 500)
-      setTimeout(() => document.getElementById('save_as_drawer')?.focus(), 1000)
-      setTimeout(() => document.getElementById('save_as_drawer')?.blur(), 1500)
+        document.getElementById('save_as_dialog')?.focus()
+        setTimeout(() => document.getElementById('save_as_dialog')?.blur(), 500)
+        setTimeout(() => document.getElementById('save_as_dialog')?.focus(), 1000)
+        setTimeout(() => document.getElementById('save_as_dialog')?.blur(), 1500)
+
+        document.getElementById('save_as_drawer')?.focus()
+        setTimeout(() => document.getElementById('save_as_drawer')?.blur(), 500)
+        setTimeout(() => document.getElementById('save_as_drawer')?.focus(), 1000)
+        setTimeout(() => document.getElementById('save_as_drawer')?.blur(), 1500)
+
+      }
 
     }
 
@@ -1795,7 +1816,7 @@ function App({
                     </div>
                   </PopoverContent>
                 </Popover>
-                <ToggleStylesGroup canvas={canvas} value={fontStyle} onValueChange={handleChangefontStyle} />
+                <ToggleStylesGroup value={fontStyle} onValueChange={handleChangefontStyle} />
               </>
             )}
           </div>
@@ -1981,7 +2002,7 @@ function App({
                         </div>
                       </PopoverContent>
                     </Popover>
-                    <ToggleStylesGroup canvas={canvas} value={fontStyle} onValueChange={handleChangefontStyle} />
+                    <ToggleStylesGroup value={fontStyle} onValueChange={handleChangefontStyle} />
                   </>
                 )}
               </div>

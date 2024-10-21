@@ -8,26 +8,128 @@ on:
 
 jobs:
 
-  unit-tests:
+  install:
     runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node-20.18.0-chrome-129.0.6668.89-1-ff-131.0.2-edge-129.0.2792.65-1
+      options: --user 1001
     steps:
-      - uses: actions/checkout@v4
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          cache: 'pnpm'
-          cache-dependency-path: ./pnpm-lock.yaml
-      - name: Ejectar los tests unitarios
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cypress install
         uses: cypress-io/github-action@v6
         with:
-          command: pnpm run test
-          spec: |
-            cypress/unit/*.cy.js
-      - uses: actions/upload-artifact@v4
-        if: failure()
+          runTests: false
+          build: pnpm run build
+
+      - name: Save build folder
+        uses: actions/upload-artifact@v4
         with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-          if-no-files-found: ignore
+          name: build
+          if-no-files-found: error
+          path: build
+
+  unit-tests:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node-20.18.0-chrome-129.0.6668.89-1-ff-131.0.2-edge-129.0.2792.65-1
+      options: --user 1001
+    needs: install
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build
+
+      - name: Node info
+        run: node -v
+
+      - name: __e Dir
+        run: ls /__e
+
+      - name: "Unit tests"
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          group: "Unit tests"
+          spec: cypress/unit/*
+          config-file: cypress.config.ts
+
+  ui-chrome-desktop-tests:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node-20.18.0-chrome-129.0.6668.89-1-ff-131.0.2-edge-129.0.2792.65-1
+      options: --user 1001
+    needs: install
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build
+
+      - name: Node info
+        run: node -v
+
+      - name: __e Dir
+        run: ls /__e
+
+      - name: "UI Desktop Tests - Chrome"
+        uses: cypress-io/github-action@v6
+        with:
+          build: pnpm run build
+          start: pnpm run start
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 120
+          browser: chrome
+          group: "UI Desktop - Chrome"
+          spec: cypress/e2e/*
+          config-file: cypress.config.ts
+
+  ui-chrome-mobile-tests:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node-20.18.0-chrome-129.0.6668.89-1-ff-131.0.2-edge-129.0.2792.65-1
+      options: --user 1001
+    needs: install
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build
+
+      - name: "UI Tests - Chrome - Mobile"
+        uses: cypress-io/github-action@v6
+        with:
+          config: '{"e2e":{"viewportWidth":375,"viewportHeight":667}}'
+          build: pnpm run build
+          start: pnpm run start
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 120
+          browser: chrome
+          record: true
+          parallel: true
+          group: "UI Mobile - Chrome"
+          spec: cypress/e2e/*
+          config-file: cypress.config.ts
