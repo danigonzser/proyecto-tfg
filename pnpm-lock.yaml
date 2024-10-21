@@ -71,9 +71,21 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/fabric':
+        specifier: ^5.3.9
+        version: 5.3.9
       '@types/hammerjs':
         specifier: 2.0.46
         version: 2.0.46
+      '@types/node':
+        specifier: ^20
+        version: 20.14.15
+      '@types/react':
+        specifier: ^18
+        version: 18.3.3
+      '@types/react-dom':
+        specifier: ^18
+        version: 18.3.0
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -83,6 +95,12 @@ importers:
       cmdk:
         specifier: 1.0.0
         version: 1.0.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      cypress:
+        specifier: 13.15.0
+        version: 13.15.0
+      cypress-visual-regression:
+        specifier: 5.2.2
+        version: 5.2.2(cypress@13.15.0)
       fabric:
         specifier: ^6.4.2
         version: 6.4.2
@@ -98,6 +116,12 @@ importers:
       next-themes:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      postcss:
+        specifier: ^8
+        version: 8.4.41
+      prisma:
+        specifier: ^5.20.0
+        version: 5.20.0
       react:
         specifier: ^18
         version: 18.3.1
@@ -113,9 +137,15 @@ importers:
       tailwind-merge:
         specifier: ^2.4.0
         version: 2.4.0
+      tailwindcss:
+        specifier: ^3.4.1
+        version: 3.4.9
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.9)
+      typescript:
+        specifier: ^5
+        version: 5.5.4
       use-debounce:
         specifier: 10.0.3
         version: 10.0.3(react@18.3.1)
@@ -126,42 +156,12 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
-      '@types/fabric':
-        specifier: ^5.3.9
-        version: 5.3.9
-      '@types/node':
-        specifier: ^20
-        version: 20.14.15
-      '@types/react':
-        specifier: ^18
-        version: 18.3.3
-      '@types/react-dom':
-        specifier: ^18
-        version: 18.3.0
-      cypress:
-        specifier: 13.15.0
-        version: 13.15.0
-      cypress-visual-regression:
-        specifier: 5.2.2
-        version: 5.2.2(cypress@13.15.0)
       eslint:
         specifier: ^8
         version: 8.57.0
       eslint-config-next:
         specifier: 14.2.5
         version: 14.2.5(eslint@8.57.0)(typescript@5.5.4)
-      postcss:
-        specifier: ^8
-        version: 8.4.41
-      prisma:
-        specifier: ^5.20.0
-        version: 5.20.0
-      tailwindcss:
-        specifier: ^3.4.1
-        version: 3.4.9
-      typescript:
-        specifier: ^5
-        version: 5.5.4
 
 packages:
 
