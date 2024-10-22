@@ -106,7 +106,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           
-          build: pnpm run build
+          build: pnpm run build && pnpm run ci:prisma
           start: pnpm run start
           wait-on: "http://localhost:3000"
           wait-on-timeout: 120
@@ -142,7 +142,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           config: '{"e2e":{"viewportWidth":375,"viewportHeight":667}}'
-          build: pnpm run build
+          build: pnpm run build && pnpm run ci:prisma
           start: pnpm run start
           wait-on: "http://localhost:3000"
           wait-on-timeout: 120

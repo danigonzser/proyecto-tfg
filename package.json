@@ -7,7 +7,6 @@
     "ci:prisma": "prisma generate && prisma db push",
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "prisma generate && prisma db push",
     "start": "next start",
     "lint": "next lint",
     "cy:open": "cypress open",
