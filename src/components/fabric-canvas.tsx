@@ -905,20 +905,23 @@ function App({
           handleObjectRemove(c)
         }
 
-        // if (e.ctrlKey && e.key === "s") {
-        //   e.preventDefault()
-        //   document.getElementById('save_as_dialog')?.click()
-        // }
+
       })
 
-      // window.addEventListener("keypress", (e) => {
-      //   if (e.ctrlKey && e.key === "z" && undoHistoryElementsRef.current > 1) {
-      //     console.log("undo")
-      //     const element = document.getElementById('undo_canvas_button')
-      //     if (element) element.click()
-      //   }
+      window.addEventListener("keypress", (e) => {
+        if (e.ctrlKey && e.key === "z" && undoHistoryElementsRef.current > 1) {
+          console.log("undo")
+          const element = document.getElementById('undo_canvas_button')
+          if (element) element.click()
+        }
 
-      // })
+        if (e.ctrlKey && e.key === "y" && redoHistoryElementsRef.current >= 1) {
+          console.log("undo")
+          const element = document.getElementById('redo_canvas_button')
+          if (element) element.click()
+        }
+
+      })
 
     }
 

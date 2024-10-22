@@ -35,6 +35,8 @@ jobs:
           browser: chrome
           spec: cypress/unit/*
           config-file: cypress.config.ts
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
   ui-chrome-desktop-tests:
     timeout-minutes: 15
