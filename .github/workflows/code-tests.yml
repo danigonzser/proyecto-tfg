@@ -7,6 +7,34 @@ on:
     #   - 'cypress/**/*.ts'
 
 jobs:
+
+  init-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: 'pnpm'
+          cache-dependency-path: ./pnpm-lock.yaml
+      - run: pnpm run build
+
+      - name: Build Caching
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ${{ github.workspace }}/.next/cache
+  
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+  
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
                 
   unit-tests:
     timeout-minutes: 15
@@ -75,6 +103,7 @@ jobs:
       - name: "UI Desktop Tests - Chrome"
         uses: cypress-io/github-action@v6
         with:
+          
           build: pnpm run build
           start: pnpm run start
           wait-on: "http://localhost:3000"
