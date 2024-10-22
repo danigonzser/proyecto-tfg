@@ -39,6 +39,7 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
                 
   unit-tests:
+    needs: init-cache
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -69,6 +70,7 @@ jobs:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
   ui-chrome-desktop-tests:
+    needs: init-cache
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -118,6 +120,7 @@ jobs:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
   ui-chrome-mobile-tests:
+    needs: init-cache
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
