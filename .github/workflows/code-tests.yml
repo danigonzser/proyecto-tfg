@@ -116,7 +116,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
 
-      - run: pnpm install
+      - run: pnpm install && pnpm prisma generate
       - run: pnpm run build
       - run: pnpm run ci:prisma
 
@@ -167,7 +167,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
   
-      - run: pnpm install
+      - run: pnpm install && pnpm prisma generate
       - run: pnpm run build
       - run: pnpm run ci:prisma
 
