@@ -23,7 +23,7 @@ jobs:
           cache: 'pnpm'
           cache-dependency-path: ./pnpm-lock.yaml
 
-      - run: pnpm install && prisma generate
+      - run: pnpm install && pnpm prisma generate
       - run: pnpm run build
 
       - name: Build Caching
