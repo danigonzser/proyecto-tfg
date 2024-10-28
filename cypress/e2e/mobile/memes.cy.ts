@@ -1,6 +1,7 @@
 describe('Memes E2e Testing', () => {
 
   it('Asserting catalogue', () => {
+    cy.viewport(375, 667)
     cy.visit('http://localhost:3000/').wait(1000)
 
     // If there is no catalogue, create one
@@ -24,6 +25,7 @@ describe('Memes E2e Testing', () => {
   })
 
   it('Prevent remove and then remove', () => {
+    cy.viewport(375, 667)
     cy.visit('http://localhost:3000/').wait(1000)
 
     /* ==== Generated with Cypress Studio ==== */

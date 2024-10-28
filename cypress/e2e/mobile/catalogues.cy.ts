@@ -1,6 +1,7 @@
 describe('Catalogues E2e Testing', () => {
 
   it('Verify no catalogues', () => {
+    cy.viewport(375, 667)
     cy.visit('http://localhost:3000/').wait(1000)
 
     cy.get('.flex-col > img').should('be.visible')
@@ -9,12 +10,14 @@ describe('Catalogues E2e Testing', () => {
   })
 
   it('Creates and check new catalogue #1', () => {
+    cy.viewport(375, 667)
     cy.visit('http://localhost:3000/').wait(1000)
 
-    cy.get('#create_catalogue_button').click()
-    cy.get('#catalogue_title_input').type('Catálogo de prueba')
-    cy.get('#catalogue_description_textarea').type('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged')
-    cy.get('#submit_button').click().wait(1000)
+    cy.get('[data-cy="create_catalogue_button_mobile"]').click()
+    cy.get('[data-cy="create_catalogue_input_mobile"]').type('Catálogo de prueba')
+    cy.get('[data-cy="create_catalogue_textarea_mobile"]').type('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged')
+    cy.get('[data-cy="create_catalogue_submit_mobile"]').click().wait(1000)
+
     cy.get('.fixed > .group').should('be.visible')
     cy.get('.font-semibold').should('have.text', 'Successful catalogue creation')
     cy.get('.opacity-90').should('have.text', 'The catalogue was created successfully.')
@@ -29,12 +32,14 @@ describe('Catalogues E2e Testing', () => {
   })
 
   it('Creates and check new catalogue #2', () => {
+    cy.viewport(375, 667)
     cy.visit('http://localhost:3000/').wait(1000)
 
-    cy.get('#create_catalogue_button').click()
-    cy.get('#catalogue_title_input').type('Testing catalogue')
-    cy.get('#catalogue_description_textarea').type('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged')
-    cy.get('#submit_button').click().wait(1000)
+    cy.get('[data-cy="create_catalogue_button_mobile"]').click()
+    cy.get('[data-cy="create_catalogue_input_mobile"]').type('Testing catalogue')
+    cy.get('[data-cy="create_catalogue_textarea_mobile"]').type('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged')
+    cy.get('[data-cy="create_catalogue_submit_mobile"]').click().wait(1000)
+
     cy.get('.fixed > .group').should('be.visible')
     cy.get('.font-semibold').should('have.text', 'Successful catalogue creation')
     cy.get('.opacity-90').should('have.text', 'The catalogue was created successfully.')
@@ -49,6 +54,7 @@ describe('Catalogues E2e Testing', () => {
   })
 
   it('Searches catalogues', () => {
+    cy.viewport(375, 667)
     cy.visit('http://localhost:3000/').wait(1000)
 
     cy.get('.peer').type('Catálogo{enter}').wait(1000)
