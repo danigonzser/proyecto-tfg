@@ -162,18 +162,6 @@ jobs:
       - run: pnpm run build
       - run: pnpm run ci:prisma
 
-      - name: Build Caching
-        uses: actions/cache@v4
-        with:
-          path: |
-            node_modules
-            ${{ github.workspace }}/.next/cache
-  
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-  
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
-
       - name: "UI Tests - Chrome - Mobile"
         uses: cypress-io/github-action@v6
         with:
@@ -182,9 +170,7 @@ jobs:
           wait-on: "http://localhost:3000"
           wait-on-timeout: 120
           browser: chrome
-          record: true
-          parallel: true
-          spec: cypress/e2e/*
+          spec: cypress/e2e/mobile/*
           config-file: cypress.config.ts
       
       - name: Build Caching
@@ -198,6 +184,6 @@ jobs:
   
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
-              
+
     env:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
