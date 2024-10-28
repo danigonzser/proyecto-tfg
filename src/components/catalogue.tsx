@@ -10,16 +10,13 @@ import { ToastAction } from "./ui/toast"
 import { catalogueTimeoutRemoval, getMemesCountByCatalogueId, removeCatalogueById } from "@/lib/handleremove"
 import { useRef, useState } from "react"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog"
-import { useRouter } from "next/navigation"
 
 export default function CatalogueCard({ catalogue }: { catalogue: Catalogue }) {
 
   const { toast } = useToast()
-  const router = useRouter()
 
   const [dialogOpened, setDialogOpened] = useState(false)
   const [memeCount, setMemeCount] = useState<number>(0)
-
 
   const [deletedCatalogue, setDeletedCatalogue] = useState<boolean>(false)
   const isDeleted = useRef<boolean>(false)
@@ -55,25 +52,26 @@ export default function CatalogueCard({ catalogue }: { catalogue: Catalogue }) {
       title: "Catalogue removed!",
       variant: "destructive",
       action: (<ToastAction altText="Undo" onClick={undoRemoveCatalogue}>Undo</ToastAction>),
-      duration: 6000
+      duration: 6000,
+      onSwipeEnd: () => {
+        removeCatalogueById(catalogue.id)
+      }
     })
 
     setTimeout(() => {
       if (isDeleted.current) {
         removeCatalogueById(catalogue.id)
-        router.refresh()
       }
-    }, 6000)
+    }, 6500)
   }
 
   return (
 
     <>
-
       <Dialog open={dialogOpened} onOpenChange={setDialogOpened}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="font-black text-xl">This catalogue has {memeCount} meme(s)</DialogTitle>
+            <DialogTitle className="font-black text-xl" data-cy="catalogue_count">This catalogue has {memeCount} meme(s)</DialogTitle>
             <DialogDescription>
               This action can be undone but then, the catalogue will be permanently delete from our servers.
             </DialogDescription>
@@ -82,12 +80,14 @@ export default function CatalogueCard({ catalogue }: { catalogue: Catalogue }) {
             <Button
               variant="ghost"
               onClick={() => setDialogOpened(false)}
+              data-cy="cancel_remove_approve_button"
             >
               Cancel
             </Button>
             <Button
               variant="destructive"
               onClick={() => preRemoveCatalogue()}
+              data-cy="submit_remove_approve_button"
             >
               Remove catalogue
             </Button>
@@ -115,7 +115,7 @@ export default function CatalogueCard({ catalogue }: { catalogue: Catalogue }) {
         <Button
           variant="destructive"
           size="icon"
-          className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          className="absolute bottom-2 right-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-200"
           onClick={() => preDialogRemoveCatalogue()}
         >
           <Trash2Icon className="h-4 w-4" />

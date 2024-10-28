@@ -10,6 +10,7 @@ import { Suspense, useEffect, useRef, useState } from "react"
 import { set } from "zod"
 import { Separator } from "@/components/ui/separator"
 import type { Metadata, ResolvingMetadata } from 'next'
+import CatalogueNav from "@/components/catalogue_navegation"
 
 export async function generateMetadata(
   { params }: {
@@ -38,7 +39,16 @@ export default function CatalogueMemes({ params }: {
   return (
 
     <>
-      <Thumbs paramId={params.id} />
+      <div className="flex-row flex justify-center">
+        <h1 className="text-xl font-bold flex-row flex gap-4">
+          <Suspense fallback={<div>Loading title...</div>}>
+            <CatalogueNav paramId={params.id} />
+          </Suspense>
+        </h1>
+      </div >
+      <Suspense fallback={<div>Loading memes...</div>}>
+        <Thumbs paramId={params.id} />
+      </Suspense>
     </>
 
   )

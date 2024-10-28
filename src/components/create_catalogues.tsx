@@ -144,7 +144,9 @@ export default function CreateCatalogues() {
       <Drawer open={isOpened} onOpenChange={setIsOpened}>
         <DrawerTrigger asChild>
           <Button
-            variant="ghost">
+            variant="ghost"
+            data-cy="create_catalogue_button_mobile"
+          >
             <FolderPlus />
           </Button>
         </DrawerTrigger>
@@ -164,7 +166,9 @@ export default function CreateCatalogues() {
                   <FormItem>
                     <FormLabel className="font-black">Title</FormLabel>
                     <FormControl>
-                      <Input placeholder="Funny collection" {...field} />
+                      <Input placeholder="Funny collection" {...field}
+                        data-cy="create_catalogue_input_mobile"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -180,6 +184,7 @@ export default function CreateCatalogues() {
                       <Textarea
                         placeholder="This is the catalogue for all the funny memes I've found on the internet."
                         {...field}
+                        data-cy="create_catalogue_textarea_mobile"
                       />
                     </FormControl>
                     <FormMessage />
@@ -187,7 +192,7 @@ export default function CreateCatalogues() {
                 )}
               />
               <DrawerFooter className="flex-row justify-end space-x-2 gap-y-2">
-                <Button type="submit" disabled={isPending} className="font-black">
+                <Button type="submit" disabled={isPending} className="font-black" data-cy="create_catalogue_submit_mobile">
                   {isPending ? "Creating..." : "Create catalogue"}
                 </Button>
                 <DrawerClose asChild>

@@ -91,7 +91,6 @@ export const NewProjectForm: React.FC<Props> = ({
 
     handlebgColorEditableArea(bgColor)
 
-
     toast({
       title: "Success",
       description: `Blank project initialized: ${width}x${height}`,
@@ -125,13 +124,9 @@ export const NewProjectForm: React.FC<Props> = ({
   }
 
   return (
-    <section className="h-full relative w-full overflow-hidden bg-black md:rounded-tl-3xl">
+    <section className="h-full relative w-full overflow-hidden bg-background md:rounded-tl-3xl">
       {/* Gradient overlay */}
       <div id="height-canvas" className="h-full absolute inset-0 bg-gradient-radial from-yellow-400/20 via-yellow-500/5 to-transparent"></div>
-
-      {/* Yellow light effects */}
-      <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-yellow-400/30 rounded-full filter blur-3xl"></div>
-      <div className="absolute bottom-1/2 right-1/2 w-96 h-96 bg-yellow-400/20 rounded-full filter blur-3xl"></div>
 
       <div className="flex justify-center px-4 mx-auto h-full items-center pb-36 sm:pb-16">
         <div className="max-w-md mx-auto">
@@ -145,8 +140,8 @@ export const NewProjectForm: React.FC<Props> = ({
             />
             <h1 className="text-4xl font-bold text-primary drop-shadow-glow">Memes Editor</h1>
           </div>
-          <Card className="w-full shadow-2xl bg-card backdrop-blur-sm">
-            <CardContent className="p-6">
+          <Card className="w-full box-s bg-card backdrop-blur-sm">
+            <CardContent className="p-6 shadow-2xl shadow-primary rounded-lg">
               <Tabs defaultValue="blank" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 bg-secondary-foreground/20 mb-4">
                   <TabsTrigger value="blank" className="data-[state=active]:bg-primary data-[state=active]:font-black data-[state=active]:text-primary-foreground font-bold">Blank Canvas</TabsTrigger>
@@ -219,9 +214,13 @@ export const NewProjectForm: React.FC<Props> = ({
                       onDragOver={handleDragOver}
                       onDragLeave={handleDragLeaveEvent}
                       onDrop={handleDropEvent}
-                      className={cn("py-10 border-2 border-dashed rounded-lg p-10 flex justify-center cursor-pointer", isDragging ? 'border-primary bg-primary/50' : 'border-card-foreground')}
+                      className={cn("h-[232px] py-10 border-2 border-dashed rounded-lg p-10 flex justify-center cursor-pointer", isDragging ? 'border-primary bg-primary/50' : 'border-card-foreground')}
                     >
-                      <Label htmlFor="image-upload"><p className="font-black text-lg text-center">Drop an image here or click to select</p></Label>
+                      <Label htmlFor="image-upload" className="flex align-middle items-center">
+                        <p className="font-black text-lg text-center">
+                          Drop an image here or click to select
+                        </p>
+                      </Label>
                       <input
                         type="file"
                         accept="image/*"

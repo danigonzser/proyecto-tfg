@@ -3,6 +3,7 @@ import { Catalogue } from "@prisma/client"
 import prisma from "./db"
 import { useToast } from "@/hooks/use-toast"
 import { MutableRefObject } from "react"
+import { revalidatePath } from "next/cache"
 
 export async function getMemesCountByCatalogueId(id: string) {
 

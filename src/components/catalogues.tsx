@@ -1,10 +1,5 @@
 'use server'
 
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card"
-
 import prisma from '@/lib/db'
 import { getRelativeTimeString } from "@/lib/relativetime"
 import { Catalogue } from "@prisma/client"
@@ -12,13 +7,6 @@ import { CalendarIcon, ClockIcon, Trash2Icon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import CreateCatalogues from "./create_catalogues"
-import { Button } from "./ui/button"
-import { removeCatalogueById } from "@/lib/handleremove"
-import { toast } from "@/hooks/use-toast"
-import { ToastAction } from "@radix-ui/react-toast"
-import { useEffect, useState } from "react"
-import { getCataloguesWithQuery } from "@/lib/getcatalogues"
-import { RemoveCatalogue } from "./remove_catalogue"
 import CatalogueCard from "./catalogue"
 
 export default async function Catalogues({
@@ -34,12 +22,10 @@ export default async function Catalogues({
   } else {
     catalogues = await prisma.catalogue.findMany({
       where: {
-        title: {
-          search: `${query}`
-        },
-        description: {
-          search: `${query}`
-        }
+        OR: [
+          { title: { contains: query, mode: 'insensitive' as const } },
+          { description: { contains: query, mode: 'insensitive' as const } }
+        ]
       }
     })
   }
@@ -47,12 +33,11 @@ export default async function Catalogues({
   return (
     <>
       {catalogues.length === 0 ? (
-        <div className="flex flex-col items-center justify-center gap-4 mt-20">
+        <div className="flex flex-col items-center justify-center gap-4 mt-16 md:mt-20 ">
           <Image src="/seriously.svg" width={500} height={500} alt="No memes available" />
-          <p className="text-center text-muted-foreground">What? No memes?</p>
+          <p className="text-center text-muted-foreground">What? No catalogue?</p>
           <p className="text-center text-muted-foreground">Go and create a new one</p>
           <div className="flex items-center gap-4 justify-start md:justify-center">
-            <CreateCatalogues />
           </div>
         </div>
       ) : (

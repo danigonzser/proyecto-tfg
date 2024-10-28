@@ -56,7 +56,10 @@ export default function HomeLayout({
             <Link href="/editor">
               <Button
                 className="sm:text-base md:text-lg md:py-2.5 md:px-4 py-1.5 px-2 text-xl drop-shadow-md hover:drop-shadow-xl shadow-sm shadow-primary/50 dark:shadow-sm dark:shadow-primary/80 hover:scale-110 transition-all duration-300 bg-primary text-primary-foreground border-primary font-black"
-                role="button">Create meme
+                role="button"
+                data-cy="create_meme_button"
+              >
+                Create meme
               </Button>
             </Link>
           </div>

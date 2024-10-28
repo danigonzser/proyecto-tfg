@@ -26,12 +26,12 @@ import { cn } from "@/lib/utils"
 import { handlePan } from "@/lib/handlepan"
 import { NewProjectForm } from "./new_project_form"
 import { getMemeById } from "@/lib/getmemes"
-import { toast } from "@/hooks/use-toast"
 import { setMemeByIdInCatalogue } from "@/lib/getcatalogues"
 import { Manager, Pinch } from "hammerjs"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuRadioGroup, ContextMenuRadioItem, ContextMenuSeparator, ContextMenuShortcut, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger } from "./ui/context-menu"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
+import { useToast } from "@/hooks/use-toast"
 
 export class DeadRect extends fabric.Rect {
   static get type() {
@@ -78,7 +78,7 @@ export class DeadImage extends fabric.FabricImage {
 fabric.classRegistry.setClass(DeadImage)
 fabric.classRegistry.setSVGClass(DeadImage)
 
-function LoadingSpinner({ className }: { className?: string }) {
+export function LoadingSpinner({ className }: { className?: string }) {
 
   return (
     <svg
@@ -104,6 +104,8 @@ function App({
 }: {
   memeId?: string
 }) {
+
+  const { toast, dismiss } = useToast()
 
   const isDesktop = (useMediaQuery("(min-width: 768px)"))
 
@@ -413,6 +415,8 @@ function App({
 
       const newHeight = Math.round((height / width) * newWidth)
 
+      console.log("Tamaños:", newWidth, newHeight, maxWidth, width, (height / width) * newWidth)
+
       if (canvas !== undefined && editableDeadRectArea !== undefined) {
 
         // Canvas
@@ -426,8 +430,8 @@ function App({
         setCanvasHeightState(element.offsetHeight)
 
         // Editable Area
-        editableDeadRectArea.width = newWidth + 1
-        editableDeadRectArea.height = newHeight + 1
+        editableDeadRectArea.width = newWidth
+        editableDeadRectArea.height = newHeight
 
         canvasEditableAreaWidth.current = newWidth
         canvasEditableAreaHeight.current = newHeight
@@ -517,6 +521,16 @@ function App({
     setModificationsSavedState(value)
   }
 
+  const [loadingFromJsonId, setLoadingFromJsonId] = useState<boolean>(false)
+  const loadingFromJsonIdRef = useRef<boolean>(false)
+
+  function handleLoadingFromJsonId(value: boolean) {
+    loadingFromJsonIdRef.current = value
+    setLoadingFromJsonId(value)
+  }
+
+  const loadingToastRef = useRef<string | null>(null)
+
   useEffect(() => {
 
     const element = document.getElementById('height-canvas')
@@ -576,24 +590,19 @@ function App({
 
     hammer.add([pan, pinch])
 
-    hammer.on('pinchin pinchout', e => {
-      if (e.scale < pinchRef.current) {
-        // zoom in
-        handleCanvasZoomToPoint(false, e.center.x, e.center.y, c)
-      } else if (e.scale > pinchRef.current) {
-        // zoom out
-        handleCanvasZoomToPoint(true, e.center.x, e.center.y, c)
-      }
-      pinchRef.current = e.scale
+    hammer.on('pinch', e => {
+
+      const { center, scale } = e
+
+      handleCanvasZoomToPoint(center.x, center.y, c, scale / pinchRef.current)
+
+      pinchRef.current = scale
+
     })
 
     hammer.on('pinchend', e => {
       pinchRef.current = 1
     })
-
-    // hammer.on('pinchstart', (ev) => {
-    //   handleCanvasZoomToPoint(true, ev.center.x, ev.center.y, c)
-    // })
 
     hammer.on('panstart', function (ev) {
       xPanRef.current = ev.center.x
@@ -609,6 +618,7 @@ function App({
         c.renderAll()
         xPanRef.current = ev.center.x
         yPanRef.current = ev.center.y
+
       }
 
     })
@@ -634,44 +644,71 @@ function App({
       setEditableDeadRectArea(deadRect)
 
       handleInitHistory(c)
+      handleLoadingFromJsonId(false)
 
     } else {
 
+      handleLoadingFromJsonId(true)
+
       if (loading) {
-        toast({
+        loadingToastRef.current = toast({
           title: "Loading meme",
           action: <LoadingSpinner />
-        })
+        }).id
       }
 
       getMemeById(memeId).then((meme) => {
 
         setMemeName(meme.title)
 
-        c.loadFromJSON(meme.imageJson).then(() => {
-          handleInitHistory(c)
-          c.requestRenderAll()
+        console.log(meme.imageJson)
+
+        c.loadFromJSON(meme.imageJson, function (o, object) {
+
+          const ob = object as fabric.Object
+
+          if (ob.type === "deadrect") {
+
+            setEditableDeadRectArea(ob as DeadRect)
+
+            handleCanvasSize(ob.width, ob.height)
+
+            c.requestRenderAll()
+
+          }
+          c.add(ob)
+
+        }).then((canvas) => {
 
           c.getObjects().forEach((object) => {
 
             if (object.type === "deadrect") {
               if (c.height < object.height) {
                 const neededZoom = (c.height / object.height) - 0.1
-                const pointToZoom = new fabric.Point({ x: object.getCenterPoint().x, y: object.getCenterPoint().y })
+                const pointToZoom = new fabric.Point({ x: c.getCenterPoint().x, y: c.getCenterPoint().y })
                 c.zoomToPoint(pointToZoom, neededZoom)
               }
             }
           })
 
+          handleInitHistory(c)
+          canvas.requestRenderAll()
+          handleModificationSaved(true)
+
         })
 
       }).finally(() => {
+
+        if (loadingToastRef.current) dismiss(loadingToastRef.current)
         toast({
           title: "Loaded meme",
-          action: <CircleCheckBig />
+          action: <CircleCheckBig />,
+          duration: 2000,
         })
+        handleLoadingFromJsonId(false)
         setLoading(false)
         setPreparingProject(false)
+
       })
     }
 
@@ -710,8 +747,6 @@ function App({
         }
       }
 
-      handleModificationSaved(false)
-
       if (!isLoadingFromHistory.current) {
 
         undoHistory.current.push(c.toJSON())
@@ -731,8 +766,6 @@ function App({
           }
         }
       }
-
-      handleModificationSaved(false)
 
       if (!isLoadingFromHistory.current) {
 
@@ -899,8 +932,6 @@ function App({
       //Uncomment this with strict mode off
       window.addEventListener("keydown", (e) => {
 
-        console.log(e.ctrlKey, e.key, e.code, undoHistoryElementsRef.current, redoHistoryElementsRef.current)
-
         if (e.code === "Delete" || e.code === "Backspace") {
           handleObjectRemove(c)
         }
@@ -910,13 +941,11 @@ function App({
 
       window.addEventListener("keypress", (e) => {
         if (e.ctrlKey && e.key === "z" && undoHistoryElementsRef.current > 1) {
-          console.log("undo")
           const element = document.getElementById('undo_canvas_button')
           if (element) element.click()
         }
 
         if (e.ctrlKey && e.key === "y" && redoHistoryElementsRef.current >= 1) {
-          console.log("undo")
           const element = document.getElementById('redo_canvas_button')
           if (element) element.click()
         }
@@ -942,10 +971,10 @@ function App({
 
       if (memeId !== undefined && canvasRef.current !== undefined) {
 
-        setSyncing(true)
-
 
         if (!syncing && (undoHistoryElementsRef.current > 1 || redoHistoryElementsRef.current >= 1)) {
+
+          setSyncing(true)
 
           canvasRef.current.renderAll()
 
@@ -986,7 +1015,7 @@ function App({
 
       }
 
-    }, 300000)
+    }, 300000) // 300000
 
     return () => clearInterval(interval)
   }, [])
@@ -1056,15 +1085,9 @@ function App({
 
   const handleUndo = () => {
 
-    console.log("llego")
-
     if (undoHistory.current.length <= 1) return
 
-    console.log("llego2")
-
     if (canvas !== undefined) {
-      console.log("no undefined")
-
       const last = undoHistory.current.pop()
 
       undoHistoryElementsRef.current -= 1
@@ -1093,8 +1116,6 @@ function App({
       }
 
     }
-
-    console.log("termino")
 
   }
 
@@ -1159,12 +1180,9 @@ function App({
 
         objects.forEach(function (object, key) {
 
-          console.log(object.type)
-
           if (object.type === "i-text") {
             const text = object as fabric.IText
             if (!text.isEditing) {
-              console.log("Text is not editing")
               canvas.remove(object)
             }
           } else {
@@ -1185,7 +1203,6 @@ function App({
     if (!syncing && memeId !== undefined && canvas !== undefined && undoHistoryElementsRef.current > 1) {
 
       setSyncing(true)
-
 
       canvas.renderAll()
 
@@ -1239,7 +1256,15 @@ function App({
 
   const handleMemeSave = (location: "local" | "catalogue", memeSaveName: string, memeFormat: fabric.ImageFormat) => {
 
+    if (canvas === undefined) {
+      console.log("Canvas is undefined!")
+    }
+
+    console.log("llego")
+
     if (canvas !== undefined && editableDeadRectArea !== undefined) {
+
+      console.log("Llego1")
 
       const preZoom = canvas.getZoom()
       const prePan = canvas.viewportTransform
@@ -1250,6 +1275,8 @@ function App({
 
 
       if (editableDeadRectArea.width !== originalImageWidth.current && editableDeadRectArea.height !== originalImageHeight.current) {
+
+        console.log("Llego2")
 
         var scaleMultiplier = originalImageWidth.current / editableDeadRectArea.width
 
@@ -1268,6 +1295,8 @@ function App({
 
         canvas.renderAll()
       }
+
+      console.log("Llego3")
 
       const data = canvas.toDataURL({
         left: editableDeadRectArea.left,
@@ -1289,6 +1318,8 @@ function App({
       link.remove()
 
       if (editableDeadRectArea.width !== originalImageWidth.current && editableDeadRectArea.height !== originalImageHeight.current) {
+
+        console.log("Llego4")
 
         var objects = canvas.getObjects()
 
@@ -1324,8 +1355,6 @@ function App({
   function handleDropEvent(event: DragEvent): void {
     event.preventDefault()
     const files = Array.from(event.dataTransfer.files)
-
-    console.log("Files dropped")
 
     files.forEach(file => {
       if (file.type.startsWith('image/')) {
@@ -1410,7 +1439,7 @@ function App({
             >
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <ToggleGroupItem value="drag" className="w-12 h-12">
+                  <ToggleGroupItem value="drag" className="ToggleGroupItem w-12 h-12" data-cy="drag_tool">
                     <Hand className="w-6 h-6" />
                   </ToggleGroupItem>
                 </TooltipTrigger>
@@ -1421,7 +1450,7 @@ function App({
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <ToggleGroupItem value="selection" className="ToggleGroupItem w-14 h-14">
+                  <ToggleGroupItem value="selection" className="ToggleGroupItem w-14 h-14" data-cy="selection_tool">
                     <BoxSelect className="w-7 h-7" />
                   </ToggleGroupItem>
                 </TooltipTrigger>
@@ -1432,7 +1461,7 @@ function App({
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <ToggleGroupItem value="rect" className="ToggleGroupItem w-14 h-14">
+                  <ToggleGroupItem value="rect" className="ToggleGroupItem w-14 h-14" data-cy="rect_tool">
                     <Square className="w-7 h-7" />
                   </ToggleGroupItem>
                 </TooltipTrigger>
@@ -1443,7 +1472,7 @@ function App({
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <ToggleGroupItem value="freedraw" className="ToggleGroupItem w-14 h-14">
+                  <ToggleGroupItem value="freedraw" className="ToggleGroupItem w-14 h-14" data-cy="freedraw_tool">
                     <PencilLine className="w-7 h-7" />
                   </ToggleGroupItem>
                 </TooltipTrigger>
@@ -1454,7 +1483,7 @@ function App({
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <ToggleGroupItem value="type" className="ToggleGroupItem w-14 h-14">
+                  <ToggleGroupItem value="type" className="ToggleGroupItem w-14 h-14" data-cy="type_tool">
                     <TypeIcon className="w-7 h-7" />
                   </ToggleGroupItem>
                 </TooltipTrigger>
@@ -1467,7 +1496,7 @@ function App({
 
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" className="w-14 h-14" onClick={handleCanvasClear}>
+                <Button variant="ghost" size="icon" className="w-14 h-14" onClick={handleCanvasClear} data-cy="clear_all_button">
                   <Trash2 className="w-7 h-7" />
                   <span className="sr-only">Clear canvas</span>
                 </Button>
@@ -1480,6 +1509,7 @@ function App({
             <Separator orientation="horizontal" className="w-12 my-2" />
 
             <Button
+              data-cy="insert_image_button"
               variant="ghost"
               size="icon"
               className="w-14 h-14"
@@ -1488,13 +1518,15 @@ function App({
               <ImagePlus className="w-7 h-7" />
             </Button>
 
-            <DialogDrawer canvasFabric={canvas} memeName={memeName} setMemeName={setMemeName} memeDownload={handleMemeSave} />
+            {!preparingProject && (
+              <DialogDrawer preparedProject={preparingProject} canvasFabric={canvas} memeName={memeName} setMemeName={setMemeName} memeDownload={handleMemeSave} />
+            )}
           </div>
           <div className="flex flex-col items-center gap-2">
 
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link href="/">
+                <Link href="/" data-cy="home_button">
                   <Button variant="ghost" size="icon" className="w-14 h-14">
                     <House className="h-7 w-7" />
                   </Button>
@@ -1528,7 +1560,7 @@ function App({
                   {modificationsSavedState ? (
 
                     <TooltipTrigger asChild>
-                      <Button variant="ghost" onClick={() => handleMemeUpload(canvas, memeId)} className="w-full h-full px-1">
+                      <Button variant="ghost" onClick={() => handleMemeUpload(canvas, memeId)} className="w-full h-full px-1" data-cy="sync_button_mobile">
                         <Cloud aria-label="Sync with cloud" />
                       </Button>
                     </TooltipTrigger>
@@ -1537,7 +1569,7 @@ function App({
 
                     <TooltipTrigger asChild>
                       <span className="h-full relative inline-flex items-center">
-                        <Button size="icon" variant="ghost" onClick={() => handleMemeUpload(canvas, memeId)} className="w-full h-full px-1">
+                        <Button size="icon" variant="ghost" onClick={() => handleMemeUpload(canvas, memeId)} className="w-full h-full px-1" data-cy="edited_sync_button_mobile">
                           <Cloud aria-label="Sync with cloud" />
                         </Button>
                         <span className="flex absolute h-3 w-3 top-0 right-0 -mt-1 mr-0">
@@ -1562,6 +1594,7 @@ function App({
                   className="fit-auto text-xl bg-input w-full md:w-auto text-center rounded mx-2"
                   value={memeName}
                   onChange={(e) => setMemeName(e.target.value)}
+                  data-cy="meme_name_input_mobile"
                 />
               </TooltipTrigger>
               <TooltipContent side="bottom">
@@ -1574,7 +1607,7 @@ function App({
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button size="icon" variant="outline" onClick={() => handleZoomToCenter(true, editableDeadRectArea, canvas)}>
-                    <ZoomIn className="h-4 w-4" />
+                    <ZoomIn className="h-4 w-4" data-cy="zoom_in_button_mobile" />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
@@ -1584,7 +1617,7 @@ function App({
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button size="icon" variant="outline" onClick={() => handleZoomToCenter(false, editableDeadRectArea, canvas)}>
+                  <Button size="icon" variant="outline" onClick={() => handleZoomToCenter(false, editableDeadRectArea, canvas)} data-cy="zoom_out_button_mobile">
                     <ZoomOut className="h-4 w-4" />
                   </Button>
                 </TooltipTrigger>
@@ -1595,7 +1628,7 @@ function App({
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="outline" onClick={handleUndo} size="icon" disabled={undoHistoryElements <= 1} id="undo_canvas_button">
+                  <Button variant="outline" onClick={handleUndo} size="icon" disabled={undoHistoryElements <= 1} id="undo_canvas_button" data-cy="undo_button_mobile">
                     <UndoIcon className="w-4 h-4" />
                     <span className="sr-only">Undo</span>
                   </Button>
@@ -1605,10 +1638,9 @@ function App({
                 </TooltipContent>
               </Tooltip>
 
-
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="outline" size="icon" onClick={handleRedo} disabled={redoHistoryElements === 0} id="redo_canvas_button">
+                  <Button variant="outline" size="icon" onClick={handleRedo} disabled={redoHistoryElements === 0} id="redo_canvas_button" data-cy="redo_button_mobile">
                     <RedoIcon className="w-4 h-4" />
                     <span className="sr-only">Redo</span>
                   </Button>
@@ -1626,7 +1658,7 @@ function App({
 
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" onClick={handleUndo} className="w-14 h-14" disabled={undoHistoryElements <= 1}>
+                <Button variant="ghost" onClick={handleUndo} className="w-14 h-14" disabled={undoHistoryElements <= 1} data-cy="undo_button">
                   <UndoIcon className="w-7 h-7" />
                   <span className="sr-only">Undo</span>
                 </Button>
@@ -1638,7 +1670,7 @@ function App({
 
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" onClick={handleRedo} className="w-14 h-14" disabled={redoHistoryElements === 0}>
+                <Button variant="ghost" onClick={handleRedo} className="w-14 h-14" disabled={redoHistoryElements === 0} data-cy="redo_button">
                   <RedoIcon className="w-7 h-7" />
                   <span className="sr-only">Redo</span>
                 </Button>
@@ -1667,7 +1699,7 @@ function App({
                 {modificationsSavedState ? (
 
                   <TooltipTrigger asChild>
-                    <Button variant="ghost" onClick={() => handleMemeUpload(canvas, memeId)} className="w-14 h-14">
+                    <Button variant="ghost" onClick={() => handleMemeUpload(canvas, memeId)} className="w-14 h-14" data-cy="sync_button">
                       <Cloud aria-label="Sync with cloud" />
                     </Button>
                   </TooltipTrigger>
@@ -1676,7 +1708,7 @@ function App({
 
                   <TooltipTrigger asChild>
                     <span className="relative inline-flex">
-                      <Button variant="ghost" onClick={() => handleMemeUpload(canvas, memeId)} className="w-14 h-14">
+                      <Button variant="ghost" onClick={() => handleMemeUpload(canvas, memeId)} className="w-14 h-14" data-cy="edited_sync_button">
                         <Cloud aria-label="Sync with cloud" />
                       </Button>
                       <span className="flex absolute h-3 w-3 top-0 right-0 mt-2 mr-2">
@@ -1700,6 +1732,7 @@ function App({
                   className="fit-auto text-xl bg-input w-full md:w-auto text-center rounded mx-2"
                   value={memeName}
                   onChange={(e) => setMemeName(e.target.value)}
+                  data-cy="meme_name_input"
                 />
               </TooltipTrigger>
               <TooltipContent side="bottom">
@@ -1711,7 +1744,7 @@ function App({
 
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" onClick={() => handleZoomToCenter(true, editableDeadRectArea, canvas)} className="w-14 h-14">
+                <Button variant="ghost" onClick={() => handleZoomToCenter(true, editableDeadRectArea, canvas)} className="w-14 h-14" data-cy="zoom_in_button">
                   <ZoomIn className="w-7 h-7" />
                   <span className="sr-only">Zoom In</span>
                 </Button>
@@ -1723,7 +1756,7 @@ function App({
 
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" onClick={() => handleZoomToCenter(false, editableDeadRectArea, canvas)} className="w-14 h-14">
+                <Button variant="ghost" onClick={() => handleZoomToCenter(false, editableDeadRectArea, canvas)} className="w-14 h-14" data-cy="zoom_out_button">
                   <ZoomOut className="w-7 h-7" />
                   <span className="sr-only">Zoom Out</span>
                 </Button>
@@ -1737,12 +1770,13 @@ function App({
               <>
                 <Separator orientation="vertical" className="h-12 hidden md:block" />
                 <Popover>
-                  <PopoverTrigger><PaintBucket className="w-7 h-7 mx-2" fill={rectColor} id="rectcolor" /></PopoverTrigger>
+                  <PopoverTrigger data-cy="rectcolor_paint"><PaintBucket className="w-7 h-7 mx-2" fill={rectColor} /></PopoverTrigger>
                   <PopoverContent className="flex flex-row gap-4 items-center outline-2">
                     <HexColorPicker color={rectColor} onChange={(value) => handleChangeRectColor(value, canvas)} />
                     <div className="flex flex-col gap-2 rounded p-2">
                       {presetColors.map((presetColor) => (
                         <Button
+                          data-cy={`rectcolor-${presetColor}`}
                           key={`rect-${presetColor}`}
                           id={`rect-${presetColor}`}
                           className="w-10 h-10"
@@ -1754,10 +1788,10 @@ function App({
                   </PopoverContent>
                 </Popover>
                 <Separator orientation="vertical" className="h-12 hidden md:block" />
-                <Slider value={rectStrokeWidth} max={100} step={1} onValueChange={(i) => handleStrokeWidthChange(i[0], canvas)} className="w-56" />
-                <Input type="number" onChange={(e) => handleStrokeWidthChange(parseInt(e.target.value), canvas)} value={rectStrokeWidth[0]} width={5} className="w-20" />
+                <Slider value={rectStrokeWidth} max={100} step={1} onValueChange={(i) => handleStrokeWidthChange(i[0], canvas)} className="w-56" data-cy="rectstroke_width_slider" />
+                <Input type="number" onChange={(e) => handleStrokeWidthChange(parseInt(e.target.value), canvas)} value={rectStrokeWidth[0]} width={5} className="w-20" data-cy="rectstroke_width_input" />
                 <Popover>
-                  <PopoverTrigger>
+                  <PopoverTrigger data-cy="rectstroke_color_button">
                     <Minus className="w-7 h-7" id="rectstrokecolor" strokeWidth={10} /></PopoverTrigger>
                   <PopoverContent className="flex flex-row gap-4 items-center outline-2">
                     <HexColorPicker color={rectStrokeColor} onChange={(value) => handleStrokeColorChange(value, canvas)} />
@@ -1766,6 +1800,7 @@ function App({
                         <Button
                           key={`rectstroke-${presetColor}`}
                           id={`rectstroke-${presetColor}`}
+                          data-cy={`rectstroke-${presetColor}`}
                           className="w-10 h-10"
                           style={{ background: presetColor }}
                           onClick={() => handleStrokeColorChange(presetColor, canvas)}
@@ -1780,7 +1815,7 @@ function App({
               <>
                 <Separator orientation="vertical" className="h-12 hidden md:block" />
                 <Popover>
-                  <PopoverTrigger><PaintBucket fill={color} className="w-7 h-7" id="freedrawcolor" /></PopoverTrigger>
+                  <PopoverTrigger data-cy="freedrawcolor_paint"><PaintBucket fill={color} className="w-7 h-7" id="freedrawcolor" /></PopoverTrigger>
                   <PopoverContent className="flex flex-row gap-4 items-center outline-2">
                     <HexColorPicker color={color} onChange={(value) => handleChangeColor(value, canvas)} />
                     <div className="flex flex-col gap-2 rounded p-2">
@@ -1788,6 +1823,7 @@ function App({
                         <Button
                           key={presetColor}
                           id={`freedraw-${presetColor}`}
+                          data-cy={`freedraw-${presetColor}`}
                           className="w-10 h-10"
                           style={{ background: presetColor }}
                           onClick={() => handleChangeColor(presetColor, canvas)}
@@ -1796,21 +1832,22 @@ function App({
                     </div>
                   </PopoverContent>
                 </Popover>
-                <Slider value={drawingWidth} max={100} step={1} onValueChange={(i) => setDrawingWidth(i)} className="w-56" />
-                <Input type="number" onChange={(e) => setDrawingWidth([parseInt(e.target.value)])} value={drawingWidth[0]} width={5} className="w-20" />
+                <Slider value={drawingWidth} max={100} step={1} onValueChange={(i) => setDrawingWidth(i)} className="w-56" data-cy="freedraw_width_slider" />
+                <Input type="number" onChange={(e) => setDrawingWidth([parseInt(e.target.value)])} value={drawingWidth[0]} width={5} className="w-20" data-cy="freedraw_width_input" />
               </>
             )}
             {drawingMode.current === "type" && (
               <>
-                <FontSelect canvas={canvas} value={fontFamily} onValueChange={(value) => handleChangeFontFamily(value, canvas)} />
+                <FontSelect canvas={canvas} value={fontFamily} onValueChange={(value) => handleChangeFontFamily(value, canvas)} data-cy="font_type_select" />
                 <Popover>
-                  <PopoverTrigger><TypeOutline className="w-5 h-5" fill={fontColor} /></PopoverTrigger>
+                  <PopoverTrigger data-cy="fontcolor_paint_button"><TypeOutline className="w-5 h-5" fill={fontColor} /></PopoverTrigger>
                   <PopoverContent className="flex flex-row gap-4 items-center outline-2">
                     <HexColorPicker color={fontColor} onChange={(value) => handleChangeFontColor(value, canvas)} />
                     <div className="flex flex-col gap-2 rounded p-2">
                       {presetColors.map((presetColor) => (
                         <Button
                           key={presetColor}
+                          data-cy={`type-${presetColor}`}
                           className="w-10 h-10"
                           style={{ background: presetColor }}
                           onClick={() => handleChangeFontColor(presetColor, canvas)}
@@ -1819,7 +1856,7 @@ function App({
                     </div>
                   </PopoverContent>
                 </Popover>
-                <ToggleStylesGroup value={fontStyle} onValueChange={handleChangefontStyle} />
+                <ToggleStylesGroup platform="" value={fontStyle} onValueChange={handleChangefontStyle} />
               </>
             )}
           </div>
@@ -1879,27 +1916,28 @@ function App({
                     handleToolChange(value)
                   }}
                 >
-                  <ToggleGroupItem value="drag" className="w-11 h-11">
+                  <ToggleGroupItem value="drag" className="w-11 h-11" data-cy="drag_tool_mobile">
                     <Hand className="w-6 h-6" id="drag" />
                   </ToggleGroupItem>
-                  <ToggleGroupItem value="selection" className="w-11 h-11">
+                  <ToggleGroupItem value="selection" className="w-11 h-11" data-cy="selection_tool_mobile">
                     <BoxSelect className="w-6 h-6" id="select" />
                   </ToggleGroupItem>
-                  <ToggleGroupItem value="rect" className="w-11 h-11" >
+                  <ToggleGroupItem value="rect" className="w-11 h-11" data-cy="rect_tool_mobile">
                     <Square className="w-6 h-6" id="square" />
                   </ToggleGroupItem>
-                  <ToggleGroupItem value="freedraw" className="w-11 h-11" >
+                  <ToggleGroupItem value="freedraw" className="w-11 h-11" data-cy="freedraw_tool_mobile">
                     <PencilLine className="w-6 h-6" id="pencil" />
                   </ToggleGroupItem>
-                  <ToggleGroupItem value="type" className="w-11 h-11" >
+                  <ToggleGroupItem value="type" className="w-11 h-11" data-cy="type_tool_mobile">
                     <TypeIcon className="w-6 h-6" id="type" />
                   </ToggleGroupItem>
                 </ToggleGroup>
-                <Button variant="ghost" size="icon" className="w-11 h-11" onClick={handleCanvasClear}>
+                <Button variant="ghost" size="icon" className="w-11 h-11" onClick={handleCanvasClear} data-cy="clear_all_button_mobile">
                   <Trash2 className="w-6 h-6" />
                   <span className="sr-only">Clear canvas</span>
                 </Button>
                 <Button
+                  data-cy="insert_image_button_mobile"
                   variant="ghost"
                   size="icon"
                   className="w-11 h-11"
@@ -1914,7 +1952,11 @@ function App({
                   onChange={handleImageChange}
                   className="hidden"
                 />
-                <DialogDrawer canvasFabric={canvas} memeName={memeName} setMemeName={setMemeName} memeDownload={handleMemeSave} />
+
+                {!preparingProject && (
+                  <DialogDrawer preparedProject={preparingProject} canvasFabric={canvas} memeName={memeName} setMemeName={setMemeName} memeDownload={handleMemeSave} />
+                )}
+
               </div>
             </div>
             {isToolbarExpanded && (
@@ -1923,7 +1965,7 @@ function App({
                   <>
                     <Separator orientation="vertical" className="h-12 hidden md:block" />
                     <Popover>
-                      <PopoverTrigger><PaintBucket className="w-7 h-7 mx-2" fill={rectColor} id="rectcolor" /></PopoverTrigger>
+                      <PopoverTrigger data-cy="rectcolor_paint_mobile"><PaintBucket className="w-7 h-7 mx-2" fill={rectColor} /></PopoverTrigger>
                       <PopoverContent className="flex flex-row gap-4 items-center outline-2">
                         <HexColorPicker color={rectColor} onChange={(value) => handleChangeRectColor(value, canvas)} />
                         <div className="flex flex-col gap-2 rounded p-2">
@@ -1931,6 +1973,7 @@ function App({
                             <Button
                               key={`rect-${presetColor}`}
                               id={`rect-${presetColor}`}
+                              data-cy={`rectcolor-${presetColor}-mobile`}
                               className="w-10 h-10"
                               style={{ background: presetColor }}
                               onClick={() => handleChangeRectColor(presetColor, canvas)}
@@ -1940,10 +1983,10 @@ function App({
                       </PopoverContent>
                     </Popover>
                     <Separator orientation="vertical" className="h-12 hidden md:block" />
-                    <Slider value={rectStrokeWidth} max={100} step={1} onValueChange={(i) => handleStrokeWidthChange(i[0], canvas)} className="w-40" />
-                    <Input type="number" onChange={(e) => handleStrokeWidthChange(parseInt(e.target.value), canvas)} value={rectStrokeWidth[0]} width={5} className="w-20" />
+                    <Slider value={rectStrokeWidth} max={100} step={1} onValueChange={(i) => handleStrokeWidthChange(i[0], canvas)} className="w-40" data-cy="rectstroke_width_slider_mobile" />
+                    <Input type="number" onChange={(e) => handleStrokeWidthChange(parseInt(e.target.value), canvas)} value={rectStrokeWidth[0]} width={5} className="w-20" data-cy="rectstroke_width_input_mobile" />
                     <Popover>
-                      <PopoverTrigger>
+                      <PopoverTrigger data-cy="rectstroke_color_button_mobile">
                         <Minus className="w-7 h-7" id="rectstrokecolor" strokeWidth={10} /></PopoverTrigger>
                       <PopoverContent className="flex flex-row gap-4 items-center outline-2">
                         <HexColorPicker color={rectStrokeColor} onChange={(value) => handleStrokeColorChange(value, canvas)} />
@@ -1952,6 +1995,7 @@ function App({
                             <Button
                               key={`rectstroke-${presetColor}`}
                               id={`rectstroke-${presetColor}`}
+                              data-cy={`rectstroke-${presetColor}-mobile`}
                               className="w-10 h-10"
                               style={{ background: presetColor }}
                               onClick={() => handleStrokeColorChange(presetColor, canvas)}
@@ -1966,7 +2010,7 @@ function App({
                   <>
                     <Separator orientation="vertical" className="h-12 hidden md:block" />
                     <Popover>
-                      <PopoverTrigger><PaintBucket fill={color} className="w-7 h-7" id="freedrawcolor" /></PopoverTrigger>
+                      <PopoverTrigger data-cy="freedrawcolor_paint_mobile"><PaintBucket fill={color} className="w-7 h-7" id="freedrawcolor" /></PopoverTrigger>
                       <PopoverContent className="flex flex-row gap-4 items-center outline-2">
                         <HexColorPicker color={color} onChange={(value) => handleChangeColor(value, canvas)} />
                         <div className="flex flex-col gap-2 rounded p-2">
@@ -1974,6 +2018,7 @@ function App({
                             <Button
                               key={presetColor}
                               id={`freedraw-${presetColor}`}
+                              data-cy={`freedraw-${presetColor}-mobile`}
                               className="w-10 h-10"
                               style={{ background: presetColor }}
                               onClick={() => handleChangeColor(presetColor, canvas)}
@@ -1982,15 +2027,15 @@ function App({
                         </div>
                       </PopoverContent>
                     </Popover>
-                    <Slider value={drawingWidth} max={100} step={1} onValueChange={(i) => setDrawingWidth(i)} className="w-56" />
-                    <Input type="number" onChange={(e) => setDrawingWidth([parseInt(e.target.value)])} value={drawingWidth[0]} width={5} className="w-20" />
+                    <Slider value={drawingWidth} max={100} step={1} onValueChange={(i) => setDrawingWidth(i)} className="w-56" data-cy="freedraw_width_slider_mobile" />
+                    <Input type="number" onChange={(e) => setDrawingWidth([parseInt(e.target.value)])} value={drawingWidth[0]} width={5} className="w-20" data-cy="freedraw_width_input_mobile" />
                   </>
                 )}
                 {drawingMode.current === "type" && (
                   <>
-                    <FontSelect canvas={canvas} value={fontFamily} onValueChange={(value) => handleChangeFontFamily(value, canvas)} />
+                    <FontSelect canvas={canvas} value={fontFamily} onValueChange={(value) => handleChangeFontFamily(value, canvas)} data-cy="font_type_select_mobile" />
                     <Popover>
-                      <PopoverTrigger><TypeOutline className="w-5 h-5" fill={fontColor} /></PopoverTrigger>
+                      <PopoverTrigger data-cy="fontcolor_paint_button_mobile"><TypeOutline className="w-5 h-5" fill={fontColor} /></PopoverTrigger>
                       <PopoverContent className="flex flex-row gap-4 items-center outline-2">
                         <HexColorPicker color={fontColor} onChange={(value) => handleChangeFontColor(value, canvas)} />
                         <div className="flex flex-col gap-2 rounded p-2">
@@ -1998,6 +2043,7 @@ function App({
                             <Button
                               key={presetColor}
                               className="w-10 h-10"
+                              data-cy={`type-${presetColor}-mobile`}
                               style={{ background: presetColor }}
                               onClick={() => handleChangeFontColor(presetColor, canvas)}
                             />
@@ -2005,7 +2051,7 @@ function App({
                         </div>
                       </PopoverContent>
                     </Popover>
-                    <ToggleStylesGroup value={fontStyle} onValueChange={handleChangefontStyle} />
+                    <ToggleStylesGroup platform="_mobile" value={fontStyle} onValueChange={handleChangefontStyle} />
                   </>
                 )}
               </div>

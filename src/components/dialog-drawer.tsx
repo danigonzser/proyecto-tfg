@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "./ui/button"
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerPortal, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
-import { BookImage, Check, ChevronsUpDown, Download, DownloadIcon, FileImage, Pencil } from "lucide-react"
+import { BookImage, Check, ChevronsUpDown, Download, DownloadIcon, FileImage, Megaphone, Pencil } from "lucide-react"
 import Image from "next/image"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card"
 import { Label } from "./ui/label"
@@ -37,6 +37,7 @@ const formSchema = z.object({
 })
 
 interface Props {
+  preparedProject: boolean | undefined,
   canvasFabric: Canvas | undefined,
   memeName: string,
   setMemeName: (memeName: string) => void,
@@ -44,6 +45,7 @@ interface Props {
 }
 
 export const DialogDrawer: React.FC<Props> = ({
+  preparedProject,
   canvasFabric,
   memeName,
   setMemeName,
@@ -86,41 +88,53 @@ export const DialogDrawer: React.FC<Props> = ({
 
       try {
 
-        if (canvasFabric !== undefined) {
+        if (canvasFabric !== undefined && catalogues.length > 0) {
 
-          const memeJson = canvasFabric.toJSON()
-
-
-
-          if (catalogueId === "") {
-
+          if (values.catalogueId === "") {
             setCatalogueId(catalogues[0].id)
             catalogueIdRef.current = catalogues[0].id
+            values.catalogueId = catalogues[0].id
             setCatalogueName(catalogues[0].title)
           }
 
+          const memeJson = canvasFabric.toJSON()
 
+          if (preparedProject) {
+            toast({
+              title: "Prepare your project first!",
+              action: <Megaphone />
+            })
+          } else {
 
-          setMemeInCatalogue(catalogueIdRef.current, values.name, JSON.stringify(memeJson)).then(() => {
+          }
+
+          console.log("Meme JSON", JSON.stringify(memeJson))
+
+          setMemeInCatalogue(values.catalogueId, values.name, JSON.stringify(memeJson)).then(() => {
             setOpen(false)
 
             if (typeof window !== 'undefined') {
               window.onbeforeunload = null
             }
 
-            router.push(`/catalogues/${catalogueIdRef.current}`)
+          }).finally(() => {
+            router.push(`/catalogues/${values.catalogueId}`)
+
+            toast({
+              variant: "success",
+              title: "Your meme has been saved in " + values.catalogueName,
+            })
           })
 
+        } else {
+          form.setError("catalogueName", {
+            message: "Please select or create a catalogue."
+          })
         }
 
       } catch (e) {
         console.log(e)
       }
-
-      toast({
-        variant: "success",
-        title: "Your meme has been saved in " + values.catalogueName,
-      })
 
     } else {
 
@@ -147,8 +161,7 @@ export const DialogDrawer: React.FC<Props> = ({
     return (
       <Dialog open={open} onOpenChange={setOpen} data-test="download_meme_form">
         <DialogTrigger asChild>
-          {/* className="sm:text-base md:text-lg md:py-2.5 md:px-4 py-1.5 px-2 text-xl drop-shadow-md hover:drop-shadow-xl shadow-sm shadow-primary/50 dark:shadow-sm dark:shadow-primary/80 hover:scale-110 transition-all duration-300 bg-primary text-primary-foreground border-primary font-black" */}
-          <Button id="save_as_dialog" className="w-11 h-11 md:w-14 md:h-14 sm:text-base md:text-lg md:py-2.5 md:px-4 py-1.5 px-2 text-xl drop-shadow-md hover:drop-shadow-xl shadow-sm shadow-primary/50 dark:shadow-sm dark:shadow-primary/80 hover:scale-110 transition-all duration-300 bg-primary text-primary-foreground border-primary font-black focus:scale-125">
+          <Button data-cy="save_as_button" id="save_as_dialog" className="w-11 h-11 md:w-14 md:h-14 sm:text-base md:text-lg md:py-2.5 md:px-4 py-1.5 px-2 text-xl drop-shadow-md hover:drop-shadow-xl shadow-sm shadow-primary/50 dark:shadow-sm dark:shadow-primary/80 hover:scale-110 transition-all duration-300 bg-primary text-primary-foreground border-primary font-black focus:scale-125">
             <DownloadIcon className="w-7 h-7 stroke-primary-foreground" />
             <span className="sr-only">Download</span>
           </Button>
@@ -159,11 +172,11 @@ export const DialogDrawer: React.FC<Props> = ({
             <DialogDescription>Choose where you would like to save your meme:</DialogDescription>
           </DialogHeader>
           <div className="w-full h-full grid grid-cols-2 gap-6">
-            <Button variant={optionSelected === "catalogue" ? "outline" : "secondary"} onClick={() => setOptionSelected("local")}>
+            <Button variant={optionSelected === "catalogue" ? "outline" : "secondary"} onClick={() => setOptionSelected("local")} data-cy="local_button_tab">
               <DownloadIcon className="mr-2 h-6 w-6" />
               Locally
             </Button>
-            <Button variant={optionSelected === "catalogue" ? "secondary" : "outline"} onClick={() => setOptionSelected("catalogue")}>
+            <Button variant={optionSelected === "catalogue" ? "secondary" : "outline"} onClick={() => setOptionSelected("catalogue")} data-cy="catalogue_button_tab">
               <BookImage className="h-6 w-6 mr-2" />
               Catalogue
             </Button>
@@ -186,7 +199,7 @@ export const DialogDrawer: React.FC<Props> = ({
                     <FormItem>
                       <FormLabel>Meme name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Funny meme's name" {...field} value={memeName} defaultValue={memeName} onChange={(valor) => {
+                        <Input data-cy="form_input_meme_name" placeholder="Funny meme's name" {...field} value={memeName} onChange={(valor) => {
                           form.setValue("name", field.value)
                           setMemeName(valor.target.value)
                         }} />
@@ -203,17 +216,17 @@ export const DialogDrawer: React.FC<Props> = ({
                     name="extension"
                     data-test="hero-heading"
                     render={({ field }) => (
-                      <FormItem id="meme_extension">
+                      <FormItem id="meme_extension" data-cy="meme_extension">
                         <FormLabel>Extension</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value} data-test="select_extension">
+                        <Select onValueChange={field.onChange} defaultValue={field.value} data-cy="select_extension">
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue data-test="select_value_extension_meme" />
+                              <SelectValue data-cy="select_value_extension_meme" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="png" data-test="png_meme_extension">.png</SelectItem>
-                            <SelectItem value="jpeg" data-test="jpeg_meme_extension">.jpeg</SelectItem>
+                            <SelectItem value="png" data-cy="png_meme_extension">.png</SelectItem>
+                            <SelectItem value="jpeg" data-cy="jpeg_meme_extension">.jpeg</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -230,8 +243,7 @@ export const DialogDrawer: React.FC<Props> = ({
                     control={form.control}
                     name="catalogueName"
                     render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Catalogue</FormLabel>
+                      <FormItem className="mb-5 flex items-center justify-between gap-2">
                         <Popover open={openCatalogues} onOpenChange={setOpenCatalogues}>
                           <PopoverTrigger asChild>
                             <FormControl>
@@ -252,6 +264,7 @@ export const DialogDrawer: React.FC<Props> = ({
                               </Button>
                             </FormControl>
                           </PopoverTrigger>
+                          <CreateCatalogues />
                           <PopoverContent className="w-[350px] p-0">
                             <Command>
                               <CommandInput placeholder="Search catalogue..." />
@@ -266,6 +279,7 @@ export const DialogDrawer: React.FC<Props> = ({
                                         setCatalogueId(catalogue.id)
                                         setCatalogueName(catalogue.title)
                                         form.setValue("catalogueName", catalogue.title)
+                                        form.setValue("catalogueId", catalogue.id)
                                         setOpenCatalogues(false)
                                       }}
                                     >
@@ -294,8 +308,11 @@ export const DialogDrawer: React.FC<Props> = ({
               )}
 
               <DialogFooter className="flex-row justify-end space-x-2 gap-y-2">
-                <Button type="submit" className="text-primary-foreground font-black">Submit</Button>
-                <Button type="button" className="text-destructive-foreground font-black" variant="destructive" onClick={() => setOpen(false)} >Cancel</Button>
+                <Button data-cy="form_submit_button" type="submit" className="text-primary-foreground font-black">Submit</Button>
+                <Button data-cy="form_cancel_button" type="button" className="text-destructive-foreground font-black" variant="destructive" onClick={() => {
+                  setOpen(false)
+                  setTimeout(() => document.getElementById('save_as_dialog')?.blur(), 400)
+                }} >Cancel</Button>
               </DialogFooter>
             </form>
           </Form>
@@ -309,7 +326,7 @@ export const DialogDrawer: React.FC<Props> = ({
     <Drawer open={open} onOpenChange={setOpen} shouldScaleBackground>
       <DrawerTrigger asChild>
         <Button className="w-11 h-11 md:w-14 md:h-14 sm:text-base md:text-lg md:py-2.5 md:px-4 py-1.5 px-2 text-xl drop-shadow-md hover:drop-shadow-xl shadow-sm shadow-primary/50 dark:shadow-sm dark:shadow-primary/80 hover:scale-110 transition-all duration-300 bg-primary text-primary-foreground border-primary font-black focus:scale-110" id="save_as_drawer">
-          <DownloadIcon className="w-7 h-7 stroke-primary-foreground" />
+          <DownloadIcon className="w-7 h-7 stroke-primary-foreground" data-cy="insert_image_button_mobile" />
           <span className="sr-only">Download</span>
         </Button>
       </DrawerTrigger>
@@ -319,11 +336,11 @@ export const DialogDrawer: React.FC<Props> = ({
           <DrawerDescription>Choose where you would like to save your meme:</DrawerDescription>
         </DrawerHeader>
         <div className="w-full h-full grid grid-cols-2 gap-6">
-          <Button variant={optionSelected === "catalogue" ? "outline" : "secondary"} onClick={() => setOptionSelected("local")}>
+          <Button data-cy="local_button_tab_mobile" variant={optionSelected === "catalogue" ? "outline" : "secondary"} onClick={() => setOptionSelected("local")}>
             <DownloadIcon className="mr-2 h-6 w-6" />
             Locally
           </Button>
-          <Button variant={optionSelected === "catalogue" ? "secondary" : "outline"} onClick={() => setOptionSelected("catalogue")}>
+          <Button data-cy="catalogue_button_tab_mobile" variant={optionSelected === "catalogue" ? "secondary" : "outline"} onClick={() => setOptionSelected("catalogue")}>
             <BookImage className="h-6 w-6 mr-2" />
             Catalogue
           </Button>
@@ -346,7 +363,7 @@ export const DialogDrawer: React.FC<Props> = ({
                   <FormItem>
                     <FormLabel>Meme name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Funny meme's name" {...field} value={memeName} defaultValue={memeName} onChange={(valor) => {
+                      <Input data-cy="form_input_meme_name_mobile" placeholder="Funny meme's name" {...field} value={memeName} onChange={(valor) => {
                         form.setValue("name", field.value)
                         setMemeName(valor.target.value)
                       }} />
@@ -362,7 +379,7 @@ export const DialogDrawer: React.FC<Props> = ({
                   control={form.control}
                   name="extension"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem data-cy="meme_extension_mobile">
                       <FormLabel>Extension</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
@@ -371,8 +388,8 @@ export const DialogDrawer: React.FC<Props> = ({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="png">.png</SelectItem>
-                          <SelectItem value="jpeg">.jpeg</SelectItem>
+                          <SelectItem data-cy="png_meme_extension_mobile" value="png">.png</SelectItem>
+                          <SelectItem data-cy="jpeg_meme_extension_mobile" value="jpeg">.jpeg</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -410,6 +427,7 @@ export const DialogDrawer: React.FC<Props> = ({
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
+                        <FormMessage />
                         <CreateCatalogues />
                         <PopoverContent className="w-[300px] p-0">
                           <Command>
@@ -427,6 +445,7 @@ export const DialogDrawer: React.FC<Props> = ({
                                       setCatalogueId(catalogue.id)
                                       setCatalogueName(catalogue.title)
                                       form.setValue("catalogueName", catalogue.title)
+                                      form.setValue("catalogueId", catalogue.id)
                                       setOpenCatalogues(false)
                                     }}
                                   >
@@ -446,7 +465,6 @@ export const DialogDrawer: React.FC<Props> = ({
                           </Command>
                         </PopoverContent>
                       </Popover>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -455,8 +473,11 @@ export const DialogDrawer: React.FC<Props> = ({
             )}
 
             <DrawerFooter className="flex-row justify-end space-x-2 gap-y-2">
-              <Button type="submit" className="text-primary-foreground font-black">Submit</Button>
-              <Button type="button" className="text-destructive-foreground font-black" variant="destructive" onClick={() => setOpen(false)} >Cancel</Button>
+              <Button data-cy="form_submit_button_mobile" type="submit" className="text-primary-foreground font-black">Submit</Button>
+              <Button type="button" className="text-destructive-foreground font-black" variant="destructive" onClick={() => {
+                setOpen(false)
+                setTimeout(() => document.getElementById('save_as_dialog')?.blur(), 400)
+              }} >Cancel</Button>
             </DrawerFooter>
           </form>
         </Form>

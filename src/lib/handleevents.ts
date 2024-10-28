@@ -47,20 +47,11 @@ export const handleZoomToCenter = (zoomIn: boolean, deadrect: DeadRect | undefin
   canvas.zoomToPoint(pointToZoom, zoom)
 }
 
-export const handleCanvasZoomToPoint = (zoomIn: boolean, x: number, y: number, canvas: Canvas | undefined) => {
+export const handleCanvasZoomToPoint = (x: number, y: number, canvas: Canvas | undefined, scale: number) => {
 
   if (!canvas) return
 
-  var zoom = canvas.getZoom()
-
-  const minZoom = 0.2
-  const maxZoom = 4
-
-  if (zoomIn) {
-    zoom = Math.min(Math.max(minZoom, zoom * 1.025), maxZoom)
-  } else {
-    zoom = Math.min(Math.max(minZoom, zoom / 1.025), maxZoom)
-  }
+  const zoom = canvas.getZoom() * scale
 
   const pointToZoom = new Point({ x: x, y: y })
 
