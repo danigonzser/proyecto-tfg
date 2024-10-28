@@ -7,51 +7,8 @@ on:
     #   - 'cypress/**/*.ts'
 
 jobs:
-
-  build-cache:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          cache: 'pnpm'
-          cache-dependency-path: ./pnpm-lock.yaml
-
-      - name: Build Caching
-        uses: actions/cache@v4
-        with:
-          path: |
-            node_modules
-            ${{ github.workspace }}/.next/cache
-  
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-  
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
-
-      - run: pnpm install && pnpm prisma generate
-      - run: pnpm run build
-
-      - name: Build Caching
-        uses: actions/cache@v4
-        with:
-          path: |
-            node_modules
-            ${{ github.workspace }}/.next/cache
-  
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-  
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
                 
   unit-tests:
-    needs: build-cache
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -82,7 +39,6 @@ jobs:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
   ui-chrome-desktop-tests:
-    needs: build-cache
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -142,11 +98,21 @@ jobs:
           spec: cypress/e2e/*
           config-file: cypress.config.ts
 
+      - name: Build Caching
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ${{ github.workspace }}/.next/cache
+  
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+  
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
     env:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
   ui-chrome-mobile-tests:
-    needs: build-cache
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -154,6 +120,19 @@ jobs:
       options: --user 1001
     strategy:
       fail-fast: false
+    
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -207,6 +186,18 @@ jobs:
           parallel: true
           spec: cypress/e2e/*
           config-file: cypress.config.ts
-
+      
+      - name: Build Caching
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ${{ github.workspace }}/.next/cache
+  
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+  
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
+              
     env:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
