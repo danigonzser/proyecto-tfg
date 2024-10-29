@@ -2,25 +2,22 @@ import { useMediaQuery } from "@/hooks/use-media-query"
 import React, { useEffect, useRef, useState } from "react"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "./ui/button"
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerPortal, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
-import { BookImage, Check, ChevronsUpDown, Download, DownloadIcon, FileImage, Megaphone, Pencil } from "lucide-react"
-import Image from "next/image"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card"
-import { Label } from "./ui/label"
+import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
+import { BookImage, Check, ChevronsUpDown, DownloadIcon, Megaphone } from "lucide-react"
 import { Input } from "./ui/input"
 import { cn } from "@/lib/utils"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
-import { Catalogue, Prisma } from "@prisma/client"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
+import { Catalogue } from "@prisma/client"
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
 import { getCatalogues, setMemeInCatalogue } from "@/lib/getcatalogues"
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "./ui/command"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "./ui/command"
 import { useToast } from "../hooks/use-toast"
 import { Canvas, ImageFormat } from "fabric"
-import { redirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import CreateCatalogues from "./create_catalogues"
 
 const formSchema = z.object({
@@ -57,7 +54,6 @@ export const DialogDrawer: React.FC<Props> = ({
   const { toast } = useToast()
 
   const [catalogues, setCatalogues] = useState<Catalogue[]>([])
-  const [value, setValue] = useState("")
 
   useEffect(() => {
     async function get() {
@@ -68,8 +64,6 @@ export const DialogDrawer: React.FC<Props> = ({
     get()
   }, [])
 
-  const [catalogueId, setCatalogueId] = useState("")
-  const [catalogueName, setCatalogueName] = useState("")
   const catalogueIdRef = useRef("")
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -91,10 +85,8 @@ export const DialogDrawer: React.FC<Props> = ({
         if (canvasFabric !== undefined && catalogues.length > 0) {
 
           if (values.catalogueId === "") {
-            setCatalogueId(catalogues[0].id)
             catalogueIdRef.current = catalogues[0].id
             values.catalogueId = catalogues[0].id
-            setCatalogueName(catalogues[0].title)
           }
 
           const memeJson = canvasFabric.toJSON()
@@ -151,7 +143,6 @@ export const DialogDrawer: React.FC<Props> = ({
 
   type option = "local" | "catalogue"
 
-  'use client'
   const [open, setOpen] = useState(false)
   const [openCatalogues, setOpenCatalogues] = useState(false)
   const isDesktop = useMediaQuery("(min-width: 768px)")
@@ -276,8 +267,6 @@ export const DialogDrawer: React.FC<Props> = ({
                                       value={catalogue.title}
                                       key={catalogue.id}
                                       onSelect={() => {
-                                        setCatalogueId(catalogue.id)
-                                        setCatalogueName(catalogue.title)
                                         form.setValue("catalogueName", catalogue.title)
                                         form.setValue("catalogueId", catalogue.id)
                                         setOpenCatalogues(false)
@@ -442,8 +431,6 @@ export const DialogDrawer: React.FC<Props> = ({
                                     value={catalogue.title}
                                     key={catalogue.id}
                                     onSelect={() => {
-                                      setCatalogueId(catalogue.id)
-                                      setCatalogueName(catalogue.title)
                                       form.setValue("catalogueName", catalogue.title)
                                       form.setValue("catalogueId", catalogue.id)
                                       setOpenCatalogues(false)

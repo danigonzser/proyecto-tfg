@@ -1,17 +1,15 @@
 import { toast } from "@/hooks/use-toast"
 import { useState } from "react"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card"
+import { Card, CardContent } from "./ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs"
 import { Label } from "./ui/label"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
 import Image from "next/image"
-import { ImageIcon, Palette, Square } from "lucide-react"
+import { Palette, Square } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { HexColorPicker } from "react-colorful"
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
-import { Skeleton } from "./ui/skeleton"
-import { useMediaQuery } from "@/hooks/use-media-query"
 
 interface Props {
   setPreparingProject: (preparingProject: boolean) => void,
@@ -70,7 +68,7 @@ export const NewProjectForm: React.FC<Props> = ({
 
   const [width, setWidth] = useState(1920)
   const [height, setHeight] = useState(1080)
-  const [file, setFile] = useState<File | null>(null)
+  const [file] = useState<File | null>(null)
   const [bgColor, setBgColor] = useState("#FFFFFF")
 
   const presetColors = ["#FFEA00", "#000000", "#ff0000", "#0000ff", "#008000"]

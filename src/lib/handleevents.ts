@@ -7,8 +7,8 @@ export const handleCanvasZoom = (options: fabric.IEvent & { e: WheelEvent }, can
 
   if (!canvas) return
 
-  var delta = options.e.deltaY
-  var zoom = canvas.getZoom()
+  const delta = options.e.deltaY
+  let zoom = canvas.getZoom()
 
   const minZoom = 0.2
   const maxZoom = 4
@@ -29,7 +29,7 @@ export const handleZoomToCenter = (zoomIn: boolean, deadrect: DeadRect | undefin
 
   //if (!deadrect) return
 
-  var zoom = canvas.getZoom()
+  let zoom = canvas.getZoom()
 
   const minZoom = 0.2
   const maxZoom = 4

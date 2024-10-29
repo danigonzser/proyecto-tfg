@@ -2,10 +2,7 @@ import { classRegistry, FabricImage, ImageProps, Point, Rect, StaticCanvas } fro
 import { StaticImport } from "next/dist/shared/lib/get-img-props"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
-import { LoadingSpinner } from "./fabric-canvas"
 import { Skeleton } from "./ui/skeleton"
-import { AspectRatio } from "./ui/aspect-ratio"
-import { useMediaQuery } from "@/hooks/use-media-query"
 
 export class DeadRect extends Rect {
   static get type() {
@@ -17,7 +14,7 @@ export class DeadRect extends Rect {
     this.selectable = false
   }
 
-  toDatalessObject(propertiesToInclude?: any[]) {
+  toDatalessObject(propertiesToInclude?: unknown[]) {
     return {
       ...super.toDatalessObject(propertiesToInclude),
     }
@@ -38,7 +35,7 @@ export class DeadImage extends FabricImage {
     this.selectable = false
   }
 
-  toDatalessObject(propertiesToInclude?: any[]) {
+  toDatalessObject(propertiesToInclude?: unknown[]) {
     return {
       ...super.toDatalessObject(propertiesToInclude),
     }
@@ -51,20 +48,15 @@ classRegistry.setSVGClass(DeadImage)
 export function Thumbnail({ memeJSON }: { memeJSON: string }) {
 
   const canvasRef = useRef<string | HTMLCanvasElement | undefined>(undefined)
-  const [canvas, setCanvas] = useState<StaticCanvas | undefined>(undefined)
 
   const [dataUrl, setDataUrl] = useState<string | StaticImport>("/vercel.svg")
 
   const [isLoading, setIsLoading] = useState(true)
 
-  const [aspectRatio, setAspectRatio] = useState(16 / 9)
-  const aspecRatioRef = useRef(16 / 9)
-
   useEffect(() => {
 
     const canvas = new StaticCanvas(canvasRef.current, { backgroundColor: 'white' })
     canvas.setDimensions({ width: 1000, height: 500 })
-    setCanvas(canvas)
 
     canvas.loadFromJSON(memeJSON).then((canvas) => {
 

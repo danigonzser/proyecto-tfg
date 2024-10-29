@@ -1,9 +1,9 @@
 "use client" // next.js app router
 
-import React, { useState, useEffect, useRef, Suspense, DragEvent, ChangeEvent } from "react"
+import React, { useState, useEffect, useRef, DragEvent, ChangeEvent } from "react"
 import * as fabric from 'fabric'
 import { Button } from "@/components/ui/button"
-import { BoxSelect, CircleCheckBig, Cloud, DownloadIcon, EyeIcon, Hand, House, ImagePlus, LoaderCircle, LockIcon, Megaphone, Menu, Minus, PaintBucket, Palette, PencilLine, RedoIcon, SettingsIcon, ShareIcon, Sparkle, Square, Trash2, TypeIcon, TypeOutline, UndoIcon, UploadIcon, X, ZoomIn, ZoomInIcon, ZoomOut, ZoomOutIcon } from "lucide-react"
+import { BoxSelect, CircleCheckBig, Cloud, Hand, House, ImagePlus, Megaphone, Minus, PaintBucket, PencilLine, RedoIcon, Square, Trash2, TypeIcon, TypeOutline, UndoIcon, ZoomIn, ZoomOut } from "lucide-react"
 import { Separator } from "./ui/separator"
 import {
   Popover,
@@ -15,7 +15,7 @@ import { Slider } from "@/components/ui/slider"
 import { Input } from "./ui/input"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { handleCanvasZoom, handleCanvasZoomToPoint, handleZoomToCenter } from "@/lib/handleevents"
-import { Style, Tools } from "@/lib/types"
+import { Tools } from "@/lib/types"
 import { FontSelect } from "./ui/fontselect"
 import { ToggleStylesGroup } from "./ui/togglestyles"
 import Link from "next/link"
@@ -27,9 +27,8 @@ import { handlePan } from "@/lib/handlepan"
 import { NewProjectForm } from "./new_project_form"
 import { getMemeById } from "@/lib/getmemes"
 import { setMemeByIdInCatalogue } from "@/lib/getcatalogues"
-import { Manager, Pinch } from "hammerjs"
-import { useMediaQuery } from "@/hooks/use-media-query"
-import { ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuRadioGroup, ContextMenuRadioItem, ContextMenuSeparator, ContextMenuShortcut, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger } from "./ui/context-menu"
+import { Manager } from "hammerjs"
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuShortcut, ContextMenuTrigger } from "./ui/context-menu"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
 import { useToast } from "@/hooks/use-toast"
 
@@ -44,7 +43,7 @@ export class DeadRect extends fabric.Rect {
     this.selectable = false
   }
 
-  toDatalessObject(propertiesToInclude?: any[]) {
+  toDatalessObject(propertiesToInclude?: unknown[]) {
     return {
       ...super.toDatalessObject(propertiesToInclude),
       // any custom properties you wanna add
@@ -67,7 +66,7 @@ export class DeadImage extends fabric.FabricImage {
     this.selectable = false
   }
 
-  toDatalessObject(propertiesToInclude?: any[]) {
+  toDatalessObject(propertiesToInclude?: unknown[]) {
     return {
       ...super.toDatalessObject(propertiesToInclude),
       // any custom properties you wanna add
@@ -106,8 +105,6 @@ function App({
 }) {
 
   const { toast, dismiss } = useToast()
-
-  const isDesktop = (useMediaQuery("(min-width: 768px)"))
 
   const press = useRef(false)
 
@@ -260,8 +257,6 @@ function App({
     }
   }, [drawingWidth])
 
-  const [isDrawing, setIsDrawing] = useState(false)
-
   const isRecting = useRef(false)
 
   const rectFabricRef = useRef(false)
@@ -270,7 +265,7 @@ function App({
 
   const drawingMode = useRef<Tools>("selection")
 
-  const drawingShape = useRef<fabric.Object>()
+  const drawingShape = useRef<fabric.Object>(undefined)
 
   const fontfamilyRef = useRef<string>("Arial")
 
@@ -291,7 +286,6 @@ function App({
   }
 
   const fontSizeRef = useRef(20)
-  const [fontSize, setFontSize] = useState(20)
 
   const fontColorRef = useRef("#000000")
 
@@ -372,33 +366,23 @@ function App({
   const y = useRef(0)
 
   const canvasWidth = useRef(1000)
-  const [canvasWidthState, setCanvasWidthState] = useState(1000)
 
   const canvasHeight = useRef(1000)
-  const [canvasHeightState, setCanvasHeightState] = useState(1000)
 
   const canvasEditableAreaWidth = useRef(0)
-  const [canvasEditableAreaWidthState, setCanvasEditableAreaWidthState] = useState(0)
 
   const canvasEditableAreaHeight = useRef(0)
-  const [canvasEditableAreaHeightState, setCanvasEditableAreaHeightState] = useState(0)
 
   const bgColorEditableArea = useRef("#FFFFFF")
-  const [bgColorEditableAreaState, setbgColorEditableAreaState] = useState("#292524")
 
   const originalImageWidth = useRef(0)
-  const [originalImageWidthState, setOriginalImageWidthState] = useState(0)
 
   const originalImageHeight = useRef(0)
-  const [originalImageHeightState, setOriginalImageHeightState] = useState(0)
 
   function handleCanvasSize(width: number, height: number) {
 
     originalImageWidth.current = width
     originalImageHeight.current = height
-
-    setOriginalImageWidthState(width)
-    setOriginalImageHeightState(height)
 
     // 1600 x 1200 pixels, but only has space for x pixels
     // (original height / original width) x new width = new height
@@ -426,18 +410,12 @@ function App({
         canvasWidth.current = element.offsetWidth
         canvasHeight.current = element.offsetHeight
 
-        setCanvasWidthState(element.offsetWidth)
-        setCanvasHeightState(element.offsetHeight)
-
         // Editable Area
         editableDeadRectArea.width = newWidth
         editableDeadRectArea.height = newHeight
 
         canvasEditableAreaWidth.current = newWidth
         canvasEditableAreaHeight.current = newHeight
-
-        setCanvasEditableAreaWidthState(newWidth)
-        setCanvasEditableAreaHeightState(newHeight)
 
         canvas.centerObject(editableDeadRectArea)
 
@@ -461,7 +439,6 @@ function App({
   function handlebgColorEditableArea(value: string) {
 
     bgColorEditableArea.current = value
-    setbgColorEditableAreaState(value)
 
     if (editableDeadRectArea !== undefined && canvas !== undefined) {
       editableDeadRectArea.fill = value
@@ -521,12 +498,10 @@ function App({
     setModificationsSavedState(value)
   }
 
-  const [loadingFromJsonId, setLoadingFromJsonId] = useState<boolean>(false)
   const loadingFromJsonIdRef = useRef<boolean>(false)
 
   function handleLoadingFromJsonId(value: boolean) {
     loadingFromJsonIdRef.current = value
-    setLoadingFromJsonId(value)
   }
 
   const loadingToastRef = useRef<string | null>(null)
@@ -551,10 +526,10 @@ function App({
         offsetX: 16,
         offsetY: -16,
         cursorStyle: 'pointer',
-        mouseUpHandler: (eventData, transform) => {
+        mouseUpHandler: () => {
           handleObjectRemove(c)
         },
-        render: (ctx, left, top, styleOverride, fabricObject) => {
+        render: (ctx, left, top) => {
           const size = 24 // Tamaño del botón
           ctx.save()
           ctx.translate(left, top)
@@ -583,10 +558,10 @@ function App({
       }),
     }
 
-    var hammer = new Manager(c.upperCanvasEl)
+    const hammer = new Manager(c.upperCanvasEl)
 
-    var pan = new Hammer.Pan()
-    var pinch = new Hammer.Pinch()
+    const pan = new Hammer.Pan()
+    const pinch = new Hammer.Pinch()
 
     hammer.add([pan, pinch])
 
@@ -600,7 +575,7 @@ function App({
 
     })
 
-    hammer.on('pinchend', e => {
+    hammer.on('pinchend', () => {
       pinchRef.current = 1
     })
 
@@ -612,7 +587,7 @@ function App({
     hammer.on('panmove', function (ev) {
 
       if (drawingMode.current === "drag") {
-        var delta = new fabric.Point({ x: ev.center.x - xPanRef.current, y: ev.center.y - yPanRef.current })
+        const delta = new fabric.Point({ x: ev.center.x - xPanRef.current, y: ev.center.y - yPanRef.current })
 
         c.relativePan(delta)
         c.renderAll()
@@ -625,7 +600,7 @@ function App({
 
     if (memeId === undefined) {
 
-      var deadRect = new DeadRect({
+      const deadRect = new DeadRect({
         width: canvasEditableAreaWidth.current,
         height: canvasEditableAreaHeight.current,
         fill: bgColorEditableArea.current,
@@ -737,7 +712,7 @@ function App({
       }
     })
 
-    c.on('object:modified', function (opt) {
+    c.on('object:modified', function () {
 
       if (typeof window !== 'undefined') {
         if (window.onbeforeunload !== null) {
@@ -757,7 +732,7 @@ function App({
       }
     })
 
-    c.on('object:removed', function (opt) {
+    c.on('object:removed', function () {
 
       if (typeof window !== 'undefined') {
         if (window.onbeforeunload !== null) {
@@ -795,7 +770,7 @@ function App({
           x.current = pointer.x
           y.current = pointer.y
 
-          var rect = new fabric.Rect({
+          const rect = new fabric.Rect({
             left: x.current,
             top: y.current,
             fill: rectColorRef.current,
@@ -810,7 +785,7 @@ function App({
 
         } else if (drawingMode.current === "type") {
 
-          var text = new fabric.IText("Hello World", {
+          const text = new fabric.IText("Hello World", {
             left: pointer.x,
             top: pointer.y,
             fill: fontColorRef.current,
@@ -819,7 +794,7 @@ function App({
           })
 
           c.add(text)
-          c.renderAll
+          c.renderAll()
           c.setActiveObject(text)
 
           drawingShape.current = text
@@ -860,7 +835,7 @@ function App({
 
     })
 
-    c.on('mouse:up', function (opt) {
+    c.on('mouse:up', function () {
 
       if (!isLoadingFromHistory.current && drawingShape.current) {
 
@@ -1049,7 +1024,6 @@ function App({
         }
         drawingMode.current = "freedraw"
         setFabricModeState("freedraw")
-        setIsDrawing(true)
         break
       case "rect":
         setIsToolbarExpanded(true)
@@ -1139,7 +1113,7 @@ function App({
 
         isLoadingFromHistory.current = true
 
-        canvas.loadFromJSON(last, function (o, object) {
+        canvas.loadFromJSON(last, function () {
         }).then((canvas) => {
           canvas.renderAll()
           isLoadingFromHistory.current = false
@@ -1156,7 +1130,7 @@ function App({
     if (canvas !== undefined) {
       const objects = canvas.getObjects()
 
-      objects.forEach(function (object, key) {
+      objects.forEach(function (object) {
 
         if (object.type !== "deadrect") {
           canvas.remove(object)
@@ -1178,7 +1152,7 @@ function App({
 
       if (objects !== undefined) {
 
-        objects.forEach(function (object, key) {
+        objects.forEach(function (object) {
 
           if (object.type === "i-text") {
             const text = object as fabric.IText
@@ -1278,11 +1252,11 @@ function App({
 
         console.log("Llego2")
 
-        var scaleMultiplier = originalImageWidth.current / editableDeadRectArea.width
+        const scaleMultiplier = originalImageWidth.current / editableDeadRectArea.width
 
-        var objects = canvas.getObjects()
+        const objects = canvas.getObjects()
 
-        objects.forEach(function (object, key) {
+        objects.forEach(function (object) {
 
           object.scaleX = object.scaleX * scaleMultiplier
           object.scaleY = object.scaleY * scaleMultiplier
@@ -1321,9 +1295,11 @@ function App({
 
         console.log("Llego4")
 
-        var objects = canvas.getObjects()
+        const scaleMultiplier = originalImageWidth.current / editableDeadRectArea.width
 
-        objects.forEach(function (object, key) {
+        const objects = canvas.getObjects()
+
+        objects.forEach(function (object) {
 
           object.scaleX = object.scaleX / scaleMultiplier
           object.scaleY = object.scaleY / scaleMultiplier
@@ -1411,7 +1387,6 @@ function App({
 
   }
 
-  const [isToolbarOpen, setIsToolbarOpen] = useState(false)
   const [isToolbarExpanded, setIsToolbarExpanded] = useState(false)
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {

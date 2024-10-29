@@ -1,21 +1,10 @@
 "use client"
 
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-  NavigationMenuViewport,
-} from "@/components/ui/navigation-menu"
 import { ModeToggle } from "./mode-toggle-button"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from 'next/navigation'
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import clsx from "clsx"
 
 function Navbar() {

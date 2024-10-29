@@ -2,7 +2,7 @@
 import { FolderPlus } from "lucide-react"
 import { Button } from "./ui/button"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
 import { Input } from "./ui/input"
 import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
@@ -10,9 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { toast } from "@/hooks/use-toast"
 import { Textarea } from "./ui/textarea"
-import { Switch } from "./ui/switch"
 import { createCatalogue } from "@/lib/action_create_catalogue"
-import { redirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer"
 import { useMediaQuery } from "@/hooks/use-media-query"
 

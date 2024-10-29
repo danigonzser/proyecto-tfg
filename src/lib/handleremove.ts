@@ -1,9 +1,6 @@
 "use server"
-import { Catalogue } from "@prisma/client"
-import prisma from "./db"
-import { useToast } from "@/hooks/use-toast"
-import { MutableRefObject } from "react"
 import { revalidatePath } from "next/cache"
+import prisma from "./db"
 
 export async function getMemesCountByCatalogueId(id: string) {
 
@@ -13,6 +10,29 @@ export async function getMemesCountByCatalogueId(id: string) {
     },
   })
 
+}
+
+export async function removeCatalogueByIdAction(formData: FormData) {
+
+  const id = formData.get("id") as string
+
+  await prisma.meme.deleteMany({
+    where: {
+      catalogueId: id
+    }
+  })
+
+  const catalogue = await prisma.catalogue.delete({
+    where: {
+      id: id
+    }
+  })
+
+  if (catalogue === null) {
+    throw new Error("Catalogue not found")
+  }
+
+  revalidatePath("/")
 }
 
 export async function removeCatalogueById(id: string) {
@@ -34,6 +54,23 @@ export async function removeCatalogueById(id: string) {
   }
 }
 
+export async function removeMemeByIdAction(formData: FormData) {
+
+  const id = formData.get("id") as string
+
+  const meme = await prisma.meme.delete({
+    where: {
+      id: id
+    }
+  })
+
+  if (meme === null) {
+    throw new Error("Meme not found")
+  }
+
+  revalidatePath("/catalogues/" + formData.get("catalogueid"))
+}
+
 export async function removeMemeById(id: string) {
 
   const meme = await prisma.meme.delete({
@@ -47,7 +84,7 @@ export async function removeMemeById(id: string) {
   }
 }
 
-export async function memeTimeoutRemoval(id: string, state: boolean, ref: MutableRefObject<boolean>) {
+export async function memeTimeoutRemoval(id: string, state: boolean) {
 
   setTimeout(() => {
 
@@ -58,7 +95,7 @@ export async function memeTimeoutRemoval(id: string, state: boolean, ref: Mutabl
   }, 6000)
 }
 
-export async function catalogueTimeoutRemoval(id: string, state: boolean, ref: MutableRefObject<boolean>) {
+export async function catalogueTimeoutRemoval(id: string, state: boolean) {
 
   setTimeout(() => {
 
