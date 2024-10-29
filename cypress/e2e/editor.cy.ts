@@ -46,15 +46,15 @@ describe('Editor E2E Testing', () => {
     cy.get('.upper-canvas').trigger('mousemove', 100, 100)
     cy.get('.upper-canvas').trigger('mouseup')
 
-    // cy.compareSnapshot('rect', 0.1)
-    cy.screenshot('rect')
+    cy.compareSnapshot('rect', 0.1)
+    //cy.screenshot('rect')
 
     const arrows = '{rightarrow}'.repeat(30)
 
     cy.get('[style="transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(2% + 9.6px);"] > .block').click().type(arrows)
 
-    // cy.compareSnapshot('rect+slider', 0.1)
-    cy.screenshot('rect+slider')
+    cy.compareSnapshot('rect+slider', 0.1)
+    //cy.screenshot('rect+slider')
 
     cy.get('[data-cy="rectcolor_paint"]').click()
     cy.get('[data-cy="rectcolor-#ff0000"]').click()
@@ -64,8 +64,8 @@ describe('Editor E2E Testing', () => {
 
     cy.get('[data-cy="rectstroke_color_button"]').click()
 
-    // cy.compareSnapshot('rect+slider+color', 0.1)
-    cy.screenshot('rect+slider+color')
+    cy.compareSnapshot('rect+slider+color', 0.1)
+    //cy.screenshot('rect+slider+color')
 
     cy.get('[data-cy="freedraw_tool"]').click()
 
@@ -79,8 +79,8 @@ describe('Editor E2E Testing', () => {
     cy.get('.upper-canvas').trigger('mousemove', 550, 600, { force: true })
     cy.get('.upper-canvas').trigger('mouseup')
 
-    //cy.compareSnapshot('rect+slider+color+freedraw', 0.1)
-    cy.screenshot('rect+slider+color+freedraw')
+    cy.compareSnapshot('rect+slider+color+freedraw', 0.1)
+    //cy.screenshot('rect+slider+color+freedraw')
 
     cy.get('[data-cy="type_tool"]').click()
     cy.get('.upper-canvas').click(600, 600)
@@ -101,19 +101,19 @@ describe('Editor E2E Testing', () => {
     cy.get('.upper-canvas').trigger('mousemove', 750, 700, { force: true })
     cy.get('.upper-canvas').trigger('mouseup')
 
-    //cy.compareSnapshot('rect+slider+color+freedraw+beforeundo', 0.1)
-    cy.screenshot('rect+slider+color+freedraw+beforeundo')
+    cy.compareSnapshot('rect+slider+color+freedraw+beforeundo', 0.1)
+    //cy.screenshot('rect+slider+color+freedraw+beforeundo')
 
     cy.get('[data-cy="redo_button"]').should('be.disabled')
     cy.get('[data-cy="undo_button"]').click() // UNDO
 
-    //cy.compareSnapshot('rect+slider+color+freedraw+aftereundo', 0.1)
-    cy.screenshot('rect+slider+color+freedraw+aftereundo')
+    cy.compareSnapshot('rect+slider+color+freedraw+aftereundo', 0.1)
+    //cy.screenshot('rect+slider+color+freedraw+aftereundo')
 
     cy.get('[data-cy="redo_button"]').click() // REDO
 
-    //cy.compareSnapshot('finish', 0.1)
-    cy.screenshot('finish')
+    cy.compareSnapshot('finish', 0.1)
+    //cy.screenshot('finish')
 
     cy.get('.flex-none > :nth-child(1) > .hover\\:bg-primary\\/90 > .lucide').click()
     cy.get('[data-cy="form_input_meme_name"]').type('prueba')
@@ -151,8 +151,8 @@ describe('Editor E2E Testing', () => {
     cy.get('.grid > :nth-child(1) > .block').click()
     cy.get('a > .inline-flex > .lucide').click().wait(2000)
 
-    //cy.compareSnapshot('edit', 0.1)
-    cy.screenshot('edit')
+    cy.compareSnapshot('edit', 0.1)
+    //cy.screenshot('edit')
 
     cy.get('.upper-canvas').click()
     cy.get('[data-cy="rectcolor_paint"]').click()
@@ -165,8 +165,8 @@ describe('Editor E2E Testing', () => {
     cy.visit('http://localhost:3000')
     cy.get('.grid > :nth-child(1) > .block').click()
 
-    //cy.compareSnapshot('manuallysaved', 0.1)
-    cy.screenshot('manuallysaved')
+    cy.compareSnapshot('manuallysaved', 0.7)
+    //cy.screenshot('manuallysaved')
   })
 
 })
