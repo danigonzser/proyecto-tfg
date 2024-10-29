@@ -1,10 +1,16 @@
-import FabricCanvas from "@/components/fabric-canvas"
-import { ModeToggle } from "@/components/mode-toggle-button"
+"use client"
+
+import dynamic from "next/dynamic"
+
+const FabricCanvasWithNoSSR = dynamic(
+  () => import('../../components/fabric-canvas'),
+  { ssr: false }
+)
 
 function HelloWord() {
   return (
     <div className="h-full w-full">
-      <FabricCanvas />
+      <FabricCanvasWithNoSSR />
     </div>
   )
 }

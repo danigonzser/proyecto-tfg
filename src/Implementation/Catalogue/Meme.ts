@@ -1,15 +1,15 @@
-import {UUID} from 'crypto';
-import {Meme as MemeDefinition} from '../../Model/Catalogue/Meme';
-import {Edit} from '../types';
+import { UUID } from 'crypto'
+import { Meme as MemeDefinition } from '../../Model/Catalogue/Meme'
+import { Edit } from '@/Model/types'
 
 export class Meme implements MemeDefinition {
-  readonly id: UUID;
-  title: string;
-  content?: unknown;
-  readonly creationDate: Date;
-  lastModificationDate: Date;
-  edits: Edit[];
-  isPrivate: boolean;
+  readonly id: UUID
+  title: string
+  content?: unknown
+  readonly creationDate: Date
+  lastModificationDate: Date
+  edits: Edit[]
+  isPrivate: boolean
 
   constructor(
     title: string,
@@ -18,14 +18,14 @@ export class Meme implements MemeDefinition {
     edits = new Array<Edit>(),
     creationDate = new Date(),
     lastModificationDate = new Date(),
-    id = crypto.randomUUID()
+    id = crypto.randomUUID() as UUID
   ) {
-    this.isPrivate = isPrivate;
-    this.creationDate = creationDate;
-    this.lastModificationDate = lastModificationDate;
-    this.id = id;
-    this.title = title;
-    this.content = content;
-    this.edits = edits;
+    this.isPrivate = isPrivate
+    this.creationDate = creationDate
+    this.lastModificationDate = lastModificationDate
+    this.id = id
+    this.title = title
+    this.content = content
+    this.edits = edits
   }
 }

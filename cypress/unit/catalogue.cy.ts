@@ -11,7 +11,6 @@ describe('Unit Test for memes catalogue', () => {
     false
   )
 
-
   describe('#addMeme()', () => {
     it('should add a meme to catalogue without error', done => {
       const meme = new Meme('Meme 1', 'content', true, [])
@@ -19,8 +18,6 @@ describe('Unit Test for memes catalogue', () => {
       memeCatalogue.memes.push(meme)
 
       expect(memeCatalogue.memes).to.have.length(1)
-
-
 
       done()
     })
@@ -34,19 +31,11 @@ describe('Unit Test for memes catalogue', () => {
 
       memeCatalogue.memes.pop()
 
-
-
-
-
       expect(memeCatalogue.memes).to.have.length(1)
 
       memeCatalogue.memes.pop()
 
       expect(memeCatalogue.memes).to.have.length(0)
-
-
-
-
 
       done()
     })

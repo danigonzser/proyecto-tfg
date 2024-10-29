@@ -1,17 +1,16 @@
-import type { Metadata, ResolvingMetadata } from 'next'
-import FabricCanvas from "@/components/fabric-canvas"
-import prisma from '@/lib/db'
+"use server"
 
-export async function generateMetadata(
-  { params }: {
-    params: {
-      id: string
-    }
-  },
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  // read route params
-  const id = params.id
+import type { Metadata } from 'next'
+import prisma from '@/lib/db'
+import EditMemeClient from '@/components/edit_meme_client'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
+
+  const id = (await params).id
 
   const meme = await prisma.meme.findUnique({
     where: {
@@ -28,14 +27,13 @@ export async function generateMetadata(
   }
 }
 
-export default function EditMeme({ params }: {
-  params: {
-    id: string
-  }
+export default async function EditMeme({
+  params,
+}: {
+  params: Promise<{ id: string }>
 }) {
-  return (
-    <div className="h-full w-full">
-      <FabricCanvas memeId={params.id} />
-    </div>
-  )
+
+  const id = (await params).id
+
+  return <EditMemeClient memeId={id} />
 }

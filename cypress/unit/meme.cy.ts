@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+import { UUID } from 'crypto'
 import { Meme } from '../../src/Implementation/Catalogue/Meme'
 
 describe('Unit Testing for meme class', () => {
@@ -13,9 +14,7 @@ describe('Unit Testing for meme class', () => {
       expect(meme).to.have.property('content')
       expect(meme).to.have.property('creationDate')
       expect(meme).to.have.property('lastModificationDate')
-      expect(meme).to.have.property('edits');
-
-      ;
+      expect(meme).to.have.property('edits')
 
       expect(meme.title).to.has.string('Meme')
       expect(meme.isPrivate).to.be.true
@@ -25,7 +24,7 @@ describe('Unit Testing for meme class', () => {
 
   describe('add edits', () => {
     it('should edit a meme without error', done => {
-      meme.edits.push({ id: crypto.randomUUID() })
+      meme.edits.push({ id: crypto.randomUUID() as UUID })
       expect(meme.edits).to.have.length(1)
       done()
     })

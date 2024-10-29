@@ -2,32 +2,188 @@ name: testing-workflow
 
 on:
   push:
-    paths:
-      - 'src/**/*.ts'
-      - 'cypress/**/*.ts'
+    # paths:
+    #   - 'src/**/*.ts'
+    #   - 'cypress/**/*.ts'
 
 jobs:
-
+                
   unit-tests:
+    timeout-minutes: 15
     runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node-20.18.0-chrome-129.0.6668.89-1-ff-131.0.2-edge-129.0.2792.65-1
+      options: --user 1001
+    strategy:
+      fail-fast: false
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Install pnpm
         uses: pnpm/action-setup@v4
+        
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           cache: 'pnpm'
           cache-dependency-path: ./pnpm-lock.yaml
-      - name: Ejectar los tests unitarios
+
+      - name: "Unit tests"
         uses: cypress-io/github-action@v6
         with:
-          command: pnpm run test
-          spec: |
-            cypress/unit/*.cy.js
-      - uses: actions/upload-artifact@v4
-        if: failure()
+          browser: chrome
+          spec: cypress/unit/*
+          config-file: cypress.config.ts
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
+
+  ui-chrome-desktop-tests:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node-20.18.0-chrome-129.0.6668.89-1-ff-131.0.2-edge-129.0.2792.65-1
+      options: --user 1001
+    strategy:
+      fail-fast: false
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-          if-no-files-found: ignore
+          cache: 'pnpm'
+          cache-dependency-path: ./pnpm-lock.yaml
+
+      - name: Build Caching
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ${{ github.workspace }}/.next/cache
+  
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+  
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
+
+      - run: pnpm install && pnpm prisma generate
+      - run: pnpm run build
+      - run: pnpm run ci:prisma
+
+      - name: "UI Desktop Tests - Chrome"
+        uses: cypress-io/github-action@v6
+        with:
+          start: pnpm run start
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 120
+          browser: chrome
+          spec: cypress/e2e/*
+          config-file: cypress.config.ts
+
+      - name: Build Caching
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ${{ github.workspace }}/.next/cache
+  
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+  
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
+
+  ui-chrome-mobile-tests:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node-20.18.0-chrome-129.0.6668.89-1-ff-131.0.2-edge-129.0.2792.65-1
+      options: --user 1001
+    strategy:
+      fail-fast: false
+    
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: 'pnpm'
+          cache-dependency-path: ./pnpm-lock.yaml
+
+      - name: Build Caching
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ${{ github.workspace }}/.next/cache
+  
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+  
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
+  
+      - run: pnpm install && pnpm prisma generate
+      - run: pnpm run build
+      - run: pnpm run ci:prisma
+
+      - name: "UI Tests - Chrome - Mobile"
+        uses: cypress-io/github-action@v6
+        with:
+          config: '{"e2e":{"viewportWidth":375,"viewportHeight":667}}'
+          start: pnpm run start
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 120
+          browser: chrome
+          spec: cypress/e2e/mobile/*
+          config-file: cypress.config.ts
+      
+      - name: Build Caching
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ${{ github.workspace }}/.next/cache
+  
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+  
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
