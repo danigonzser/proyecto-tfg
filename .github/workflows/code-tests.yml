@@ -91,12 +91,26 @@ jobs:
       - name: "UI Desktop Tests - Chrome"
         uses: cypress-io/github-action@v6
         with:
+          record: true
           start: pnpm run start
           wait-on: "http://localhost:3000"
           wait-on-timeout: 120
           browser: chrome
           spec: cypress/e2e/*
           config-file: cypress.config.ts
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
+
 
       - name: Build Caching
         uses: actions/cache@v4
@@ -165,6 +179,7 @@ jobs:
       - name: "UI Tests - Chrome - Mobile"
         uses: cypress-io/github-action@v6
         with:
+          record: true
           config: '{"e2e":{"viewportWidth":375,"viewportHeight":667}}'
           start: pnpm run start
           wait-on: "http://localhost:3000"
@@ -172,6 +187,18 @@ jobs:
           browser: chrome
           spec: cypress/e2e/mobile/*
           config-file: cypress.config.ts
+          
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
       
       - name: Build Caching
         uses: actions/cache@v4
