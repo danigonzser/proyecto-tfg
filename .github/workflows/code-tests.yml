@@ -91,7 +91,6 @@ jobs:
       - name: "UI Desktop Tests - Chrome"
         uses: cypress-io/github-action@v6
         with:
-          record: true
           start: pnpm run start
           wait-on: "http://localhost:3000"
           wait-on-timeout: 120
@@ -179,7 +178,6 @@ jobs:
       - name: "UI Tests - Chrome - Mobile"
         uses: cypress-io/github-action@v6
         with:
-          record: true
           config: '{"e2e":{"viewportWidth":375,"viewportHeight":667}}'
           start: pnpm run start
           wait-on: "http://localhost:3000"
@@ -187,7 +185,7 @@ jobs:
           browser: chrome
           spec: cypress/e2e/mobile/*
           config-file: cypress.config.ts
-          
+
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
