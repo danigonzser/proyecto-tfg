@@ -28,17 +28,19 @@ describe('Memes E2e Testing', () => {
     cy.viewport(375, 667)
     cy.visit('http://localhost:3000/').wait(1000)
 
-    /* ==== Generated with Cypress Studio ==== */
     cy.get(':nth-child(1) > .block > .text-xl').should('have.text', 'Catálogo de prueba')
     cy.get('.grid > :nth-child(1) > .inline-flex > .lucide').click()
-    cy.get('[data-cy="catalogue_count"]').should('have.text', 'This catalogue has 1 meme(s)')
+    cy.get('[data-cy="catalogue_count"]').should('have.text', 'You are about to remove this catalogue with 1 meme(s). Are you sure?')
+
+    cy.get('[data-cy="cancel_remove_approve_button"]').click()
+
+    cy.get(':nth-child(1) > .block > .text-xl').should('have.text', 'Catálogo de prueba')
+    cy.get('.grid > :nth-child(1) > .inline-flex > .lucide').click()
+    cy.get('[data-cy="catalogue_count"]').should('have.text', 'You are about to remove this catalogue with 1 meme(s). Are you sure?')
+
     cy.get('[data-cy="submit_remove_approve_button"]').click()
 
-    cy.get('.grid > .text-sm').should('have.text', 'Catalogue removed!')
-    cy.get('.fixed > .group > .inline-flex').should('be.enabled')
-    cy.get('.fixed > .group > .inline-flex').click()
-    cy.get(':nth-child(1) > .block > .text-xl').should('have.text', 'Catálogo de prueba')
-    /* ==== End Cypress Studio ==== */
+    cy.get(':nth-child(1) > .block > .text-xl').should('have.text', 'Testing catalogue')
   })
 
 })
