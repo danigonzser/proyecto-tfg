@@ -1,25 +1,16 @@
 import Thumbs from "@/components/thumbs"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import prisma from "@/lib/db"
-import { getCatalogues } from "@/lib/getcatalogues"
-import { getCatalogueById, getMemesByCatalogue } from "@/lib/getmemes"
-import { getRelativeTimeString } from "@/lib/relativetime"
-import { Meme } from "@prisma/client"
-import { Canvas, classRegistry, FabricImage, ImageProps, Point, Rect, StaticCanvas } from "fabric"
-import { Suspense, useEffect, useRef, useState } from "react"
-import { set } from "zod"
-import { Separator } from "@/components/ui/separator"
-import type { Metadata, ResolvingMetadata } from 'next'
+import { getCatalogueById } from "@/lib/getmemes"
+import { Suspense } from "react"
+import type { Metadata } from 'next'
 import CatalogueNav from "@/components/catalogue_navegation"
 
 export async function generateMetadata(
-  { params }: {
-    params: {
+  props: {
+    params: Promise<{
       id: string
-    }
-  },
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+    }>
+  }): Promise<Metadata> {
+  const params = await props.params
   // read route params
   const id = params.id
 
@@ -30,11 +21,14 @@ export async function generateMetadata(
   }
 }
 
-export default function CatalogueMemes({ params }: {
-  params: {
-    id: string
+export default async function CatalogueMemes(
+  props: {
+    params: Promise<{
+      id: string
+    }>
   }
-}) {
+) {
+  const params = await props.params
 
   return (
 
@@ -52,5 +46,4 @@ export default function CatalogueMemes({ params }: {
     </>
 
   )
-
 }

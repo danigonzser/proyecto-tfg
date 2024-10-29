@@ -1,22 +1,11 @@
 'use client'
 
 import "../globals.css"
-import { cn } from "@/lib/utils"
-import { ThemeProvider } from "@/components/theme-provider"
-import localfont from 'next/font/local'
 import { usePathname } from "next/navigation"
-import { CirclePlus, ClockIcon, ComputerIcon, Folder, FolderIcon, HomeIcon, Menu, Minus, Moon, Plus, PlusIcon, SaveIcon, SettingsIcon, ShareIcon, Smile, SpellCheckIcon, StarIcon, StoreIcon, TrashIcon } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { Button, buttonVariants } from "@/components/ui/button"
-import clsx from "clsx"
+import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle-button"
-import DrawerDialogDemo from "@/components/responsive-drawer"
-import Search from "@/components/search"
-import { useState } from "react"
-import { Metadata } from "next"
-
-const Plush = localfont({ src: "../../../src/components/ui/Plush-ExtraBold.woff2" })
 
 export default function HomeLayout({
   children,

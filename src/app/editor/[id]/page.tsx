@@ -1,22 +1,16 @@
-import type { Metadata, ResolvingMetadata } from 'next'
+"use server"
+
+import type { Metadata } from 'next'
 import prisma from '@/lib/db'
-import dynamic from 'next/dynamic'
+import EditMemeClient from '@/components/edit_meme_client'
 
-const FabricCanvasNoSSR = dynamic(
-  () => import('@/components/fabric-canvas'),
-  { ssr: false }
-)
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
 
-export async function generateMetadata(
-  { params }: {
-    params: {
-      id: string
-    }
-  },
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  // read route params
-  const id = params.id
+  const id = (await params).id
 
   const meme = await prisma.meme.findUnique({
     where: {
@@ -33,14 +27,13 @@ export async function generateMetadata(
   }
 }
 
-export default function EditMeme({ params }: {
-  params: {
-    id: string
-  }
+export default async function EditMeme({
+  params,
+}: {
+  params: Promise<{ id: string }>
 }) {
-  return (
-    <div className="h-full w-full">
-      <FabricCanvasNoSSR memeId={params.id} />
-    </div>
-  )
+
+  const id = (await params).id
+
+  return <EditMemeClient memeId={id} />
 }
