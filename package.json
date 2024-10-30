@@ -5,6 +5,7 @@
   "packageManager": "pnpm@9.12.2",
   "scripts": {
     "ci:prisma": "prisma generate && prisma db push",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",

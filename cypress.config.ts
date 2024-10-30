@@ -19,4 +19,5 @@ export default defineConfig({
     specPattern: 'cypress/**/*.cy.ts',
     experimentalStudio: true,
   },
+  projectId: 'danielgs-tfg',
 })
