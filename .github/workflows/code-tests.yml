@@ -103,7 +103,7 @@ jobs:
         if: failure()
         with:
           name: cypress-screenshots
-          path: cypress/cypress/snapshot/actual
+          path: cypress/snapshot/actual
           if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
       - uses: actions/upload-artifact@v4
         with:
@@ -191,7 +191,7 @@ jobs:
         if: failure()
         with:
           name: cypress-screenshots
-          path: cypress/cypress/snapshot/actual
+          path: cypress/snapshot/actual
           if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
       - uses: actions/upload-artifact@v4
         with:
