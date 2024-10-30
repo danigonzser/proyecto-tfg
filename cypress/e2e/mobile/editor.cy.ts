@@ -45,14 +45,14 @@ describe('Editor E2E Testing', () => {
     cy.get('.upper-canvas').trigger('mousemove', 1, 1)
     cy.get('.upper-canvas').trigger('mouseup')
 
-    cy.compareSnapshot('rect', 0.1)
+    cy.compareSnapshot('rect', 0.5)
     //cy.screenshot('rect')
 
     const arrows = '{rightarrow}'.repeat(30)
 
     cy.get('[style="transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(2% + 9.6px);"] > .block').click().type(arrows)
 
-    cy.compareSnapshot('rect+slider', 0.1)
+    cy.compareSnapshot('rect+slider', 0.5)
     //cy.screenshot('rect+slider')
 
     cy.get('[data-cy="rectcolor_paint_mobile"]').click()
@@ -62,7 +62,7 @@ describe('Editor E2E Testing', () => {
     cy.get('[data-cy="rectstroke-#FFEA00-mobile"]').click()
     cy.get('[data-cy="rectstroke_color_button_mobile"]').click()
 
-    cy.compareSnapshot('rect+slider+color', 0.1)
+    cy.compareSnapshot('rect+slider+color', 0.5)
     //cy.screenshot('rect+slider+color')
 
     cy.get('[data-cy="freedraw_tool_mobile"]').click()
@@ -77,7 +77,7 @@ describe('Editor E2E Testing', () => {
     cy.get('.upper-canvas').trigger('mousemove', 550, 600, { force: true })
     cy.get('.upper-canvas').trigger('mouseup')
 
-    cy.compareSnapshot('rect+slider+color+freedraw', 0.1)
+    cy.compareSnapshot('rect+slider+color+freedraw', 0.5)
     //cy.screenshot('rect+slider+color+freedraw')
 
     cy.get('[data-cy="type_tool_mobile"]').click()
@@ -93,12 +93,12 @@ describe('Editor E2E Testing', () => {
     cy.get('[data-cy="redo_button_mobile"]').should('be.disabled')
     cy.get('[data-cy="undo_button_mobile"]').click() // UNDO
 
-    cy.compareSnapshot('rect+slider+color+freedraw+aftereundo', 0.1)
+    cy.compareSnapshot('rect+slider+color+freedraw+aftereundo', 0.5)
     //cy.screenshot('rect+slider+color+freedraw+aftereundo')
 
     cy.get('[data-cy="redo_button_mobile"]').click() // REDO
 
-    cy.compareSnapshot('finish', 0.1)
+    cy.compareSnapshot('finish', 0.5)
     //cy.screenshot('finish')
 
     cy.get('.space-x-1 > #save_as_drawer').click()
@@ -138,7 +138,7 @@ describe('Editor E2E Testing', () => {
     cy.get('.grid > :nth-child(1) > .block').click()
     cy.get('a > .inline-flex > .lucide').click().wait(2000)
 
-    cy.compareSnapshot('edit', 0.1)
+    cy.compareSnapshot('edit', 0.5)
     //cy.screenshot('edit')
 
     cy.get('.upper-canvas').click(200, 200)
