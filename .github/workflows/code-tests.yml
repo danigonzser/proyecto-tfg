@@ -2,9 +2,10 @@ name: testing-workflow
 
 on:
   push:
-    # paths:
-    #   - 'src/**/*.ts'
-    #   - 'cypress/**/*.ts'
+    paths:
+      - 'src/**/*.tsx'
+      - 'src/**/*.ts'
+      - 'cypress/**/*.ts'
 
 jobs:
   build-cache:
@@ -146,11 +147,6 @@ jobs:
           name: cypress-screenshots
           path: cypress/snapshot/actual
           if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
-      - uses: actions/upload-artifact@v4
-        with:
-          name: cypress-videos
-          path: cypress/videos
-          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
 
       - name: Build Caching
         uses: actions/cache@v4
@@ -233,11 +229,6 @@ jobs:
         with:
           name: cypress-mobile-screenshots
           path: cypress/snapshot/actual
-          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
-      - uses: actions/upload-artifact@v4
-        with:
-          name: cypress-videos
-          path: cypress/videos
           if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
 
       - name: Build Caching
