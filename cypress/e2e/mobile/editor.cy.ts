@@ -1,7 +1,6 @@
 describe('Editor E2E Testing', () => {
 
   it('Check editor UI', () => {
-    cy.viewport(375, 667)
     cy.visit('http://localhost:3000')
     cy.get('a > .inline-flex').should('have.text', 'Create meme').click()
 
@@ -33,8 +32,6 @@ describe('Editor E2E Testing', () => {
   })
 
   it('Make a meme', () => {
-    cy.viewport(375, 667)
-
     cy.visit('http://localhost:3000')
     cy.get('a > .inline-flex').click()
     cy.get('.inline-flex > .font-black').click()
@@ -135,7 +132,6 @@ describe('Editor E2E Testing', () => {
     Cypress.on('uncaught:exception', (err, runnable) => {
       return false
     })
-    cy.viewport(375, 667)
 
     cy.visit('http://localhost:3000')
 
