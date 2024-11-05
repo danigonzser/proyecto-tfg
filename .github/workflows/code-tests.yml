@@ -269,6 +269,7 @@ jobs:
       - run: pnpm run build
 
       - uses: amondnet/vercel-action@v25
+        if: startsWith(github.ref, 'refs/heads/m4/preview/')
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
