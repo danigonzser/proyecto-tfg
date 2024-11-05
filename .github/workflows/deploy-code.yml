@@ -2,14 +2,15 @@ name: code-workflow
 
 on:
   push:
-    branches-ignore:
+    branches:
       - main
     paths:
-      - "src/**/*.tsx"
-      - "src/**/*.ts"
-      - "cypress/**/*.ts"
+      - 'src/**/*.tsx'
+      - 'src/**/*.ts'
+      - 'cypress/**/*.ts'
 
 jobs:
+  
   build-cache:
     runs-on: ubuntu-latest
     steps:
@@ -248,11 +249,11 @@ jobs:
     env:
       POSTGRES_PRISMA_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
-  deploy-prev:
+  deploy-prod:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
+      
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
@@ -262,10 +263,11 @@ jobs:
       - run: pnpm install -P
       - run: pnpm run ci:prisma
       - run: pnpm run build
-
+    
       - uses: amondnet/vercel-action@v25
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-org-id: ${{ secrets.ORG_ID}}
-          vercel-project-id: ${{ secrets.PROJECT_ID}}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          github-token: ${{ secrets.GITHUB_TOKEN }} #Optional 
+          vercel-args: '--prod' #Optional
+          vercel-org-id: ${{ secrets.ORG_ID}}  #Required
+          vercel-project-id: ${{ secrets.PROJECT_ID}} #Required 
