@@ -265,7 +265,6 @@ jobs:
           cache-dependency-path: ./pnpm-lock.yaml
 
       - run: pnpm install -P
-      - run: pnpm run ci:prisma
       - run: pnpm run build
     
       - uses: amondnet/vercel-action@v25
