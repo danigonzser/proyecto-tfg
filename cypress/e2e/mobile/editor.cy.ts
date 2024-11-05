@@ -131,7 +131,7 @@ describe('Editor E2E Testing', () => {
   })
 
   it('Edit the meme recently created', () => {
-    Cypress.on('uncaught:exception', (err, runnable) => {
+    Cypress.on('uncaught:exception', () => {
       return false
     })
     cy.viewport(375, 667)
