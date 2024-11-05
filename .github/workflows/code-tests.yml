@@ -4,10 +4,10 @@ on:
   push:
     branches-ignore:
       - main
-    paths:
-      - "src/**/*.tsx"
-      - "src/**/*.ts"
-      - "cypress/**/*.ts"
+    # paths:
+    #   - "src/**/*.tsx"
+    #   - "src/**/*.ts"
+    #   - "cypress/**/*.ts"
 
 jobs:
   build-cache:
@@ -79,8 +79,6 @@ jobs:
           browser: chrome
           spec: cypress/unit/*
           config-file: cypress.config.ts
-    env:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
   ui-chrome-desktop-tests:
     needs: build-cache
@@ -162,7 +160,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
     env:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
+      POSTGRES_PRISMA_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
+      POSTGRES_URL_NON_POOLING: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
   ui-chrome-mobile-tests:
     needs: build-cache
@@ -247,11 +246,17 @@ jobs:
 
     env:
       POSTGRES_PRISMA_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
+      POSTGRES_URL_NON_POOLING: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
   deploy-prev:
+    needs: [ui-chrome-desktop-tests, ui-chrome-mobile-tests]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
       - name: Install Node.js
         uses: actions/setup-node@v4
