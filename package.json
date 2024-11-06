@@ -53,6 +53,7 @@
     "use-debounce": "10.0.4",
     "vaul": "^1.1.0",
     "zod": "^3.23.8",
+    "postcss": "^8.4.47",
     "tailwind-merge": "^2.5.4",
     "tailwindcss": "^3.4.14",
     "tailwindcss-animate": "^1.0.7"
@@ -67,7 +68,6 @@
     "cypress-visual-regression": "5.2.2",
     "eslint": "^8",
     "eslint-config-next": "15.0.1",
-    "postcss": "^8.4.47",
     "typescript": "^5.6.3"
   }
 }
