@@ -249,6 +249,7 @@ jobs:
       POSTGRES_URL_NON_POOLING: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
   deploy-preview:
+    needs: [ui-chrome-desktop-tests, ui-chrome-mobile-tests]
     environment: Preview
     runs-on: ubuntu-latest
     steps:
