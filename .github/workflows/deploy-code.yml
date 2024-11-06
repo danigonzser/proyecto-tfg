@@ -253,11 +253,13 @@ jobs:
       POSTGRES_URL_NON_POOLING: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
   deploy-prod:
-    environment: Production
     needs: [ui-chrome-desktop-tests, ui-chrome-mobile-tests]
+    environment: Production
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
