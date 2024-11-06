@@ -56,15 +56,15 @@
     "postcss": "^8.4.47",
     "tailwind-merge": "^2.5.4",
     "tailwindcss": "^3.4.14",
-    "tailwindcss-animate": "^1.0.7"
-  },
-  "devDependencies": {
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.6.3",
     "@types/fabric": "^5.3.9",
     "@types/hammerjs": "2.0.46",
     "@types/node": "^20",
     "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react-dom": "^18"
+  },
+  "devDependencies": {
     "eslint": "^8",
     "eslint-config-next": "15.0.1",
     "cypress": "13.15.1",
