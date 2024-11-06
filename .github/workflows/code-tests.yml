@@ -12,8 +12,8 @@ on:
 jobs:
 
   deploy-preview:
-    environment: Preview
     runs-on: ubuntu-latest
+    environment: Preview
     steps:
       - uses: actions/checkout@v4
       - name: Install pnpm
@@ -22,7 +22,7 @@ jobs:
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
           PRODUCTION: false
-          GITHUB_DEPLOYMENT_ENV: "Preview"
+          GITHUB_DEPLOYMENT_ENV: Preview
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
