@@ -8,12 +8,12 @@ import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { toast } from "@/hooks/use-toast"
+import { toast } from "../hooks/use-toast"
 import { Textarea } from "./ui/textarea"
-import { createCatalogue } from "@/lib/action_create_catalogue"
+import { createCatalogue } from "../lib/action_create_catalogue"
 import { useRouter } from 'next/navigation'
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer"
-import { useMediaQuery } from "@/hooks/use-media-query"
+import { useMediaQuery } from "../hooks/use-media-query"
 
 const catalogueSchema = z.object({
   title: z.string().min(1, "Catalogue's title is required").max(100, "The title cannot be longer than 100 characters"),
