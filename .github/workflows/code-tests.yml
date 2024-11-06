@@ -12,7 +12,6 @@ on:
 jobs:
 
   deploy-preview:
-    environment: Preview
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,3 +25,4 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           PRODUCTION: false
+          GITHUB_DEPLOYMENT_ENV: Preview
