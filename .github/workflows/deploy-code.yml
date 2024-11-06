@@ -251,23 +251,20 @@ jobs:
       POSTGRES_PRISMA_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
       POSTGRES_URL_NON_POOLING: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
-  deploy-prod:
+  deploy-preview:
     needs: [ui-chrome-desktop-tests, ui-chrome-mobile-tests]
-    environment: Production
     runs-on: ubuntu-latest
+    environment: Production
     steps:
       - uses: actions/checkout@v4
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ env.VERCEL_TOKEN }}
-      - name: Build Project Artifacts
-        run: vercel build --prod --token=${{ env.VERCEL_TOKEN }}
-      - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --prod --token=${{ env.VERCEL_TOKEN }}
-    env:
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      VERCEL_ORG_ID: ${{ secrets.ORG_ID_VERCEL }}
-      VERCEL_PROJECT_ID: ${{ secrets.PROJECT_ID_VERCEL }}
+      - name: Deploy to Vercel Action
+        uses: BetaHuhn/deploy-to-vercel-action@v1
+        with:
+          PRODUCTION: true
+          GITHUB_DEPLOYMENT_ENV: Production
+          GITHUB_TOKEN: ${{ github.token }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.ORG_ID_VERCEL }}
+          VERCEL_PROJECT_ID: ${{ secrets.PROJECT_ID_VERCEL }}
