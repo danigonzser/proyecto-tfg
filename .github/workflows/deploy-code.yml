@@ -3,14 +3,13 @@ name: Code test + deploy to production
 on:
   push:
     branches:
-      - main
+      - master
     paths:
-      - 'src/**/*.tsx'
-      - 'src/**/*.ts'
-      - 'cypress/**/*.ts'
+      - "src/**/*.tsx"
+      - "src/**/*.ts"
+      - "cypress/**/*.ts"
 
 jobs:
-  
   build-cache:
     runs-on: ubuntu-latest
     steps:
@@ -272,4 +271,3 @@ jobs:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       VERCEL_ORG_ID: ${{ secrets.ORG_ID_VERCEL }}
       VERCEL_PROJECT_ID: ${{ secrets.PROJECT_ID_VERCEL }}
-        

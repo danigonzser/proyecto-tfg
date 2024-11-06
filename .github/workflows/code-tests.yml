@@ -3,7 +3,7 @@ name: Code test + deploy to preview
 on:
   push:
     branches-ignore:
-      - main
+      - master
     paths:
       - "src/**/*.tsx"
       - "src/**/*.ts"
