@@ -265,7 +265,7 @@ function App({
 
   const drawingMode = useRef<Tools>("selection")
 
-  const drawingShape = useRef<fabric.Object>(undefined)
+  const drawingShape = useRef<fabric.FabricObject | null>(null)
 
   const fontfamilyRef = useRef<string>("Arial")
 
@@ -846,7 +846,7 @@ function App({
 
       }
 
-      drawingShape.current = undefined
+      drawingShape.current = null
       isRecting.current = false
       press.current = false
       c.selection = true

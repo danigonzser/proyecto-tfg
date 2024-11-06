@@ -1,15 +1,16 @@
-name: Code test + deploy to preview
+name: Code test + deploy to production
 
 on:
   push:
-    branches-ignore:
+    branches:
       - main
     paths:
-      - "src/**/*.tsx"
-      - "src/**/*.ts"
-      - "cypress/**/*.ts"
+      - 'src/**/*.tsx'
+      - 'src/**/*.ts'
+      - 'cypress/**/*.ts'
 
 jobs:
+  
   build-cache:
     runs-on: ubuntu-latest
     steps:
@@ -79,6 +80,9 @@ jobs:
           browser: chrome
           spec: cypress/unit/*
           config-file: cypress.config.ts
+    env:
+      POSTGRES_PRISMA_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
+      POSTGRES_URL_NON_POOLING: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
   ui-chrome-desktop-tests:
     needs: build-cache
@@ -248,9 +252,9 @@ jobs:
       POSTGRES_PRISMA_URL: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
       POSTGRES_URL_NON_POOLING: postgresql://postgres:postgres@postgres:5432/proyecto-tfg
 
-  deploy-preview:
+  deploy-prod:
     needs: [ui-chrome-desktop-tests, ui-chrome-mobile-tests]
-    environment: Preview
+    environment: Production
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -259,12 +263,13 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=preview --token=${{ env.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=production --token=${{ env.VERCEL_TOKEN }}
       - name: Build Project Artifacts
-        run: vercel build --token=${{ env.VERCEL_TOKEN }}
+        run: vercel build --prod --token=${{ env.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ env.VERCEL_TOKEN }}
+        run: vercel deploy --prebuilt --prod --token=${{ env.VERCEL_TOKEN }}
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_ORG_ID: ${{ secrets.ORG_ID_VERCEL }}
+      VERCEL_PROJECT_ID: ${{ secrets.PROJECT_ID_VERCEL }}
+        

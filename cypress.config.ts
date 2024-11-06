@@ -15,6 +15,8 @@ export default defineConfig({
     screenshotOnRunFailure: true,
     setupNodeEvents(on, config) {
       configureVisualRegression(on)
+
+      return config
     },
     specPattern: 'cypress/**/*.cy.ts',
     experimentalStudio: true,

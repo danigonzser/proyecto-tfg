@@ -315,3 +315,4 @@ cypress/screenshots
 cypress/snapshot/actual/*
 cypress/snapshot/diff/*
 cypress/downloads/*
+.vercel
