@@ -10,14 +10,14 @@ En este apartado, se analizarán las posibles soluciones para el desarrollo de l
 
 \textit{Nextcloud} es una plataforma de software libre que permite a los usuarios almacenar y sincronizar archivos, contactos, calendarios y más. Es una excelente opción para el desarrollo de nuestra aplicación, ya que proporciona una base sólida y una amplia gama de funcionalidades que pueden ser aprovechadas para implementar la funcionalidad de creación y gestión de memes. Para el desarrollo de una app en el ecosistema de \textit{Nextcloud}, se utiliza PHP y Vuejs. Además, \textit{Nextcloud} proporciona una API robusta que permite a los desarrolladores acceder a las funcionalidades del sistema.
 
-Esta solución tiene varios problemas para el usuario o cliente final: 
+Esta solución tiene varios problemas para el usuario o cliente final:
 
 \begin{itemize}
     \item \textbf{Complejidad de la instalación:} La instalación de \textit{Nextcloud} puede ser complicada para los usuarios no técnicos. Por ejemplo para Ted Johnson González (experto conferenciante) que no tienen experiencia ni conocimientos técnicos podría ser un problema.
     \item \textbf{Consumo de recursos:} \textit{Nextcloud} es una aplicación bastante exigente en términos de recursos, especialmente si se gestiona una gran cantidad de datos o usuarios como podría ser el caso del departamento de marketing de Corporate Solutions. Desarrollando nuestra propia aplicación, podemos optimizar los recursos para que los requisitos sean mínimos.
 \end{itemize}
 
-Por otro lado, la implementación de base de funcionalidades como la sincronización en local y en remoto, el almacenamiento y la búsqueda de archivos y la gestión de usuarios no justifica el tiempo que se va a dedicar a adaptarse al \href{https://nextcloud.com/developer/}{entorno de desarrollo} que proporciona Nextcloud para desarrollar apps, ya que estas funcionalidades se pueden aplicar mediante la implementación de repositorios o desde cero con un coste de tiempo y recursos mucho menor. 
+Por otro lado, la implementación de base de funcionalidades como la sincronización en local y en remoto, el almacenamiento y la búsqueda de archivos y la gestión de usuarios no justifica el tiempo que se va a dedicar a adaptarse al \href{https://nextcloud.com/developer/}{entorno de desarrollo} que proporciona Nextcloud para desarrollar apps, ya que estas funcionalidades se pueden aplicar mediante la implementación de repositorios o desde cero con un coste de tiempo y recursos mucho menor.
 
 \subsection{Desarrollo de una app móvil}
 
@@ -78,21 +78,21 @@ Los requisitos han sido identificados a partir de las historias de usuario~\ref{
 
 \begin{itemize}
     \item \textbf{Se debe proporcionar un editor de memes.}
-    \begin{itemize}
-        \item[-] Historias de usuario requeridas: HU01, HU04 y HU02.
-    \end{itemize}
+          \begin{itemize}
+              \item[-] Historias de usuario requeridas: HU01, HU04 y HU02.
+          \end{itemize}
     \item \textbf{Se debe proporcionar un catálogo de memes predefinidos.}
-    \begin{itemize}
-        \item[-] Historias de usuario requeridas: HU01, HU02 y HU03.
-    \end{itemize}
+          \begin{itemize}
+              \item[-] Historias de usuario requeridas: HU01, HU02 y HU03.
+          \end{itemize}
     \item \textbf{La solución debe poder permitir colaboración en la creación de memes.}
-    \begin{itemize}
-        \item[-] Historias de usuario requeridas: HU04.
-    \end{itemize}
+          \begin{itemize}
+              \item[-] Historias de usuario requeridas: HU04.
+          \end{itemize}
     \item \textbf{Se debe proporcionar un sistema de búsqueda avanzada de memes.}
-    \begin{itemize}
-        \item[-] Historias de usuario requeridas: HU03.
-    \end{itemize} 
+          \begin{itemize}
+              \item[-] Historias de usuario requeridas: HU03.
+          \end{itemize}
 \end{itemize}
 
 \subsection{Selección del lenguaje de programación}
@@ -123,10 +123,10 @@ El desempeño de cada lenguaje en sendos criterios será etiquetado mediante la 
 
 \subsubsection{JavaScript}
 
-\href{https://es.wikipedia.org/w/index.php?title=JavaScript&oldid=161023746}{JavaScript} es un lenguaje de programación de alto nivel, interpretado, orientado a objetos, basado en prototipos, imperativo y débilmente tipado y dinámico. Junto con HTML y CSS, JavaScript es una de las tres tecnologías fundamentales de la World Wide Web. Se utiliza principalmente del lado del cliente, implementado como parte de un navegador web. Todos los navegadores modernos interpretan código JavaScript. Fue desarrollado originalmente por Brendan Eich de Netscape con el nombre de Mocha, pasó por LiveScript y finalmente adoptó el nombre que tiene en la actualidad. Apareció por primera vez en el navegador Netscape Navigate en la versión 2002 en diciembre de 1995.
+\href{https://es.wikipedia.org/w/index.php?title=JavaScript&oldid=161023746}{JavaScript} es un lenguaje de programación de alto nivel, interpretado, orientado a objetos, basado en prototipos, imperativo y débilmente tipado y dinámico. Junto con HTML y CSS, JavaScript es una de las tres tecnologías fundamentales de la World Wide Web. Se utiliza principalmente del lado del cliente, implementado como parte de un navegador web. Todos los navegadores modernos interpretan código JavaScript. Fue desarrollado originalmente por Brendan Eich de Netscape con el nombre de Mocha, pasó por LiveScript y finalmente adoptó el nombre que tiene en la actualidad. Apareció por primera vez en el navegador Netscape Navigator en la versión 2002 en diciembre de 1995.
 
 \begin{itemize}
-    \item[\esp] \textbf{Compatibilidad para desarrollo del cliente:} compatible, originalmente fue creado exactamente para este propósito y como hemos mencionado. Se puede ejecutar directamente en la consola integrada en el navegador, es fácil de implementar aunque puede ser también un problema, ya que entre navegadores puede haber diferencias en la interpretación del código.
+    \item[\esp] \textbf{Compatibilidad para desarrollo del cliente:} compatible, fue originado exactamente para este propósito y como hemos mencionado. Se puede ejecutar directamente en la consola integrada en el navegador, es fácil de implementar aunque puede ser también un problema, ya que entre navegadores puede haber diferencias en la interpretación del código.
     \item[\esp] \textbf{Ecosistema:} tiene uno de los ecosistemas más grandes en el mundo de la programación incorporando todo tipo de bibliotecas y frameworks para facilitar el desarrollo. Algunos de los más conocidos son React, Angular, Vue, etc.
     \item[\mal] \textbf{Sistema de tipos estáticos:} es un lenguaje con tipado dinámico.
 \end{itemize}
@@ -150,9 +150,9 @@ Diseñado para compilarse a JavaScript, \textit{TypeScript} es compatible y vál
 \href{https://es.wikipedia.org/w/index.php?title=Java_(lenguaje_de_programaci%C3%B3n)&oldid=161108422}{Java} es un lenguaje de programación que fue desarrollado originalmente por James Gosling, de Sun Microsystems y posteriormente adquirida por su actual propietario, Oracle. La sintaxis deriva en gran medida de C/C++, pero cuenta con menos utilidades de bajo nivel. Las aplicaciones de Java son compiladas a bytecode que pueden ejecutarse en una máquina virtual Java sin importar la arquitectura de la computadora.
 
 \begin{itemize}
-    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} no es compatible con el desarrollo por la parte del cliente, Java es más comúnmente utilizado en el lado del servidor y para desarrollar aplicaciones de escritorio. 
+    \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} no es compatible con el desarrollo por la parte del cliente, Java es más comúnmente utilizado en el lado del servidor y para desarrollar aplicaciones de escritorio.
     \item[\bien] \textbf{Ecosistema:} posee un ecosistema muy maduro con herramientas de desarrollo y frameworks como Spring para backend.
-    \item[\esp] \textbf{Sistema de tipos estáticos:} tiene un sistema de tipos estáticos bastante estricto y el tipo de dato de un objeto no puede ser cambiado una vez sea creado lo que aporta una robustez, fiabilidad y documentación al código bastante alto.
+    \item[\esp] \textbf{Sistema de tipos estáticos:} tiene un sistema de tipos estáticos bastante estricto y el tipo de dato de un objeto no puede ser cambiado lo que aporta una robustez, fiabilidad y documentación al código bastante alto.
 \end{itemize}
 
 Por la parte del servidor, es el cuarto lenguaje de programación más usado según la encuesta~\href{https://w3techs.com/technologies/overview/programming_language}{W3Techs}.
@@ -173,7 +173,7 @@ Por la parte del servidor, es el cuarto lenguaje de programación más usado seg
 
 \begin{itemize}
     \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} es compatible, pero su verdadero potencial se encuentra por parte del servidor donde se desempeña de una manera excelente. Aun así, no es conocido por su rendimiento, sino por su facilidad a la hora de escribir código agilizando el desarrollo.
-    \item[\bien] \textbf{Ecosistema:} \textit{Ruby on Rails}, Sinatra y Rack son algunos de los frameworks que utilizan Ruby. No es un ecosistema tan amplio como el de otros 
+    \item[\bien] \textbf{Ecosistema:} \textit{Ruby on Rails}, Sinatra y Rack son algunos de los frameworks que utilizan Ruby. No es un ecosistema tan amplio como el de otros
     \item[\mal] \textbf{Sistema de tipos estáticos:} no es compatible, es un lenguaje dinámico.
 \end{itemize}
 
@@ -181,7 +181,7 @@ Por la parte del servidor, es el tercer lenguaje de programación más usado seg
 
 \subsubsection{\MakeUppercase{Php}}
 
-\href{https://es.wikipedia.org/w/index.php?title=PHP&oldid=161463562}{PHP} es un lenguaje de programación interpretado del lado del servidor y de uso general que se adapta especialmente al desarrollo web. Fue creado inicialmente por Rasmus Lerdorf en 1994. El código de PHP suele ser procesado en un servidor web por un intérprete. En un servidor web el resultado de la interpretación y ejecución del código PHP sería HTML o una imagen binaria que formarían parte de la totalidad o parte de la respuesta.
+\href{https://es.wikipedia.org/w/index.php?title=PHP&oldid=161463562}{PHP} es un lenguaje de programación interpretado del lado del servidor y de uso general que se adapta especialmente al desarrollo web. Fue publicado inicialmente por Rasmus Lerdorf en 1994. El código de PHP suele ser procesado en un servidor web por un intérprete. En un servidor web el resultado de la interpretación y ejecución del código PHP sería HTML o una imagen binaria que formarían parte de la totalidad o parte de la respuesta.
 
 \begin{itemize}
     \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} es compatible, pero es más conocido y es más un lenguaje interpretado por parte del servidor que por parte del cliente. El script php se puede incrustar directamente en el código html. Igualmente, este código se renderizaría en el servidor php y se enviaría al cliente.
@@ -193,7 +193,7 @@ Por la parte del servidor, es el lenguaje de programación más empleado según 
 
 \subsubsection{Go}
 
-\href{https://es.wikipedia.org/w/index.php?title=Go_(lenguaje_de_programaci%C3%B3n)&oldid=158783243}{Go} es un lenguaje de programación concurrente y compilado con tipificación estática inspirado en la sintaxis de C pero con seguridad de memoria y recolección de basura. Ha sido desarrollado por Google y lanzado en 2009. También conocido como Golang, fue creado para resolver los problemas de programación en un proyecto grande. Destaca por su minimalismo, simplicidad y eficiencia. Además, incorpora una sintaxis y estructura moderna y familiar. Algunos de los proyectos más conocidos que utilizan Go son Docker, Kubernetes, Terraform, etc.
+\href{https://es.wikipedia.org/w/index.php?title=Go_(lenguaje_de_programaci%C3%B3n)&oldid=158783243}{Go} es un lenguaje de programación concurrente y compilado con tipificación estática inspirado en la sintaxis de C pero con seguridad de memoria y recolección de basura. Ha sido desarrollado por Google y lanzado en 2009. También conocido como Golang, su objetivo era resolver los problemas de programación en un proyecto grande. Destaca por su minimalismo, simplicidad y eficiencia. Además, incorpora una sintaxis y estructura moderna y familiar. Algunos de los proyectos más conocidos que utilizan Go son Docker, Kubernetes, Terraform, etc.
 
 \begin{itemize}
     \item[\mal] \textbf{Compatibilidad para desarrollo del cliente:} debido a su carácter compilado, no es compatible.
@@ -271,17 +271,17 @@ Las propuestas encontradas tras los criterios de búsqueda serán evaluadas seg�
 
 \subsubsection{\textit{Jest}}
 
-\textit{Jest} es un framework de testing \textit{JavaScript} creado por \textit{Facebook}. Usualmente, se utiliza para los tests unitarios. Es compatible con \textit{TypeScript} a través del paquete \textit{ts-jest}. \textit{Jest} destaca por su facilidad de uso y rapidez. Además, incluye funcionalidades como partir desde una configuración nula o casi nula, las snapshots que captura el estado de un objeto y lo expone para que sirva de referencia para debugear, los tests se realizan de forma paralela para maximizar la eficiencia. Además, incorpora una buena compatibilidad con muchos de los lenguajes, \textit{frameworks} y librerías más usadas.
+\textit{Jest} es un framework de testing \textit{JavaScript} originado por \textit{Facebook}. Usualmente, se utiliza para los tests unitarios. Es compatible con \textit{TypeScript} a través del paquete \textit{ts-jest}. \textit{Jest} destaca por su facilidad de uso y rapidez. Además, incluye funcionalidades como partir desde una configuración nula o casi nula, las snapshots que captura el estado de un objeto y lo expone para que sirva de referencia para debugear, los tests se realizan de forma paralela para maximizar la eficiencia. Además, incorpora una buena compatibilidad con muchos de los lenguajes, \textit{frameworks} y librerías más usadas.
 
 En cuanto a cobertura de pruebas, \textit{Jest} destaca en los test unitarios y en los tests de integración donde tiene una gran api como \textit{it} y \textit{expect}. Sin embargo, para los tests \textit{end to end} se necesita de \textit{Puppeteer} que es una librería de \textit{Node} que proporciona una API para controlar Chrome o Firefox a través del protocolo de \textit{DevTools} o \textit{WebDriver DiDi}.
 
 \subsubsection{\textit{Vitest}}
 
-\textit{Jest} es un framework de testing orientado a los tests unitarios. Fue creado para complementar \textit{Vite} que es una herramienta para ayudar a mantener y construir aplicaciones web \textit{JavaScript}. Debido a su creación por y para \textit{Vite}, si no se utiliza esta herramienta para el desarrollo, se requerirá un mayor esfuerzo a la hora de configurar y ejecutar los tests. \textit{Vitest} es mayoritariamente compatible con la api de \textit{Jest}. Al igual que \textit{Jest}, es bastante simple y rápido el construir tests debido a su amplio catálogo de funcionalidades para la api como los importes globales, primitivos SSR y existencia de numerosos plugins para el amplio ecosistema actualmente existente.
+\textit{Vitest} es un framework de testing orientado a los tests unitarios. Fue concebido para complementar \textit{Vite} que es una herramienta para ayudar a mantener y construir aplicaciones web \textit{JavaScript}. Debido a su creación por y para \textit{Vite}, si no se utiliza esta herramienta para el desarrollo, se requerirá un mayor esfuerzo a la hora de configurar y ejecutar los tests. \textit{Vitest} es mayoritariamente compatible con la api de \textit{Jest}. Al igual que \textit{Jest}, es bastante simple y rápido el construir tests debido a su amplio catálogo de funcionalidades para la api como los importes globales, primitivos SSR y existencia de numerosos plugins para el amplio ecosistema actualmente existente.
 
 En cuanto a cobertura de pruebas, \textit{Vitest} destaca en los test unitarios, en los tests de integración y sobre todo en la velocidad y modernidad donde se destaca por encima de \textit{Jest} y otros \textit{frameworks} de testing. Sin embargo, al igual que en \textit{Jest}, se necesita de \textit{Puppeteer} para realizar los tests \textit{end to end}.
 
-\subsubsection{Cypress}
+\subsubsection{Cypress}~\label{subsec:cypress}
 
 \textit{Cypress} es una herramienta de automatización de tests para aplicaciones web. Es compatible de forma nativa con \textit{TypeScript} sin necesidad de instalar ningún paquete adicional. Es una aplicación de código abierto. \textit{Cypress} destaca por su facilidad de uso, rapidez y eficiencia. Además, incluye funcionalidades como la grabación de los tests, la posibilidad de correr tests en diferentes navegadores (no a la vez), la posibilidad de hacerlos para diferentes resoluciones, etc. Está orientado al testing frontend, pero también se pueden test unitarios y de integración.
 
@@ -323,8 +323,8 @@ Una vez aclarado a qué nos referimos por tecnología, vamos a proceder al proce
 Los criterios de búsqueda que se han fijado son:
 
 \begin{itemize}
-  \item \textbf{Typescript}: el lenguaje de programación que se va a usar es TypeScript, por lo que la tecnología seleccionada debe ser compatible con TypeScript.
-  \item La tecnología debe ser compatible con \textbf{React}, una de las bibliotecas de JavaScript más populares en la actualidad para el desarrollo de interfaces de usuario, y que también es compatible con TypeScript. Su selección como criterio de búsqueda se basa en la escasa deuda técnica que presenta, su rapidez de uso y su estatus como un estándar, demostrado su aplicación en entornos reales. Además, cuenta con una amplia cantidad de recursos, bibliotecas adicionales y un mantenimiento continuo y estable.
+    \item \textbf{Typescript}: el lenguaje de programación que se va a usar es TypeScript, por lo que la tecnología seleccionada debe ser compatible con TypeScript.
+    \item La tecnología debe ser compatible con \textbf{React}, una de las bibliotecas de JavaScript más populares en la actualidad para el desarrollo de interfaces de usuario, y que también es compatible con TypeScript. Su selección como criterio de búsqueda se basa en la escasa deuda técnica que presenta, su rapidez de uso y su estatus como un estándar, demostrado su aplicación en entornos reales. Además, cuenta con una amplia cantidad de recursos, bibliotecas adicionales y un mantenimiento continuo y estable.
 \end{itemize}
 
 \subsubsection{Criterios de selección}
@@ -332,29 +332,29 @@ Los criterios de búsqueda que se han fijado son:
 Las propuestas encontradas tras los criterios de búsqueda serán evaluadas según:
 
 \begin{itemize}
-  \item Reactividad: la tecnología debe ser reactiva, es decir, debe ser capaz de reaccionar a los cambios de estado de la aplicación de forma eficiente.
+    \item Reactividad: la tecnología debe ser reactiva, es decir, debe ser capaz de reaccionar a los cambios de estado de la aplicación de forma eficiente.
 \end{itemize}
 
 \subsubsection{Propuestas}
 
 \subsubsection{React}
 
-\href{https://react.dev/}{\textit{React}} es una biblioteca de JavaScript de código abierto para construir interfaces de usuario o componentes de la interfaz de usuario, desarrollada por Facebook y lanzada en 2013. Es una de las bibliotecas más populares y ampliamente utilizadas en la actualidad. React está diseñada para ayudar a los desarrolladores a crear aplicaciones con datos dinámicos, siendo simple, declarativa y fácil de integrar. Se centra exclusivamente en la interfaz de usuario, actuando como la Vista en los patrones de diseño. Además, puede integrarse con extensiones basadas en React que gestionan las partes no relacionadas con la interfaz de usuario de una aplicación web. 
+\href{https://react.dev/}{\textit{React}} es una biblioteca de JavaScript de código abierto para construir interfaces de usuario o componentes de la interfaz de usuario, desarrollada por Facebook y lanzada en 2013. Es una de las bibliotecas más populares y ampliamente utilizadas en la actualidad. React está diseñada para ayudar a los desarrolladores a crear aplicaciones con datos dinámicos, siendo simple, declarativa y fácil de integrar. Se centra exclusivamente en la interfaz de usuario, actuando como la Vista en los patrones de diseño. Además, puede integrarse con extensiones basadas en React que gestionan las partes no relacionadas con la interfaz de usuario de una aplicación web.
 
 \begin{itemize}
-  \item[\bien] En cuanto a reactividad es una de las mejores opciones y más empleadas desde siempre. Fue una de las primeras tecnologías que introdujo la reactividad como característica principal a la hora del diseño de interfaces de usuario.
+    \item[\bien] En cuanto a reactividad es una de las mejores opciones y más empleadas desde siempre. Fue una de las primeras tecnologías que introdujo la reactividad como característica principal a la hora del diseño de interfaces de usuario.
 \end{itemize}
 
 Lo único en lo que podríamos ver un inconveniente es en que no es un framework completo, sino una librería, por lo que se necesitará de otras librerías para completar la aplicación, de aquí pueden surgir varios problemas como dependencias no actualizadas, incompatibilidades, falta de optimización, se añade peso a la aplicación, etc. Además, cuando se trata de aplicaciones grandes, React puede ser un poco más complicado de manejar que otros. Esto mismo puede generar cierta deuda técnica en el futuro al tener que integrar herramientas que ayuden a la hora de gestionar el estado.
 
 \subsubsection{\textit{Next.js}}
 
-\href{https://nextjs.org/}{\textit{Next.js}} es un marco web de desarrollo frontend de React de código abierto creado por Vercel y Guillermo Rauch en 2016 que permite a los desarrolladores la renderización del lado del servidor y la generación de sitios web estáticos. \textit{Next.js} es una de las mejores opciones para el desarrollo de aplicaciones web modernas. Es el framework más popular y ampliamente utilizados en la actualidad.
+\href{https://nextjs.org/}{\textit{Next.js}} es un marco web de desarrollo frontend de React de código abierto desarrollado por Vercel y Guillermo Rauch en 2016 que permite a los desarrolladores la renderización del lado del servidor y la generación de sitios web estáticos. \textit{Next.js} es una de las mejores opciones para el desarrollo de aplicaciones web modernas. Es el framework más popular y ampliamente utilizados en la actualidad.
 
 Una de las mejores características que posee \textit{Next.js} es su soporte para el SEO que es esencial si quieres que tu aplicación sea indexada por los motores de búsqueda. Tiene soporte SSR, pero no lo hace de forma predeterminada. Por último, tiene integradas las rutas dinámicas, la pre-generación de páginas (renderizado prefijado) y la exportación estática. Estas funcionalidades son muy importantes a la hora de la construcción de aplicaciones web. Los casos de éxito son numerosos como TikTok, Notion, ChatGPT, Spotify, etc.
 
 \begin{itemize}
-  \item[\bien] Cuando hablamos de reactividad en una aplicación web, \textit{Next.js} ofrece muchas mejoras en este sentido aportando numerosas opciones de renderizado y optimización aportando características y componentes que lo facilitan en gran medida. Algunos de estos ejemplos son el componente Image, el componente Link, etc.
+    \item[\bien] Cuando hablamos de reactividad en una aplicación web, \textit{Next.js} ofrece muchas mejoras en este sentido aportando numerosas opciones de renderizado y optimización aportando características y componentes que lo facilitan en gran medida. Algunos de estos ejemplos son el componente Image, el componente Link, etc.
 \end{itemize}
 
 La incorporación de esas características únicas y diferenciadoras de \textit{Next.js} puede ser un problema a la hora de la escalabilidad de la aplicación, ya que puede ser que no se necesiten todas las características que ofrece y que se añada peso y lentitud a la aplicación. Además, la curva de aprendizaje puede ser un poco más pronunciada que con otras tecnologías.
@@ -366,7 +366,7 @@ La incorporación de esas características únicas y diferenciadoras de \textit{
 Astro se ha convertido en una de las mejores opciones para el desarrollo de aplicaciones web modernas. Esta tecnología emergente ha ganado popularidad en los últimos años, principalmente porque, de forma predeterminada, no añade código JavaScript a menos que sea necesario. Otra de sus características más destacadas es su agnosticismo hacia la interfaz de usuario, lo que lo hace compatible con bibliotecas como React, Preact, Svelte, Vue, entre otras. Además, dado que el lenguaje de la interfaz de usuario es un superconjunto de HTML (la extensión Astro), la experiencia de desarrollo resulta familiar y accesible.
 
 \begin{itemize}
-  \item[\regular] En cuanto a la reactividad, Astro, al igual que \textit{Next.js}, ofrece muchas mejoras en este sentido aportando numerosas opciones de renderizado y optimización. Sin embargo, es una tecnología que se centra más en la elaboración de una aplicación web estática. 
+    \item[\regular] En cuanto a la reactividad, Astro, al igual que \textit{Next.js}, ofrece muchas mejoras en este sentido aportando numerosas opciones de renderizado y optimización. Sin embargo, es una tecnología que se centra más en la elaboración de una aplicación web estática.
 \end{itemize}
 
 Como se ha mencionado, Astro se centra más en la elaboración de una aplicación web estática, por lo que puede ser que no se adapte del todo a las necesidades de la aplicación.
@@ -375,7 +375,7 @@ Como se ha mencionado, Astro se centra más en la elaboración de una aplicació
 
 Tras valorar cada uno de los criterios de selección de las diferentes tecnologías, se ha llegado a la conclusión de que la que mejor se adapta a las necesidades del proyecto y que más va a facilitar el desarrollo de la solución es \textbf{\textit{Next.js}}. Este marco de desarrollo web ofrece numerosas características y funcionalidades que influirán de forma positiva a lo largo de todo el proyecto. A mayores, el hecho de ser un framework por encima de una librería como React, va a facilitar la implementación de casi cualquier característica.
 
-\subsection{Persistencia de datos}
+\subsection{Tecnología}
 
 En esta subsección se va a proceder a la explicación de la implementación de la persistencia de datos en el proyecto. Cuando hablamos de esto, nos referimos a la capacidad de que un sistema almacene y recupere las entidades definidas en el proyecto. Este proceso es esencial para asegurar la consistencia de la información.
 
@@ -423,8 +423,8 @@ Como se ha mencionado anteriormente, se ha decidido usar un motor de renderizado
 Los criterios de búsqueda establecidos para la selección de la biblioteca para el renderizado del canvas son:
 
 \begin{itemize}
-  \item \textbf{Compatibilidad con tecnologías ya seleccionadas}: la biblioteca seleccionada debe ser compatible con React y Next.js.
-  \item \textbf{Tipado}: la biblioteca debe estar escrita en TypeScript o tener definiciones de tipos.
+    \item \textbf{Compatibilidad con tecnologías ya seleccionadas}: la biblioteca seleccionada debe ser compatible con React y Next.js.
+    \item \textbf{Con tipos}: la biblioteca debe estar escrita en TypeScript o tener definiciones de tipos.
 \end{itemize}
 
 \subsubsection{Criterios de selección}
@@ -432,9 +432,9 @@ Los criterios de búsqueda establecidos para la selección de la biblioteca para
 Las propuestas serán evaluadas según los siguientes criterios:
 
 \begin{itemize}
-  \item \textbf{Integración}: debe ser fácil de integrar en el proyecto.
-  \item \textbf{Mantenibilidad}: debe estar activamente mantenida y actualizada.
-  \item \textbf{Rendimiento}: debe poder manejar gráficos incluso en condiciones de bajos recursos.
+    \item \textbf{Integración}: debe ser fácil de integrar en el proyecto.
+    \item \textbf{Mantenibilidad}: debe estar activamente mantenida y actualizada.
+    \item \textbf{Rendimiento}: debe poder manejar gráficos incluso en condiciones de bajos recursos.
 \end{itemize}
 
 El desempeño de cada lenguaje en sendos criterios será etiquetado mediante la viñeta en el enumerado de los mismos desde \esp~si destaca por este criterio, \bien~si tiene un desempeño bueno sin llegar a destacar, \regular~si tiene un desempeño medio y \mal~si tiene un desempeño nulo.
@@ -495,11 +495,11 @@ En nuestro caso todas las interfaces del proyecto se han implementado utilizando
 
 \subsubsection{Tailwind CSS}
 
-Tailwind es un framework de CSS que se ha integrado en el desarrollo de estilos para componentes mediante el uso de clases directamente en el marcado. Es una herramienta ampliamente adoptada por aproximadamente el 50\% de los desarrolladores según la encuesta \href{https://2023.stateofcss.com/es-ES/css-frameworks/}{\textit{stateofcss}}. Su popularidad se debe, en gran medida, a su facilidad en la implementación, ya que permite definir estilos directamente en el lenguaje de marcado, simplificando el proceso de diseño. 
+Tailwind es un framework de CSS que se ha integrado en el desarrollo de estilos para componentes mediante el uso de clases directamente en el marcado. Es una herramienta ampliamente adoptada por aproximadamente el 50\% de los desarrolladores según la encuesta \href{https://2023.stateofcss.com/es-ES/css-frameworks/}{\textit{stateofcss}}. Su popularidad se debe, en gran medida, a su facilidad en la implementación, ya que permite definir estilos directamente en el lenguaje de marcado, simplificando el proceso de diseño.
 
 Además, Tailwind se adapta perfectamente a Next.js, pues al crear un nuevo proyecto con Next.js, se ofrece la opción de incluirlo automáticamente en las dependencias sin ningún tipo de configuración extra, lo que refuerza su presencia como una solución casi nativa para los desarrolladores de esta plataforma.
 
-\subsubsection{ShadCN}
+\subsubsection{ShadCN}~\label{subsec:shadcn}
 
 ShadCN es un conjunto de componentes UI que funciona como un catálogo para desarrollar interfaces de usuario, proporcionando una solución sólida, intuitiva, consistente y escalable para proyectos. Este catálogo está diseñado con un enfoque muy alineado con el ecosistema de Next.js, ya que incluye los mismos componentes que se utilizan en la página web oficial de Next.js y Vercel, la compañía que desarrolla y mantiene Next.js. Gracias a esta estrecha relación, ShadCN se convierte en una opción ideal para quienes ya tienen experiencia sobre Next.js en sus proyectos porque permite construir interfaces de usuario con la misma coherencia y calidad visual que la propia plataforma oficial de Vercel.
 
@@ -512,12 +512,12 @@ Durante todo el diseño del proyecto se van a seguir una serie de buenas prácti
 \begin{itemize}
     \item \textbf{Adaptabilidad}: las interfaces implementadas van a ser diseñadas de base para que se adapten a cualquier dispositivo.
     \item \textbf{Consistencia visual}: una paleta de colores y tipografía coherente en todo el proyecto.
-    \item Experiencia de usuario: para mejorarla se van a incorporar mejoras de calidad de vida, interactividad, animaciones, etc.
+    \item \textbf{Experiencia de usuario}: para mejorarla se van a incorporar mejoras de calidad de vida, interactividad, animaciones, etc.
 \end{itemize}
 
 \subsection{Editor de memes}
 
-El editor de memes se ha diseñado basado en una arquitectura modular, aprovechando las ventajas de React para gestionar el estado y la reactividad, de Fabric.js como motor para el renderizado y manejo de eventos del canvas y de \href{https://hammerjs.github.io/}{Hammer.js} para apoyar la cobertura de gestos táctiles (en nuestro caso tanto para el pellizco como para el desplazamiento).
+El editor de memes se ha diseñado basado en una arquitectura modular, aprovechando las ventajas de React para gestionar el estado y la reactividad, en Fabric.js como motor para el renderizado y manejo de eventos del canvas y en \href{https://hammerjs.github.io/}{Hammer.js} para apoyar la cobertura de gestos táctiles (en nuestro caso tanto para el pellizco como para el desplazamiento).
 
 \begin{figure}[H]
     \caption{Tema claro de la interfaz de usuario del editor.}
@@ -525,11 +525,11 @@ El editor de memes se ha diseñado basado en una arquitectura modular, aprovecha
     \includegraphics[scale=0.11]{figuras/editor_tema_claro.png}
 \end{figure}
 
-Para poner en contexto la explicación siguiente se ha mostrado una captura actual del editor. En la parte izquierda se encuentran las diferentes herramientas para interactuar con el canvas, la parte superior se encuentran las opciones más referentes al almacenamiento y gestión de estado y en la parte central se encuentra el componente principal, el canvas.
+Para poner en contexto la explicación siguiente, se ha mostrado una captura actual del editor. En la parte izquierda se encuentran las diferentes herramientas para interactuar con el canvas, en la parte superior se encuentran las opciones más referentes al almacenamiento y gestión de estado y en la parte central se encuentra el componente principal, el canvas.
 
 \subsubsection{Componente principal: Canvas}
 
-El componente principal del editor es el canvas, cuya gestión completa está a cargo de Fabric.js, una potente librería especializada en la manipulación de gráficos y eventos en lienzos HTML. Fabric.js proporciona, de forma nativa, herramientas robustas para gestionar figuras, interacciones y personalizaciones dentro del canvas, lo que lo convierte en una elección ideal para este tipo de proyectos.
+El componente principal del editor es el canvas, cuya gestión completa está a cargo de Fabric.js, ya explicada anteriormente y que proporciona, de forma nativa, herramientas robustas para gestionar figuras, interacciones y personalizaciones dentro del canvas, lo que lo convierte en una elección ideal para este tipo de proyectos.
 
 \subsubsection{Inicialización del canvas}
 
@@ -537,7 +537,7 @@ Siguiendo las mejores prácticas de Fabric.js para entornos React, se utiliza el
 
 \begin{itemize}
     \item La instancia del canvas se cree antes de que el componente sea renderizado, asegurando que esté completamente disponible para su manipulación.
-    \item Solo se origine una única instancia del canvas durante el ciclo de vida del componente, evitando así la creación innecesaria de múltiples instancias.
+    \item Exista una única instancia del canvas durante el ciclo de vida del componente, evitando así la creación innecesaria de múltiples instancias.
     \item Cuando el componente se desmonta, se realiza una limpieza adecuada del canvas para liberar recursos y evitar problemas de memoria o rendimiento.
 \end{itemize}
 
@@ -582,7 +582,7 @@ Una vez se haya cargado el lienzo con nuestra configuración seleccionada se pue
 
 Otro de los objetos para añadir al canvas es la imagen. Para ello, se ha implementado un sistema de carga de imágenes desde el dispositivo. Si queremos añadir cualquier imagen al canvas, se puede hacer desde la barra izquierda que más adelante mencionaremos o arrastrando la imagen directamente al canvas. Al hacer esto, se desenfoca el canvas, dando retroalimentación al usuario de que suelte la imagen para insertarla en el canvas.
 
-\subsubsection{Barra izquierda: Herramientas}
+\subsubsection{Barra izquierda: Herramientas}~\label{subsec:barra_izquierda}
 
 \begin{figure}[H]
     \caption{Barra de herramientas en móvil y escritorio.}
@@ -603,18 +603,7 @@ En la barra izquierda se encuentran básicamente las herramientas que se pueden 
     \item \textbf{Añadir imagen}: permite añadir una imagen.
 \end{itemize}
 
-Por último, tenemos la opción de guardar meme representada con un botón amarillo con un icono de descarga. Al hacer clic en este botón, se abre un modal o un cajón (si el dispositivo es móvil) en el que podemos seleccionar si guardarlo como imagen en el dispositivo o guardarlo en un catálogo de memes.
-
-\begin{figure}[H]
-    \caption{Diálogo y cajón para guardar meme.}
-    \centering
-    \vspace*{0.5cm}
-    \includegraphics[scale=0.2]{figuras/guardar_meme.png}
-\end{figure}
-
-Si seleccionamos la opción de guardarlo en local, se descargará el meme que actualmente esté en el editor con el nombre y extensión especificados en el formulario.
-
-Por otro lado, si seleccionamos la opción de guardarlo en el catálogo, se guardará el meme en el catálogo seleccionado. Si no se selecciona ningún catálogo, se guardará en el catálogo por defecto.
+Por último, tenemos la opción de guardar meme representada con un botón amarillo con un icono de descarga. Al hacer clic en este botón, se abrirá un modal o un cajón (si el dispositivo es móvil) en el que podremos seleccionar si guardarlo como imagen en el dispositivo o guardarlo en un catálogo de memes. Esta implementación se explicará más adelante en la sección de la integración con la capa de persistencia de datos.
 
 Aparte, existe el icono de una casa que nos lleva a la página principal de la aplicación.
 
@@ -632,9 +621,9 @@ En la barra superior se encuentran las operaciones más referentes al almacenami
 \begin{itemize}
     \item \textbf{Deshacer}
     \item \textbf{Rehacer}
-    \item \textbf{Guardar}: estado actual del meme. Si hacemos clic en este botón y estamos en un meme ya guardado se guardará el estado actual del mismo. De igual manera, cada 5 minutos se guarda automáticamente. Sin embargo, si estamos en un meme nuevo, se notificará al usuario para que guarde el meme en un catálogo. De forma pasiva, este botón informa de cuando hay cambios sin guardar con un círculo amarillo pulsante.
+    \item \textbf{Guardar}: estado actual del meme. Si hacemos clic en este botón y estamos en un meme ya guardado se guardará el estado actual del mismo. De igual manera, cada minuto se guarda automáticamente. Sin embargo, si estamos en un meme nuevo, se notificará al usuario para que guarde el meme en un catálogo. De forma pasiva, este botón informa de cuando hay cambios sin guardar con un círculo amarillo pulsante.
     \item \textbf{Nombre de meme}: indica el nombre del meme actualmente.
-    \item \textbf{Aumentar zum} 
+    \item \textbf{Aumentar zum}
     \item \textbf{Disminuir zum}
 \end{itemize}
 
@@ -650,3 +639,239 @@ Esta sección es independiente a las demás debido a que dependiendo del disposi
 \end{figure}
 
 Como se puede apreciar en la figura, las propiedades de las figuras se muestran de acuerdo a las establecidas manualmente en el momento o configuradas en el objeto seleccionado. En el caso del rectángulo las propiedades modificables son el color de relleno, del borde y la anchura del borde. En el caso del texto, las propiedades modificables son el color del texto, la tipografía y el estilo. Por último, en el caso del trazado las propiedades modificables son el color y la anchura.
+
+\section{Milestone 4: Integración almacenamiento-editor}
+
+Este milestone se centra en la integración del editor con la capa de persistencia de datos asegurando que los memes elaborados desde cero o modificados en el editor puedan ser almacenados y gestionados en el sistema. Finalmente, como parte de este hito, se desplegará la aplicación en un entorno de producción.
+
+Esta integración engrasa las partes hasta ahora realizadas en el proyecto, permitiendo que la aplicación tenga un flujo completo de interacción con los memes.
+
+Para empezar a explicar esta parte, se va a organizar por páginas o rutas de la aplicación.
+
+\subsection{Página principal: Catálogos}
+
+\begin{figure}[H]
+    \caption{Página principal y listado de catálogos.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.33]{figuras/catalogos.png}
+\end{figure}
+
+Cuando se accede a la página principal de la aplicación se muestra la lista de catálogos que actualmente existen en la base de datos. Cuando se pasa el ratón por encima de un catálogo, se muestra un botón para poder eliminarlo y si se hace clic, se redirige a la página de memes que contiene el mismo.
+
+Cabe destacar que antes de eliminar un catálogo, se muestra un modal de confirmación para evitar la eliminación accidental junto con un conteo de los memes que contiene el catálogo (si los contiene).
+
+\begin{figure}[H]
+    \caption{Botón del catálogo.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.4]{figuras/card_catalogo.png}
+\end{figure}
+
+Ya tenemos la parte de eliminación y acceso por parte del catálogo, pero, ¿cómo se crea un catálogo? Para ello, se ha implementado un botón flotante en la parte derecha del buscador el cual se explicará más tarde. Una vez se haga clic en este botón, se abrirá un modal con un formulario. En este formulario se puede introducir el nombre del catálogo y una descripción opcional. Al enviar el formulario, se generará el catálogo y se cerrará el modal.
+
+\begin{figure}[H]
+    \caption{Formulario de creación de catálogo.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.3]{figuras/card_creacion_catalogo.png}
+\end{figure}
+
+En nuestra aplicación, la forma de mostrar los catálogos es mediante una tarjeta que contiene el nombre, la descripción, la fecha de creación y actualización. El diseño de muestra de catálogos es de cuadrícula infinita responsiva, es decir, se adapta al ancho de la pantalla disponible.
+
+A mayores, como se ha mencionado anteriormente existe una barra para realizar búsqueda de catálogos. Esta barra hace peticiones a la base de datos en tiempo real, es decir, a medida que se va escribiendo se van mostrando los catálogos que coinciden con la búsqueda. Esto funciona gracias a los \href{https://developer.mozilla.org/en-US/docs/Web/API/URL/searchParams}{searchParams} introducidos en la URL mientras el usuario escribe en la entrada de texto. Esta característica es muy útil para mejorar la experiencia de usuario, facilitar la búsqueda de catálogos y viene de la \href{https://developer.mozilla.org/en-US/docs/Web/API}{Web API}.
+
+Una vez se selecciona un catálogo, se redirige a la página de memes que contiene el mismo.
+
+\subsection{Página de catálogo: Memes}
+
+\begin{figure}[H]
+    \caption{Página de memes y listado de memes de un catálogo (modo oscuro).}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.3]{figuras/memes.png}
+\end{figure}
+
+En la página de memes se muestra la lista de memes que actualmente existen en el catálogo. Al igual que en la página de catálogos, cuando se pasa el ratón por encima de un meme, se muestra un botón para poder eliminarlo, el nombre del meme, la fecha de modificación y creación y un botón para poder editarlo.
+
+% textidote: ignore begin
+Como se puede visualizar, la barra de direcciones la ruta ha cambiado por \texttt{/catalogo/\{id\}} donde el \texttt{\{id\}} es el identificador del catálogo seleccionado. Esta ruta dinámica se ha implementado gracias a la \href{https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes}{API de rutas dinámicas del App Router de Next.js}. Esta API de rutas dinámicas permite crear rutas a partir de datos dinámicos y es muy útil para la creación de rutas personalizadas en nuestro caso, para algo tan cambiante como son los identificadores de los catálogos.
+% textidote: ignore end
+
+\begin{figure}[H]
+    \caption{Tarjeta de un meme.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.3]{figuras/meme_gato.png}
+\end{figure}
+
+Una vez se haga clic en el botón de editar, se redirige al usuario a la página del editor, pero con el meme seleccionado cargado en el canvas listo para ser editado.
+
+\begin{figure}[H]
+    \caption{Meme seleccionado en el editor.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.3]{figuras/meme_gato_editor.png}
+\end{figure}
+
+% textidote: ignore begin
+Como se puede ver en la figura, el meme seleccionado anteriormente se ha cargado en el editor y se puede empezar a trabajar sobre él. En la barra de direcciones se puede ver que la ruta ha cambiado por \texttt{/editor/\{id\}} donde el \texttt{\{id\}} es el identificador del meme seleccionado. Como se ha mencionado anteriormente, esta ruta dinámica se ha implementado gracias a la API de rutas dinámicas del App Router de Next.js.
+% textidote: ignore end
+
+Una vez se ha cargado el meme, una notificación aparecerá en la parte inferior derecha de la pantalla informando de que el meme se ha cargado correctamente. Esta notificación se ha implementado de forma casi nativa gracias al componente \href{https://ui.shadcn.com/docs/components/toast}{toast} de la librería de componentes ShadCN~\ref{subsec:shadcn} que se ha mencionado anteriormente.
+
+Tras hacer la modificación deseada al meme cargado, se puede guardar el nuevo estado del meme haciendo clic al botón de la nube en la barra superior. Al hacer clic en este botón, se guardará el estado actual del meme y se notificará al usuario de que se ha guardado correctamente. Cada vez que se haga una modificación no guardada del meme, este botón mostrará un círculo amarillo pulsante. Cabe destacar que cada minuto se guarda automáticamente para evitar posibles pérdidas de datos mejorando la experiencia de usuario.
+
+\begin{figure}[H]
+    \caption{Diálogo y cajón para guardar meme (escritorio y móvil).}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.2]{figuras/guardar_meme.png}
+\end{figure}
+
+Por último vamos a explicar el flujo del botón amarillo de guardar meme. Partimos de la explicación dada en~\ref{subsec:barra_izquierda} donde se mencionaba que al hacer clic en este botón se abriría un modal o cajón. En este modal o cajón se puede seleccionar si guardar el meme en local o en un catálogo. Si se selecciona la opción de guardarlo en local, se descargará el meme que actualmente esté en el editor con el nombre y extensión especificados en el formulario. Por otro lado, si se selecciona la opción de guardarlo en el catálogo, se guardará el meme en el catálogo seleccionado. Si no se selecciona ningún catálogo, se guardará en el catálogo por defecto.
+
+\section{Tests}
+
+En esta sección se va a proceder a explicar la parte del TDD o Test-Driven Development. Esto consiste en escribir los tests antes de escribir el código de la aplicación. De esta forma, se asegura que el código cumple con los requisitos y se evitan errores en el futuro.
+
+\subsection{Tests unitarios}
+
+Para ejecutar las pruebas unitarias anteriormente explicadas y como, efectivamente se ha decidido anteriormente, se ha utilizado Cypress~\ref{subsec:cypress}. El flujo de trabajo tanto en estos tests como con los sucesivos se ha realizado de igual manera. Primero, elaborando y pasando los tests en local y luego en el flujo de trabajo remoto de GitHub Actions.
+
+Por cada una de las entidades de la aplicación se han elaborado tests unitarios para comprobar que las operaciones CRUD funcionan correctamente desde la implementación en TypeScript nativo. Estos tests como se ha mencionado anteriormente, cada vez que se hace un \texttt{push} a la rama principal, se ejecutan en el flujo de trabajo de GitHub Actions revisando que la funcionalidad de la aplicación sigue siendo correcta incluso con la adición de nuevas características.
+
+\subsection{Tests de end to end}
+
+Como se ha explicado anteriormente, estos se ocupan de verificar que la aplicación funciona correctamente de cara al usuario final y que las diferentes partes de la aplicación interactúan estén bien engrasadas, siendo los mismos de gran utilidad y donde se va a poner el foco.
+
+Los tests end to end cubren toda la funcionalidad de la aplicación, desde la creación de un catálogo hasta la edición de un meme. En adición al marco de desarrollo de Cypress se ha incorporado un plugin para la realización de comprobaciones visuales debido a que la parte del editor de memes es muy visual y se necesita de este plugin para asegurar que el lienzo muestre lo que se espera.
+
+Para aportar detalle a la explicación, vamos a ver un caso de ejemplo en el que un test falla y se interrumpe el despliegue~\ref{sec:despliegue}.
+
+\begin{figure}[H]
+    \caption{Diagrama de flujo de la integración continua.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.35]{figuras/fallo_test_e2e.png}
+\end{figure}
+
+Como se puede ver en la figura, el despliegue se ha interrumpido debido a que uno de los tests ha fallado. En este caso, uno relacionado con la versión móvil de la aplicación. Esto previene que se desplieguen versiones con errores y se asegura una calidad en el producto final.
+
+Además de una interrupción en el flujo, Cypress como resultado genera un resumen para ver, a grandes rasgos, lo bien (o mal) que han ido.
+
+\begin{figure}[H]
+    \caption{Resumen de los tests de Cypress.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.4]{figuras/resumen_cypress_ci.png}
+\end{figure}
+
+Una vez se haya identificado cuál ha fallado y por qué, se puede proceder a corregirlo lo cual puede ser trabajoso si no se tiene de un apoyo visual sobre qué se estaba probando. Para ello, se ha implementado una característica tanto en la configuración de Cypress como en la subida de artefactos de GitHub actions. Por la primera parte, se ha configurado que cada vez que falle un test, se tome una captura de pantalla del momento en el que ha fallado y por la otra parte que si esta carpeta existe y han fallado los tests que se suban las capturas realizadas.
+
+\begin{figure}[H]
+    \caption{Sección de artefactos de un workflow de GitHub Actions.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.4]{figuras/artefacto.png}
+\end{figure}
+
+Como podemos ver, se suben en formato comprimido y se pueden descargar para visualizar en local y arreglar el error.
+
+\begin{figure}[H]
+    \caption{Captura de pantalla del test fallido.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.25]{figuras/test_fallado_snapshot.png}
+\end{figure}
+
+Como podemos ver, la captura de pantalla fue tomado justo en el momento en el que se detectó un error en las pruebas. Esto facilita la identificación del problema y su corrección, mejorando la eficiencia y la calidad del desarrollo.
+
+\section{Despliegue}~\label{sec:despliegue}
+
+Para el despliegue de la aplicación se ha optado por la plataforma de \href{https://vercel.com/home}{Vercel} debido a sus beneficios en términos de simplicidad, rapidez y escalabilidad. Esta es una plataforma de desarrollo web que permite a los desarrolladores no solo crear y desplegar aplicaciones web, sino también mantenerlas y escalar su rendimiento de manera sencilla. Entre sus principales características se destacan:
+
+\begin{itemize}
+    \item \textbf{Despliegue Continuo e Integrado}: Vercel facilita el proceso de integración y despliegue continuo (CI/CD), lo que permite implementar automáticamente las actualizaciones de código directamente desde el repositorio (GitHub, GitLab o Bitbucket), logrando así una experiencia de desarrollo fluida y colaborativa.
+    \item \textbf{Optimización del Rendimiento}: Gracias a su infraestructura global, Vercel distribuye el contenido en múltiples regiones a través de una CDN, reduciendo la latencia y mejorando la velocidad de carga para los usuarios en diferentes ubicaciones.
+    \item \textbf{Compatibilidad con Next.js}: Vercel es una plataforma optimizada para desplegar aplicaciones frontend, con integración destacada para frameworks como React, Vue.js y Svelte, pero especialmente con Next.js, desarrollado también por el equipo de Vercel. La reciente versión 15 de Next.js, lanzada el 21 de octubre, potencia aún más esta compatibilidad, permitiendo aprovechar sus ventajas sin complejidades adicionales. Con esta combinación, los desarrolladores pueden crear y desplegar aplicaciones de alto rendimiento, beneficiándose de funcionalidades avanzadas y un flujo de trabajo simplificado.
+    \item \textbf{Experiencia de Usuario}: Vercel proporciona una interfaz amigable y herramientas analíticas avanzadas que permiten monitorizar el rendimiento y optimizar la aplicación en tiempo real.
+\end{itemize}
+
+Gracias a estas ventajas, Vercel representa una solución ideal para desarrollar, implementar y gestionar aplicaciones web modernas, asegurando rapidez, escalabilidad y una excelente experiencia tanto para los desarrolladores como para los usuarios finales.
+
+Por último, cabe destacar que el plan \href{https://vercel.com/docs/accounts/plans/hobby}{Hobby de Vercel} (actualmente usado) es gratuito y permite desplegar aplicaciones de forma sencilla y sin coste adicional, lo que lo convierte en una opción atractiva para proyectos de desarrollo web de pequeña y mediana escala.
+
+\subsection{Despliegue automatizado}
+
+Como hemos podido ver anteriormente a modo de ejemplo en el flujo de trabajo de GitHub Actions de los tests, aparecía una última fase que era el despliegue. En esta fase se ha configurado una acción de GitHub que se encarga de desplegar la aplicación en Vercel automáticamente siempre y cuando los tests hayan terminado satisfactoriamente.
+
+Estos despliegues automáticos se han dividido en dos entornos de despliegue: producción y preview.
+
+En cada uno de los entornos de despliegue se ha configurado una serie de secretos de entorno para que la aplicación funcione correctamente en cada uno de ellos. Gracias a esta configuración se pueden desplegar las aplicaciones automáticamente y sin intervención manual, lo que mejora la eficiencia y la calidad del desarrollo. En la parte de GitHub existe una integración con el despliegue y estos entornos muy visual y accesible se puede ver el estado de los despliegues.
+
+\begin{figure}[H]
+    \caption{Despliegues en GitHub.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.5]{figuras/despliegues.png}
+\end{figure}
+
+\subsubsection{Despliegue en producción}
+
+El entorno de producción es el entorno final en el que se despliega la aplicación una vez se ha comprobado que todo funciona correctamente. Este entorno es el que se muestra a los usuarios finales y es el que se actualiza cada vez que se realiza un \texttt{push} a la rama principal.
+
+En el caso de este entorno se ha configurado que solo se aplique a la rama principal, que se incorporen los secretos de entorno necesarios y que se despliegue en Vercel en producción.
+
+\begin{figure}[H]
+    \caption{Configuración de producción.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.25]{figuras/entorno_prod.png}
+\end{figure}
+
+\begin{figure}[H]
+    \caption{Producción.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.25]{figuras/despliegue_prod.png}
+\end{figure}
+
+\subsubsection{Despliegue en preview}
+
+El entorno de preview es un entorno de despliegue temporal que se crea cada vez que se ejecuta un \texttt{pull request} a la rama principal. Este entorno es muy útil para probar que las nuevas funcionalidades o correcciones funcionan correctamente antes de ser desplegadas en producción.
+
+Para el caso del entorno de preview se ha configurado para que se aplique a las ramas que no sean la principal y que contentan \texttt{m4/preview/*}, que se incorporen los secretos de entorno necesarios y que se despliegue en Vercel en preview.
+
+\begin{figure}[H]
+    \caption{Configuración de preview.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.35]{figuras/entorno_prev.png}
+\end{figure}
+
+\begin{figure}[H]
+    \caption{Preview.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.35]{figuras/despliegue_prev.png}
+\end{figure}
+
+\subsection{Despliegues en Vercel}
+
+Una vez se ha desplegado la aplicación en Vercel en producción, se puede acceder a ella a través de la URL proporcionada por la plataforma. En este caso, la URL de la aplicación es \textbf{\href{https://danielgs-tfg.vercel.app/}{https://danielgs-tfg.vercel.app/}}.
+
+En la página de nuestro proyecto en Vercel se pueden ver los despliegues, los entornos de despliegue y el estado de los mismos.
+
+\begin{figure}[H]
+    \caption{Página de despliegues en Vercel.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.2]{figuras/despliegues_vercel.png}
+\end{figure}
+
+\subsubsection{Vercel Postgres}
+
+En el caso de este proyecto, la capa de persistencia de datos se había utilizado Prisma y PostgreSQL por lo que en producción debía de ser igual. Para ello, se ha optado el servicio que ofrece el mismo Vercel.
+
+\href{https://vercel.com/docs/storage/vercel-postgres}{Vercel Postgres} es una potente solución de base de datos en la nube diseñada para integrarse de forma nativa en la infraestructura serverless de Vercel, enfocada en aplicaciones web modernas que requieren escalabilidad y eficiencia. Al aprovechar la estructura sin servidor, Vercel Postgres permite a los desarrolladores escalar automáticamente sus bases de datos según la demanda, eliminando la necesidad de gestión manual de infraestructura y reduciendo costos operativos. Con una integración directa con Next.js y el ecosistema de Vercel, simplifica el flujo de desarrollo, permitiendo manejar bases de datos y aplicaciones en un mismo entorno, lo que facilita el despliegue y la configuración rápida. Además, su compatibilidad con la API estándar de PostgreSQL permite el uso de herramientas y bibliotecas populares sin esfuerzo adicional, lo cual, junto con su alto nivel de seguridad y la optimización para baja latencia, hace que sea una opción ideal para usuarios que buscan un rendimiento y una administración simplificados en sus proyectos web.
