@@ -81,7 +81,7 @@ Como se puede ver en la figura~\ref{fig:contenido_pull_request} el estado de la 
 
 \subsection{\textit{Projects}: tablero kanban}
 
-La funcionalidad de projects de \textit{GitHub} se ha utilizado para llevar un control de la evolución y progreso de los \textit{issues} y \textit{pull requests}. Se ha implementado un tablero \textit{kanban} como se puede ver en la imagen~\ref{fig:tablero_kanban} que permite ver de un vistazo el estado de los \textit{issues} y \textit{pull requests}. Esto es muy útil para saber si se progresa, cómo se están resolviendo los problemas y si se está cumpliendo con los objetivos marcados. Además, está relacionado con los principios ágiles al promover la auto-organización, entrega frecuente y temprana y atención continua.
+La funcionalidad de projects de \textit{GitHub} se ha utilizado para llevar un control de la evolución y progreso de los \textit{issues} y \textit{pull requests}. Se ha implementado un tablero \textit{kanban} como se puede ver en la imagen~\ref{fig:tablero_kanban} que permite ver de un vistazo el estado de los \textit{issues} y \textit{pull requests}. Esto es muy útil para saber si se progresa, cómo se están resolviendo los problemas y si se está cumpliendo con los objetivos marcados. Además, está relacionado con los principios ágiles al promover la autoorganización, entrega frecuente y temprana y atención continua.
 
 \begin{figure}[H]
     \caption{Captura de pantalla del tablero \textit{kanban} en la sección de \textit{projects} de \textit{GitHub}.}
@@ -89,3 +89,121 @@ La funcionalidad de projects de \textit{GitHub} se ha utilizado para llevar un c
     \vspace*{0.5cm}
     \includegraphics[scale=0.2]{figuras/projects_github.png}\label{fig:tablero_kanban}
 \end{figure}
+
+\section{Memoria}
+
+A la hora de seleccionar la opción más adecuada para cada aspecto que se incluirá en la memoria, se empleó un riguroso proceso de selección. Para ello fue necesario articular claramente los fundamentos de la decisión, esbozar los criterios de búsqueda, especificar los requisitos de la herramienta y justificar detalladamente la elección final.
+
+\subsection{Corrector ortográfico y gramatical}
+
+La corrección ortográfica y gramatical es un aspecto fundamental en la redacción de cualquier documento. Este documento no es una excepción, por lo que se han empleado una serie de herramientas para garantizar la calidad de la redacción. Como hemos comentado previamente vamos a explicar el proceso de selección para satisfacer este aspecto.
+
+\subsubsection{Marco de selección}
+
+El uso de un corrector ortográfico y gramatical en un texto de alta calidad es esencial para lograr claridad y profesionalismo en la comunicación escrita. No se trata solo de evitar errores ortográficos, sino de pulir cada detalle para que el mensaje transmita cuidado y atención. Un texto bien corregido además de comunicar información, también crea una conexión efectiva con el lector. Los errores pueden distraer y restar valor al trabajo, afectando la credibilidad, calidad y dedicación del autor por parte del lector. Por ello, es crucial evitar estos errores para asegurar que el mensaje llegue con la fuerza y claridad deseadas.
+
+Es evidente que la corrección automática no es infalible, por lo que no se le puede delegar toda la responsabilidad. Es fundamental que el autor revise el texto para asegurar que la comprobación sea precisa y no se hayan pasado por alto errores. Esta sirve como un apoyo, pero no sustituye la revisión manual.
+
+\subsubsection{Criterios de búsqueda}
+
+En esta sección, se detallarán los criterios que guiarán la búsqueda de posibles soluciones y herramientas. Estos criterios reflejan tanto las necesidades técnicas como los objetivos estratégicos del proyecto, proporcionando una base sólida para la toma de decisiones. 
+
+\begin{itemize}
+    \item Debe ser compatible con~\LaTeX{} de forma nativa, ya que no se ha encontrado ninguna herramienta que elimine por completo código \LaTeX{} que sea fiable y estable.
+    \item Debe contemplar el diccionario español.
+\end{itemize}
+
+\subsubsection{Criterios de selección}
+
+En esta sección, se detallarán los criterios de selección que se utilizarán para evaluar las posibles soluciones y herramientas.
+
+\begin{itemize}
+    \item \textbf{Actualidad:} La herramienta debe ser actualizada regularmente para garantizar la incorporación de nuevas funcionalidades, diccionarios y reglas.
+    \item \textbf{Exactitud:} La herramienta debe ser precisa.
+    \item \textbf{Fiabilidad:} La herramienta debe ser estable y no presentar fallos o errores en su funcionamiento.
+    \item \textbf{Facilidad de uso:} La herramienta debe ser fácil de usar e intuitiva para el usuario.
+    \item \textbf{Integración local:} La herramienta debe poder integrarse en el flujo de trabajo de \textit{Visual Studio Code}.
+    \item \textbf{Integración remota:} La herramienta debe poder integrarse en el flujo de trabajo de \textit{GitHub Actions}.
+    \item \textbf{Rapidez:} Se valora que la herramienta sea rápida.
+    \item \textbf{Soporte:} La herramienta debe contar con un soporte técnico o de la comunidad.
+    \item \textbf{Retroalimentación:} La herramienta debe proporcionar retroalimentación al usuario sobre los errores y sugerencias.
+\end{itemize}
+
+\subsubsection{Herramientas seleccionadas}
+
+Una vez establecidos los criterios de búsqueda y de selección se va a proceder a listar las herramientas o soluciones destacadas. Las características en referencia a los criterios de selección se categorizan en \textit{mal} (\mal), \textit{regular} (\regular), \textit{bien} (\bien) y \textit{excelente} (\esp) dependiendo de su cumplimiento con el criterio.
+
+\subsubsection{\href{https://github.com/sylvainhalle/textidote}{\textit{TeXtidote}}}~\label{sec:textidote}
+
+\textit{TeXtidote} es una herramienta de línea de comandos que se puede utilizar para comprobar la gramática y la ortografía de documentos escritos en LaTeX. \textit{TeXtidote} realiza una serie de comprobaciones para garantizar la coherencia y calidad del documento. Además, puede eliminar cualquier formato del archivo y enviarlo a la librería de \textit{LanguageTool} interna. Una de sus características distintivas es su capacidad para controlar la posición relativa de las palabras entre el texto original y el texto corregido. Esto permite que los mensajes de error se sitúen en la ubicación exacta del mismo.
+
+En nuestro caso, se ha empleado para ejecutarlo de forma local, para la integración continua de la memoria en el repositorio remoto de \textit{GitHub}. Para ello, se ha configurado un \textit{workflow} de \textit{GitHub Actions} que se encarga de ejecutar \textit{TeXtidote} en la memoria y de subir los resultados a la rama principal.
+
+\begin{itemize}
+    \item[\bien] \textbf{Actualidad:}  Se han hecho cambios en la rama principal del repositorio hace tres meses.
+    \item[\bien] \textbf{Exactitud:} Es bastante preciso en las correcciones, ya que utiliza una instancia de \textit{LanguageTool} interna.
+    \item[\regular] \textbf{Fiabilidad:} Está especializado en~\LaTeX{} aunque presenta problemas a la hora de omitir algún macro o comando interno.
+    \item[\esp] \textbf{Facilidad de uso:} Aunque la herramienta deba ejecutarse por línea de comandos y debamos configurarla para que funcione correctamente, la facilidad de uso es lo mejor que tiene, ya que automáticamente tras una orden puede llegar a analizar toda la memoria.
+    \item[\mal] \textbf{Integración local:} No se integra directamente en \textit{Visual Studio Code}, puesto que no existe una extensión.
+    \item[\bien] \textbf{Integración remota:} Existe una \textit{GitHub action} que se encarga de ejecutar \textit{TeXtidote} en la memoria y poder generar artefactos con los resultados. 
+    \item[\regular] \textbf{Rapidez:} Puede llegar a ser bastante lenta aún en documentos pequeños.
+    \item[\regular] \textbf{Soporte:} Ya que no sufre actualizaciones el soporte es bastante limitado aunque al ser código abierto existe una comunidad detrás.
+    \item[\bien] \textbf{Retroalimentación:} Lo mejor que tiene es la retroalimentación que proporciona al usuario en forma de página HTML con los errores y sugerencias por fichero.
+\end{itemize}
+
+\subsubsection{\href{https://github.com/languagetool-org/languagetool}{\textit{LanguageTool}}}\label{sec:languagetool}
+
+\textit{LanguageTool} es un corrector gramático y estilístico de código abierto que se puede utilizar para comprobar la gramática y la ortografía en varios idiomas. Tiene varias opciones para integrar: mediante una biblioteca de Java, una herramienta de línea de comandos, una extensión de navegador o un servidor web.
+
+\begin{itemize}
+    \item[\bien] \textbf{Actualidad:}  Al estar en producción y tras una empresa el código se actualiza regularmente.
+    \item[\bien] \textbf{Exactitud:} Es precisa en las correcciones, ya que sufre actualizaciones constantemente añadiendo palabras y reglas.
+    \item[\bien] \textbf{Fiabilidad:} Es estable en su funcionamiento.
+    \item[\regular] \textbf{Facilidad de uso:} Si se quiere experimentar en pleno funcionamiento (y gratis) se debe levantar un servidor local al cual hacer peticiones. No tiene integración nativa.
+    \item[\esp] \textbf{Integración local:} La extensión \href{https://github.com/valentjn/vscode-ltex}{\textit{LTeX LanguageTool grammar/spell checking}} permite una integración total en local desde \textit{Visual Studio Code}, tiene la opción de poder configurar un servidor local de \textit{LanguageTool} para mejorar las comprobaciones aunque por defecto se haga a través de una versión interna de \textit{LanguageTool}.
+    \item[\mal] \textbf{Integración remota:} No existe una integración en \textit{GitHub Actions} incluso sería bastante complicado de implementar debido a la necesidad de un servidor local.
+    \item[\regular] \textbf{Rapidez:} Más rápida que \textit{TeXtidote} aunque puede llegar a ser bastante lenta en documentos muy extensos.
+    \item[\bien] \textbf{Soporte:} Tiene un soporte bastante extenso al ser una empresa la que lo mantiene.
+    \item[\bien] \textbf{Retroalimentación:} Con la extensión, la retroalimentación que proporciona el usuario es buena, ya que se puede ver en tiempo real los fallos y se ofrecen sugerencias.
+\end{itemize}
+
+\subsubsection{Opciones descartadas en el proceso de búsqueda}
+
+\begin{itemize}
+    \item \textbf{\href{https://www.grammarly.com/}{Grammarly}:} Aunque es una de las herramientas más conocidas y utilizadas, no se ha seleccionado debido a que no es compatible con \LaTeX{} por lo que se tendría que utilizar con una herramienta que elimine este formato.
+    \item \textbf{\href{http://aspell.net/}{GNU Aspell}:} Es una de las herramientas más veteranas aunque ha sido descartada debido a que solo hace revisiones ortográficas.
+    \item \textbf{\href{https://www.cs.hmc.edu/~geoff/ispell.html}{Ispell}:} Ha sido descartada por la misma razón que la anterior.
+\end{itemize}
+
+\subsubsection{Conclusiones}
+
+Tras el análisis, se ha decidido que, con respecto al flujo de trabajo local tanto \textit{TeXtidote} a través de la línea de comandos como la extensión para el editor de código de \textit{LanguageTool} se van a emplear para la corrección ortográfica y gramatical de la memoria. En nuestro caso y para mejorar las comprobaciones se ha configurado para que trabaje a través de peticiones \textit{HTTP} a un contenedor de \textit{Docker} con la imagen \href{https://hub.docker.com/r/erikvl87/languagetool}{erikvl87/languagetool} a modo de servidor. En adición, se ha añadido un conjunto de datos de \href{https://es.wikipedia.org/wiki/N-grama}{n-gramas} para \href{https://dev.languagetool.org/finding-errors-using-n-gram-data}{detectar errores} con palabras que suelen confundirse.
+
+En la parte de integración continua y/o flujo de trabajo remoto debido a su facilidad de uso, a su integración con \LaTeX{} y a su retroalimentación basado en informes \textit{HTML} se ha decidido usar \href{https://github.com/marketplace/actions/textidote-action}{TeXtidote Action}.
+
+\section{Organización de código \LaTeX{}}
+
+En esta sección se documentarán las herramientas empleadas en las que me he basado a la hora de organizar y/o planificar el proyecto.
+
+\subsection{Extensión de \textit{Visual Studio Code}: \textit{LaTeX Workshop}}
+
+LaTeX Workshop es una extensión para Visual Studio Code, cuyo objetivo es proporcionar funciones básicas para la composición tipográfica LaTeX con Visual Studio Code. Esta extensión proporciona una serie de características que facilitan la escritura de documentos en LaTeX como la previsualización en tiempo real, la compilación del documento, la visualización de errores y advertencias.
+
+A mayores, esta extensión me ha permitido elegir la receta de compilación que se va a utilizar, la cual se ha configurado para que se compile la memoria junto con la bibliografía.
+
+\begin{figure}[H]
+    \caption{Captura de pantalla de \textit{Visual Studio Code} con la extensión \textit{LaTeX Workshop} activada.}
+    \centering
+    \vspace*{0.5cm}
+    \includegraphics[scale=0.2]{figuras/latex_workshop_extension.png}\label{fig:latex_workshop_extension}
+\end{figure}
+
+\subsection{Extensión de \textit{Visual Studio Code}: \href{https://github.com/valentjn/vscode-ltex}{\textit{LTeX LanguageTool grammar/spell checking}}}
+
+La extensión \( LT_E X \) permite comprobar la gramática y la ortografía de varios lenguajes de marcado en \textit{Visual Studio Code} mediante \textit{LanguageTool}.
+
+Esta extensión suele trabajar de forma offline teniendo una instancia local de \textit{LanguageTool}, pero en nuestro caso se ha configurado para que trabaje con una instancia remota de \textit{LanguageTool} que se ejecuta en un contenedor de \textit{Docker} como hemos dicho anteriormente.
+
+\begin{quote}
+    \textbf{Nota}: El estilo del código \LaTeX{} se ha configurado mediante esta extensión para ser verificado cada vez que se guarda con \href{https://www.nongnu.org/chktex/}{ChkTeX} y \href{https://ctan.org/pkg/lacheck}{LaCheck}. Aunque esta característica no es tan crucial como en otros lenguajes de programación, puede ayudar a detectar errores comunes en la redacción de documentos. Por estos motivos, y dado que la integración con esta extensión era muy sencilla, no se ha llevado a cabo un proceso de selección ni una verificación en el flujo de trabajo remoto.
+\end{quote}
