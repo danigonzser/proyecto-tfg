@@ -1,0 +1,38 @@
+\chapter{Costes}
+
+En este capítulo se detallarán los costes asociados al desarrollo del proyecto, incluyendo los costes de personal, hardware y software. Además, se describirán los costes indirectos y se presentará un análisis de los costes totales del proyecto.
+
+\section{Costes de equipo de desarrollo}
+
+Para poder llevar a cabo este proyecto se ha necesitado el siguiente hardware:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|l|l|l|}
+    \hline
+    \textbf{Hardware}               & \textbf{Precio} & \textbf{Amortización} & \textbf{Coste}          \\ \hline
+    HP Pavilion 15-ck004ns          & 800 €           & 25\% en 8 años        & 200 € al año            \\ \hline
+    Xiaomi Mi 27 in Desktop Monitor & 200 €           & 20 \% en 10 años      & 40 € al año             \\ \hline
+    Coste equipo completo           &                 &                       & 240 € al año            \\ \hline
+    Sueldo medio *                  & 21.494 € al año &                       & 1791 € al mes           \\ \hline
+    Tiempo de desarrollo (9 meses)  &                 &                       & \textbf{Total: 16300 €} \\ \hline
+  \end{tabular}
+  \caption{Tabla de los costes relativos al desarrollo.}
+  \label{table:1}
+\end{table}
+
+* El sueldo medio se ha calculado a partir de la \href{https://www.glassdoor.es/Sueldos/desarrollador-full-stack-junior-sueldo-SRCH_KO0,31.htm}{media de los sueldos de los desarrolladores full stack junior en España}.
+
+\section{Costes de software de desarrollo}
+
+Para el desarrollo del proyecto no se han utilizado herramientas de pago, por lo que no se han incurrido en costes de software.
+
+\section{Costes de despliegue}
+
+Para el despliegue de la aplicación, como se ha mencionado en el capítulo de implementación, se ha empleado Vercel que dispone de un plan gratuito. Este plan es de sobra suficiente para el despliegue de la aplicación, por lo que no se han incurrido en costes de despliegue.
+
+Aunque sea idea para proyectos personales y pequeñas aplicaciones existen diferentes limitaciones en este plan como el limitado tiempo de construcción a 1 hora al día junto con un ancho de banda de hasta 100 GB al mes.
+
+\subsection{Costes de la persistencia de datos}
+
+Para el uso de la base de datos de Vercel Postgres los recursos que nos ofrece el plan gratuito son suficiente, pero también debemos ser conscientes de las limitaciones del mismo. Por ejemplo, el tiempo de computación es de 60 horas mensuales y el almacenamiento de 256 MB lo cual puede llegar a ser poco incluso para el proyecto actual pero con la posibilidad de escalar a un plan de pago en caso de ser necesario.
