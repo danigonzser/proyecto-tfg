@@ -237,3 +237,7 @@ Mematic
 Photopea
 imgflip
 autoorganización
+mimeme
+Limor
+Shifman
+Milner
