@@ -1,21 +1,19 @@
 \chapter{Costes}
 
-En este capítulo se detallarán los costes asociados al desarrollo del proyecto, incluyendo los costes de personal, hardware y software. Además, se describirán los costes indirectos y se presentará un análisis de los costes totales del proyecto.
+En este capítulo se detallarán los costes asociados al desarrollo del proyecto, incluyendo los costes de personal, hardware y software. Además, se describirán los costes indirectos y se presentará un análisis de los costes totales del proyecto. Este proyecto \textbf{ha durado un total de 9 meses}.
 
 \section{Costes de equipo de desarrollo}
 
-Para poder llevar a cabo este proyecto se ha necesitado el siguiente hardware:
+Para poder llevar a cabo este proyecto se ha necesitado el siguiente hardware~\cite{agencia2023manual}:
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{|l|l|l|l|}
+  \begin{tabular}{|l|l|l|}
     \hline
-    \textbf{Hardware}               & \textbf{Precio} & \textbf{Amortización} & \textbf{Coste}          \\ \hline
-    HP Pavilion 15-ck004ns          & 800 €           & 25\% en 8 años        & 200 € al año            \\ \hline
-    Xiaomi Mi 27 in Desktop Monitor & 200 €           & 20 \% en 10 años      & 40 € al año             \\ \hline
-    Coste equipo completo           &                 &                       & 240 € al año            \\ \hline
-    Sueldo medio *                  & 21.494 € al año &                       & 1791 € al mes           \\ \hline
-    Tiempo de desarrollo (9 meses)  &                 &                       & \textbf{Total: 16300 €} \\ \hline
+    \textbf{Hardware}               & \textbf{Amortización} & \textbf{Coste}          \\ \hline
+    Equipo para procesos de información & 12.5\%            & 150 € al año            \\ \hline
+    Sueldo medio *                  &                       & 1791 € al mes           \\ \hline
+    Tiempo de desarrollo (9 meses)  &                       & \textbf{Total: 16231 €} \\ \hline
   \end{tabular}
   \caption{Tabla de los costes relativos al desarrollo.}
   \label{table:1}
@@ -35,4 +33,14 @@ Aunque sea idea para proyectos personales y pequeñas aplicaciones existen difer
 
 \subsection{Costes de la persistencia de datos}
 
-Para el uso de la base de datos de Vercel Postgres los recursos que nos ofrece el plan gratuito son suficiente, pero también debemos ser conscientes de las limitaciones del mismo. Por ejemplo, el tiempo de computación es de 60 horas mensuales y el almacenamiento de 256 MB lo cual puede llegar a ser poco incluso para el proyecto actual pero con la posibilidad de escalar a un plan de pago en caso de ser necesario.
+Para el uso de la base de datos de \textbf{Vercel Postgres} los recursos que nos ofrece el plan gratuito son suficiente, pero también debemos ser conscientes de las limitaciones del mismo. Por ejemplo, el tiempo de computación es de 60 horas mensuales y el almacenamiento de 256 MB lo cual puede llegar a ser poco incluso para el proyecto actual pero con la posibilidad de escalar a un plan de pago en caso de ser necesario.
+
+\subsubsection{Estimación de capacidad con el plan gratuito}
+
+Actualmente, el plan gratuito de Vercel Postgres proporciona hasta 256 mB de almacenamiento. Para valorar la capacidad que ofrece este plan, se ha estimado el tamaño promedio de cada meme, considerando que el proyecto almacenará memes en formato JSON. El tamaño medio de un meme vamos a establecer en 500 kB.
+
+Con esta cifra, el almacenamiento gratuito soportaría aproximadamente 512 memes. Esta capacidad es suficiente para el desarrollo y prueba de la aplicación, así como para entornos de producción de pequeña escala o con necesidades de almacenamiento limitadas.
+
+\subsection{Costes estimados por uso}
+
+En el caso de que el proyecto crezca y se necesite más capacidad de almacenamiento, Vercel ofrece a sus usuarios el poder exceder los límites del plan gratuito mediante la contratación de un plan de pago. Una vez superado el límite, pagará por el uso de la misma. En nuestro caso por cada gB adicional se añadirán 0.10 € al mes.
