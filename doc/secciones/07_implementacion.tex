@@ -398,6 +398,20 @@ Como se puede ver en la figura se han definido dos entidades que son \textit{Mem
 
 La entidad de catálogo tiene el campo de identificador, del título, de la descripción, fecha de creación y fecha de actualización junto con los memes que pertenecen a ese catálogo. La entidad de meme tiene el campo de identificador, del título, de la descripción, de la imagen, de la fecha de creación y de la fecha de actualización junto con el catálogo al que pertenece.
 
+\subsection{Consideraciones de diseño en la base de datos}
+
+Para el diseño de la base de datos del proyecto `Memes para todos', se han aplicado principios que aseguran la integridad referencial y la calidad en el manejo de los datos, cumpliendo con criterios técnicos de calidad y buenas prácticas en bases de datos relacionales.
+
+El desarrollo de la base de datos ha sido implementado utilizando Prisma ORM. Prisma facilita la definición de esquemas de base de datos y garantiza la consistencia y escalabilidad de los datos, permitiendo además un manejo intuitivo de las relaciones entre entidades y asegurando integridad referencial.
+
+\subsubsection{Integridad referencial}
+
+Se han establecido relaciones entre las tablas mediante el modelo de datos, que define claves foráneas y asegura que las referencias entre entidades sean válidas. En este caso, se ha establecido una relación uno a muchos entre las entidades \textit{Catalogue} y \textit{Meme}, donde un catálogo puede contener varios memes, pero un meme solo puede pertenecer a un catálogo usando la notación \texttt{@relation} en el esquema de Prisma. Esto asegura que cualquier registro en la tabla \textit{Meme} incluya una clave foránea que haga referencia a un catálogo válido, evitando que existan memes huérfanos o sin asociación correcta en la base de datos.
+
+\subsubsection{Restricciones y validaciones}
+
+Prisma permite definir restricciones directamente en el esquema del modelo tales como @id, @default o @updatedAt. Estas establecen que ese campo indentifique de forma individual e inequivocamente a cada registro de un modelo, que tenga un valor por defecto en el caso de ser el identificador se ha establecido que se genera un indentificador globalmente único y por último, que se actualice ese campo cada vez que se modifique.
+
 \subsubsection{Mejores prácticas Prisma ORM y Next.js}
 
 Para la implementación de la persistencia de datos en el proyecto se han seguido las \href{https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/nextjs-prisma-client-dev-practices}{mejores prácticas} recogidas en la documentación de Prisma para Next.js.
