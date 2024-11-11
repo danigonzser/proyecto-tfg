@@ -55,7 +55,7 @@ Para este desarrollo, se ha seguido un enfoque ágil combinado con Domain-Driven
 
 Vamos a proceder al análisis del problema utilizando el diseño orientado al dominio (DDD), una metodología introducida por Eric Evans. Esta metodología de desarrollo de software nos ayudará a comprender y modelar el dominio empresarial, asegurando que nuestras soluciones se alineen con las necesidades específicas de los usuarios y del negocio.
 
-DDD aborda la complejidad enfocándose en el ``dominio'' y promoviendo un ``lenguaje ubicuo'', un lenguaje común entre desarrolladores y partes interesadas para garantizar que el software refleje con precisión el ámbito empresarial. La modelización en DDD no busca crear el modelo más realista, sino uno útil y apropiado para su propósito~\cite{evans2004domain}.
+DDD aborda la complejidad enfocándose en el `dominio' y promoviendo un `lenguaje ubicuo', un lenguaje común entre desarrolladores y partes interesadas para garantizar que el software refleje con precisión el ámbito empresarial. La modelización en DDD no busca crear el modelo más realista, sino uno útil y apropiado para su propósito~\cite{evans2004domain}.
 
 El lenguaje ubicuo debe basarse en el modelo del dominio por lo que debe ser riguroso y preciso para evitar cualquier tipo de ambigüedad. De igual manera, debe ser especificado en una etapa temprana del proyecto por eso, está antes de todo el proceso. A continuación, algunos de los términos del lenguaje ubicuo:
 
@@ -70,7 +70,7 @@ El lenguaje ubicuo debe basarse en el modelo del dominio por lo que debe ser rig
 
 Además de DDD, se han contemplado alternativas como el \textit{domain mapping} que facilita la visualización del dominio y \textit{volatility decomposisiton} que permite identificar las partes del sistema que son más propensas a cambios. Empresas como \textit{Netflix}, \textit{Uber} y \textit{Airbnb} han adoptado DDD con notable éxito como se detalla en esta~\href{https://blog.bitsrc.io demystifying-domain-driven-design-ddd-in-modern-software-architecture-b57e27c210f7}{publicación}.
 
-Es importante destacar que DDD no abandona la filosofía ágil. Aunque esta metodología no está vinculada a otra metodología en particular, se orienta hacia la nueva familia de ``procesos de desarrollo ágil''. Específicamente, asume que aplican dos prerrequisitos para aplicar el enfoque presentado en este libro: que el desarrollo sea iterativo y que la relación sea estrecha entre quiénes manejan el dominio y quiénes construyen el \textit{software}.
+Es importante destacar que DDD no abandona la filosofía ágil. Aunque esta metodología no está vinculada a otra metodología en particular, se orienta hacia la nueva familia de `procesos de desarrollo ágil'. Específicamente, asume que aplican dos prerrequisitos para aplicar el enfoque presentado en este libro: que el desarrollo sea iterativo y que la relación sea estrecha entre quiénes manejan el dominio y quiénes construyen el \textit{software}.
 
 \subsubsection{Análisis de requisitos}
 
@@ -397,6 +397,20 @@ Como se ha mencionado anteriormente, el esquema que se va a utilizar a partir de
 Como se puede ver en la figura se han definido dos entidades que son \textit{Meme} y \textit{Catalogue}. La entidad \textit{Catalogue} tiene una relación de uno a muchos con la entidad \textit{Meme}. Esto significa que un catálogo puede tener muchos memes, pero un meme solo puede pertenecer a un catálogo.
 
 La entidad de catálogo tiene el campo de identificador, del título, de la descripción, fecha de creación y fecha de actualización junto con los memes que pertenecen a ese catálogo. La entidad de meme tiene el campo de identificador, del título, de la descripción, de la imagen, de la fecha de creación y de la fecha de actualización junto con el catálogo al que pertenece.
+
+\subsection{Consideraciones de diseño en la base de datos}
+
+Para el diseño de la base de datos del proyecto `Memes para todos', se han aplicado principios que aseguran la integridad referencial y la calidad en el manejo de los datos, cumpliendo con criterios técnicos de calidad y buenas prácticas en bases de datos relacionales.
+
+El desarrollo de la base de datos ha sido implementado utilizando Prisma ORM. Prisma facilita la definición de esquemas de base de datos y garantiza la consistencia y escalabilidad de los datos, permitiendo además un manejo intuitivo de las relaciones entre entidades y asegurando integridad referencial.
+
+\subsubsection{Integridad referencial}
+
+Se han establecido relaciones entre las tablas mediante el modelo de datos, que define claves foráneas y asegura que las referencias entre entidades sean válidas. En este caso, se ha establecido una relación uno a muchos entre las entidades \textit{Catalogue} y \textit{Meme}, donde un catálogo puede contener varios memes, pero un meme solo puede pertenecer a un catálogo usando la notación \texttt{@relation} en el esquema de Prisma. Esto asegura que cualquier registro en la tabla \textit{Meme} incluya una clave foránea que haga referencia a un catálogo válido, evitando que existan memes huérfanos o sin asociación correcta en la base de datos.
+
+\subsubsection{Restricciones y validaciones}
+
+Prisma permite definir restricciones directamente en el esquema del modelo tales como @id, @default o @updatedAt. Estas establecen que ese campo identifique de forma individual e inequívocamente a cada registro de un modelo, que tenga un valor por defecto en el caso de ser el identificador se ha establecido que se genera un identificador globalmente único y por último, que se actualice ese campo cada vez que se modifique.
 
 \subsubsection{Mejores prácticas Prisma ORM y Next.js}
 
@@ -789,7 +803,11 @@ Como podemos ver, la captura de pantalla fue tomado justo en el momento en el qu
 
 \section{Despliegue}~\label{sec:despliegue}
 
-Para el despliegue de la aplicación se ha optado por la plataforma de \href{https://vercel.com/home}{Vercel} debido a sus beneficios en términos de simplicidad, rapidez y escalabilidad. Esta es una plataforma de desarrollo web que permite a los desarrolladores no solo crear y desplegar aplicaciones web, sino también mantenerlas y escalar su rendimiento de manera sencilla. Entre sus principales características se destacan:
+El despliegue es el proceso mediante el cual se pone en funcionamiento una aplicación o sistema en un entorno accesible para los usuarios finales. En este caso, el despliegue implica transferir la aplicación desde el entorno de desarrollo (donde se desarrolla el código y las pruebas) a un servidor o plataforma en la nube, como Vercel, desde donde los usuarios podrán acceder a la aplicación de memes a través de internet.
+
+El objetivo del despliegue es asegurar que el software esté disponible y funcione correctamente en el entorno real, permitiendo que los usuarios interactúen con él. En este proyecto, el despliegue se lleva a cabo en una plataforma en la nube que automatiza varios pasos del proceso, permitiendo actualizaciones y mejoras continuas sin interrumpir el servicio a los usuarios.  Esto permite entregar valor de forma constante y adaptarse a las necesidades cambiantes del usuario, asegurando que el sistema esté siempre actualizado y funcional~\cite{pressman2005software}.
+
+En este proyecto, se ha optado por la plataforma de \href{https://vercel.com/home}{Vercel} debido a sus beneficios en términos de simplicidad, rapidez y escalabilidad. Esta es una plataforma de desarrollo web que permite a los desarrolladores no solo crear y desplegar aplicaciones web, sino también mantenerlas y escalar su rendimiento de manera sencilla. Entre sus principales características se destacan:
 
 \begin{itemize}
     \item \textbf{Despliegue Continuo e Integrado}: Vercel facilita el proceso de integración y despliegue continuo (CI/CD), lo que permite implementar automáticamente las actualizaciones de código directamente desde el repositorio (GitHub, GitLab o Bitbucket), logrando así una experiencia de desarrollo fluida y colaborativa.
