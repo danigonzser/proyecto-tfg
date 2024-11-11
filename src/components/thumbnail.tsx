@@ -3,6 +3,28 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 import { Skeleton } from "./ui/skeleton"
+import { cn } from "@/lib/utils"
+
+export function LoadingSpinner({ className }: { className?: string }) {
+
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="yellow"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={cn("animate-spin", className)}
+    >
+      <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+    </svg>
+  )
+
+}
 
 export class DeadRect extends Rect {
   static get type() {
@@ -85,7 +107,9 @@ export function Thumbnail({ memeJSON }: { memeJSON: string }) {
   return (
     <>
       {isLoading ? (
-        <Skeleton className="h-[210px] bg-muted-foreground/20 rounded-xl w-full" style={{ aspectRatio: "16/9", objectFit: "cover" }} />
+        <Skeleton className="h-[225px] w-[400px] bg-muted-foreground/20 rounded-xl flex items-center justify-center" style={{ aspectRatio: "16/9", objectFit: "cover" }} >
+          <LoadingSpinner className="w-14 h-14" />
+        </Skeleton>
       ) : (
         <Image
           src={dataUrl}
