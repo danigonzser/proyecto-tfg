@@ -85,7 +85,7 @@ export function Thumbnail({ memeJSON }: { memeJSON: string }) {
   return (
     <>
       {isLoading ? (
-        <Skeleton className="h-[1920px] w-[1080px] bg-muted-foreground/20 rounded-xl" />
+        <Skeleton className="h-[210px] bg-muted-foreground/20 rounded-xl w-full" style={{ aspectRatio: "16/9", objectFit: "cover" }} />
       ) : (
         <Image
           src={dataUrl}

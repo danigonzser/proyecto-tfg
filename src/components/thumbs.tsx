@@ -34,7 +34,7 @@ export default async function Thumbs({ paramId }: { paramId: string }) {
         // className="grid grid-cols-1 md:grid-cols-2 gap-6"
         (<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {memes.map((meme, key) => (
-            <Suspense fallback={<div>Loading...</div>} key={key}>
+            <Suspense key={key}>
               <Thumb
                 meme={meme} memeCatalogueId={paramId}
               />
