@@ -4,6 +4,7 @@ import { Suspense } from "react"
 import type { Metadata } from 'next'
 import CatalogueNav from "@/components/catalogue_navegation"
 import TitleSkeleton from "@/components/title_skeleton"
+import MemesSkeleton from "@/components/memes_skeleton"
 
 export async function generateMetadata(
   props: {
@@ -41,7 +42,7 @@ export default async function CatalogueMemes(
           </Suspense>
         </h1>
       </div >
-      <Suspense>
+      <Suspense fallback={<MemesSkeleton />}>
         <Thumbs paramId={params.id} />
       </Suspense>
     </>
