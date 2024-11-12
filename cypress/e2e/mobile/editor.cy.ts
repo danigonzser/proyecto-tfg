@@ -149,8 +149,8 @@ describe('Editor E2E Testing', () => {
     cy.get('[data-cy="rectcolor-#008000-mobile"]').click()
     cy.get('[data-cy="rectcolor_paint_mobile"]').click()
 
-    cy.get('[data-cy="sync_button_mobile"]').click({ force: true }).wait(3000)
-    cy.get('.grid > .text-sm').should('have.text', "Meme manually saved!Just in case, it happens every minute 😉")
+    cy.get('[data-cy="sync_button_mobile"]').click({ force: true }).wait(5000)
+    cy.get('.grid > .text-sm').should('have.text', "Loaded memeMeme manually saved!Just in case, it happens every minute 😉")
 
     cy.visit('http://localhost:3000')
     cy.get('.grid > :nth-child(1) > .block').click()

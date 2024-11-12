@@ -3,6 +3,7 @@ import { getCatalogueById } from "@/lib/getmemes"
 import { Suspense } from "react"
 import type { Metadata } from 'next'
 import CatalogueNav from "@/components/catalogue_navegation"
+import TitleSkeleton from "@/components/title_skeleton"
 
 export async function generateMetadata(
   props: {
@@ -35,12 +36,12 @@ export default async function CatalogueMemes(
     <>
       <div className="flex-row flex justify-center">
         <h1 className="text-xl font-bold flex-row flex gap-4">
-          <Suspense fallback={<div>Loading title...</div>}>
+          <Suspense fallback={<TitleSkeleton />}>
             <CatalogueNav paramId={params.id} />
           </Suspense>
         </h1>
       </div >
-      <Suspense fallback={<div>Loading memes...</div>}>
+      <Suspense>
         <Thumbs paramId={params.id} />
       </Suspense>
     </>
